@@ -170,6 +170,7 @@ internal class Poziom3
                 {
                     Console.ResetColor();
                     stoper.Stop();
+                    postac.UstawPozPoczatkowa();
                     Menu menu = new Menu();
                 }
 

@@ -111,7 +111,11 @@ internal class Poziom1
                 {
                     if (postac.GetY() >= 6) //Górna granica mapy
                     {
-                        if (!(postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 30) || !(postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))
+                        if ((postac.GetX() >= 31 && postac.GetX() <= 51) && postac.GetY() == 30 || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))
+                        {
+                            
+                        }
+                        else 
                         {
                             postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
                         }
@@ -121,7 +125,11 @@ internal class Poziom1
                 {
                     if (postac.GetY() <= 31) //Dolna granica mapy
                     {
-                        if (!(postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22) || !(postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11))
+                        if ((postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22) || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11))
+                        {
+                            
+                        }
+                        else 
                         {
                             postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
                         }
@@ -131,7 +139,11 @@ internal class Poziom1
                 {
                     if (postac.GetX() >= 21) //Lewa granica mapy
                     {
-                        if (!(postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52) || !(postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106))
+                        if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106))
+                        {
+                            
+                        }
+                        else 
                         {
                             postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
                         }
@@ -141,7 +153,11 @@ internal class Poziom1
                 {
                     if (postac.GetX() <= 109) //Prawa granica mapy
                     {
-                        if (!(postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30) || !(postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))
+                        if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))
+                        {
+                            
+                        }
+                        else 
                         {
                             postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
                         }
@@ -150,6 +166,7 @@ internal class Poziom1
                 if (przycisk.Key == ConsoleKey.Escape) //Kliknij ESC aby wyjść do MENU
                 {
                     stoper.Stop();
+                    postac.UstawPozPoczatkowa();
                     Menu menu = new Menu();
                 }
 
