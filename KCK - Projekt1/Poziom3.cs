@@ -59,7 +59,6 @@ internal class Poziom3
         }
 
         Rysuj();
-        this.czas = czas;
     }
 
     public void Rysuj()
@@ -78,6 +77,7 @@ internal class Poziom3
         Console.ResetColor();
 
         //Ustaw pozycję postaci i narysują postać
+        postac.UstawPozPoczatkowa();
         Console.SetCursorPosition(postac.GetX(), postac.GetY());
         Console.Write("██");
         Console.SetCursorPosition(0, 0);
@@ -162,9 +162,9 @@ internal class Poziom3
                 {
                     if (postac.GetX() <= 109) //Prawa granica mapy
                     {
-                        //postac = new Postac(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
-                        postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
-                    }
+                        //postac = new Postac(postac.GetX() + 1, postac.GetY()); 
+                        postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
+                    } 
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Wyjdź do menu
                 {

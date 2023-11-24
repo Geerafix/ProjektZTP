@@ -24,6 +24,8 @@
         }
 
         public void UstawPozPoczatkowa() {
+            PostacX = 60;
+            PostacY = 30;
             Console.SetCursorPosition(60, 30);
         }
 

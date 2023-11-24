@@ -76,6 +76,7 @@ internal class Poziom2
         Console.ResetColor();
 
         //Ustaw pozycję postaci i narysują postać
+        postac.UstawPozPoczatkowa();
         Console.SetCursorPosition(postac.GetX(), postac.GetY());
         Console.Write("██");
         Console.SetCursorPosition(0, 10);
