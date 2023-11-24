@@ -18,9 +18,18 @@
         public void ZmienLokalizacje(int X, int Y) {
             Console.SetCursorPosition(X, Y);
             Console.Write("  ");
-            Console.SetCursorPosition(0, 0);
+
             this.PostacX = X;
             this.PostacY = Y;
+
+            RysujPostac();
+        }
+
+        private void RysujPostac() 
+        {
+            Console.SetCursorPosition(PostacX, PostacY);
+            Console.Write("██");
+            Console.SetCursorPosition(0, 0);
         }
 
         public void UstawPozPoczatkowa() {
@@ -35,6 +44,11 @@
                 postac = new Postac();
             }
             return postac;
+        }
+
+        public void ZmienPozycje()
+        {
+
         }
     }
 }

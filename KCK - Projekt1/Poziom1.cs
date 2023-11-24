@@ -113,7 +113,9 @@ internal class Poziom1
                     {
                         if ((postac.GetX() >= 31 && postac.GetX() <= 51) && postac.GetY() == 30 || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))
                         {
-                            
+                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
+                            Console.Write("██");
+                            Console.SetCursorPosition(0, 0);
                         }
                         else 
                         {
@@ -127,7 +129,9 @@ internal class Poziom1
                     {
                         if ((postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22) || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11))
                         {
-                            
+                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
+                            Console.Write("██");
+                            Console.SetCursorPosition(0, 0);
                         }
                         else 
                         {
@@ -141,7 +145,9 @@ internal class Poziom1
                     {
                         if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106))
                         {
-                            
+                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
+                            Console.Write("██");
+                            Console.SetCursorPosition(0, 0);
                         }
                         else 
                         {
@@ -155,7 +161,9 @@ internal class Poziom1
                     {
                         if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))
                         {
-                            
+                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
+                            Console.Write("██");
+                            Console.SetCursorPosition(0, 0);
                         }
                         else 
                         {
@@ -173,9 +181,9 @@ internal class Poziom1
             }
 
             //Ustaw pozycję postaci i narysują postać
-            Console.SetCursorPosition(postac.GetX(), postac.GetY());
+            /*Console.SetCursorPosition(postac.GetX(), postac.GetY());
             Console.Write("██");
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(0, 0);*/
 
 
             //Jeżeli postać jest na kordynatach bramy do poziomu numer 2
