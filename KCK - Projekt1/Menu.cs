@@ -3,9 +3,12 @@
 internal class Menu
 {
     private ConsoleKeyInfo przycisk;
+    Postac postac = Postac.pobierzPostac();
 
     public Menu()
     {
+        postac.UstawPozPoczatkowa();
+
         Console.Clear();
         //Zmienne dotyczące MENU
         int LogoLenght = 65; //Długość loga gry
