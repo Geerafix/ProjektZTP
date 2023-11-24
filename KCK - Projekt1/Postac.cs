@@ -1,6 +1,6 @@
 ﻿namespace KCK___Projekt1 {
 
-    internal class Postac {
+    public class Postac {
         private int PostacX;
         private int PostacY;
 
@@ -25,7 +25,7 @@
             RysujPostac();
         }
 
-        private void RysujPostac() 
+        protected void RysujPostac() //Tutaj może trzeba zrobić jako public abstract
         {
             Console.SetCursorPosition(PostacX, PostacY);
             Console.Write("██");

@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace KCK___Projekt1
+{
 
-namespace KCK___Projekt1 {
-    internal class Dekorator {
+    internal class Dekorator //: Postac
+    {
 
-        Postac postac = Postac.pobierzPostac();
+        private Postac postac;
 
+        /*public Dekorator(Postac postac)
+        {
+            this.postac = postac;
+        }
 
-
+        public override void RysujPostac()
+        {
+            // Dodaj logikę dekoracji tutaj
+            Console.ForegroundColor = ConsoleColor.Red; // na przykład
+            postac.RysujPostac(); // Wywołaj oryginalną metodę
+            Console.ResetColor();
+        }*/
     }
 }
