@@ -1,28 +1,38 @@
-﻿
+﻿namespace KCK___Projekt1 {
 
-namespace KCK___Projekt1
-{
-    internal class Postac
-    {
-        int PostacX; //Pozycja postaci x
-        int PostacY; //Współrzędna postaci y
+    internal class Postac {
+        private int PostacX;
+        private int PostacY;
 
-        public Postac(int PostacX, int PostacY)
-        {
-            Console.SetCursorPosition(PostacX, PostacY);
+        private static Postac postac = new Postac();
+
+        private Postac() {
+            PostacX = 60;
+            PostacY = 30;
+        }
+
+        public int GetX() { return PostacX; }
+
+        public int GetY() { return PostacY; }
+
+        public void ZmienLokalizacje(int X, int Y) {
+            Console.SetCursorPosition(X, Y);
             Console.Write("  ");
-            Console.SetCursorPosition(0 ,0);
-            this.PostacX = PostacX;
-            this.PostacY = PostacY;
-        }
-        public int GetX()
-        {
-            return PostacX;
+            Console.SetCursorPosition(0, 0);
+            this.PostacX = X;
+            this.PostacY = Y;
         }
 
-        public int GetY()
+        public void UstawPozPoczatkowa() {
+            Console.SetCursorPosition(60, 30);
+        }
+
+        public static Postac pobierzPostac()
         {
-            return PostacY;
+            if (postac == null) {
+                postac = new Postac();
+            }
+            return postac;
         }
     }
 }

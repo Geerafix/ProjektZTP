@@ -3,8 +3,8 @@ using System.Diagnostics;
 
 internal class Poziom2
 {
+    Postac postac = Postac.pobierzPostac();
 
-    Postac postac = new Postac(60, 30);
     private ConsoleKeyInfo przycisk;
     char[] znakiPliku;
 
@@ -135,7 +135,8 @@ internal class Poziom2
                     {
                         if((postac.GetX() == 35 && postac.GetY() == 28) || (postac.GetY() != 28) || (postac.GetX() == 93 && postac.GetY() == 28))
                         {
-                            postac = new Postac(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
+                            //postac = new Postac(postac.GetX(), postac.GetY() - 1); //Przesuń postać w górę
+                            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
                         }
                     }
                 }
@@ -145,7 +146,8 @@ internal class Poziom2
                     {
                         if((postac.GetX() == 35 && postac.GetY() == 26) || (postac.GetY() != 26) || (postac.GetX() == 93 && postac.GetY() == 26))
                         {
-                            postac = new Postac(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
+                            //postac = new Postac(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
+                            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1);
                         }
                     }
                 }
@@ -159,7 +161,8 @@ internal class Poziom2
                         }
                         else
                         {
-                            postac = new Postac(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
+                            //postac = new Postac(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
+                            postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
                         }
                     }
                 }
@@ -173,7 +176,8 @@ internal class Poziom2
                         }
                         else
                         {
-                            postac = new Postac(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
+                            //postac = new Postac(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
+                            postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY());
                         }
                     }
                 }

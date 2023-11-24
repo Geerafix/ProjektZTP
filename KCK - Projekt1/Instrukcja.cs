@@ -5,7 +5,7 @@ namespace KCK___Projekt1
     internal class Instrukcja
     {
 
-        Postac postac = new Postac(79, 13);
+        Postac postac = Postac.pobierzPostac();
         private ConsoleKeyInfo przycisk;
 
         public Instrukcja()
@@ -86,14 +86,14 @@ namespace KCK___Projekt1
                     {
                         if (postac.GetY() >= 12) //Górna granica mapy
                         {
-                            postac = new Postac(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
+                            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
                         }
                     }
                     if (przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) //Jeżeli naciśnięta strzałka w dół lub "s"
                     {
                         if (postac.GetY() <= 14) //Dolna granica mapy
                         {
-                            postac = new Postac(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
+                            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
                         }
                     }
 
@@ -101,7 +101,7 @@ namespace KCK___Projekt1
                     {
                         if (postac.GetX() >= 77) //Lewa granica mapy
                         {
-                            postac = new Postac(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
+                            postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
                         }
                     }
 
@@ -109,7 +109,7 @@ namespace KCK___Projekt1
                     {
                         if (postac.GetX() <= 82) //Prawa granica mapy
                         {
-                            postac = new Postac(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
+                            postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
                         }
                     }
 

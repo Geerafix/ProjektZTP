@@ -5,7 +5,8 @@ using System.Diagnostics;
 internal class Poziom3
 {
 
-    Postac postac = new Postac(60, 30);
+    Postac postac = Postac.pobierzPostac();
+
     private ConsoleKeyInfo przycisk;
     char[] znakiPliku;
 
@@ -137,28 +138,32 @@ internal class Poziom3
                 {
                     if (postac.GetY() >= 4) //Górna granica mapy
                     {
-                        postac = new Postac(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
+                        //postac = new Postac(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
+                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
                     }
                 }
                 if (przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) //Jeżeli naciśnięta strzałka w dół lub "s"
                 {
                     if (postac.GetY() <= 31) //Dolna granica mapy
                     {
-                        postac = new Postac(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
+                        //postac = new Postac(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
+                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1);
                     }
                 }
                 if (przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) //Jeżeli naciśnięta strzałka w lewo lub "a"
                 {
                     if (postac.GetX() >= 21) //Lewa granica mapy
                     {
-                        postac = new Postac(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
+                        //postac = new Postac(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
+                        postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
                     }
                 }
                 if (przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
                     if (postac.GetX() <= 109) //Prawa granica mapy
                     {
-                        postac = new Postac(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
+                        //postac = new Postac(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
+                        postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
                     }
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Wyjdź do menu
