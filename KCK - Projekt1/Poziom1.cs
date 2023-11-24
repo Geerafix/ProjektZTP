@@ -25,14 +25,12 @@ internal class Poziom1
 
         //Rysowanie mapy gry:
         NarysujMape();
-        postac.UstawPozPoczatkowa();
 
         Console.WriteLine("   ___          _              ___");
         Console.WriteLine("  / _ \\___ ___ (____  __ _    <  /");
         Console.WriteLine(" / ___/ _ /_ // / _ \\/  ' \\   / / ");
         Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/  /_/  ");
         Console.WriteLine("                                  ");
-
 
         Console.SetCursorPosition(45, 2);
         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -49,11 +47,6 @@ internal class Poziom1
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.Write("Czas: " + (pozostalyCzas + czas) / 1000 + " s");
             Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
-
-            //Ustaw pozycję postaci i narysują postać
-            Console.SetCursorPosition(postac.GetX(), postac.GetY());
-            Console.Write("██");
             Console.SetCursorPosition(0, 0);
 
             //Jeżeli postać znajdzie się na terytorium lavy to zakończ grę
@@ -118,11 +111,7 @@ internal class Poziom1
                 {
                     if (postac.GetY() >= 6) //Górna granica mapy
                     {
-                        if ((postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 30) || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22)) //Kordynaty przeszkody
-                        {
-
-                        }
-                        else
+                        if (!(postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 30) || !(postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))
                         {
                             postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
                         }
@@ -132,11 +121,7 @@ internal class Poziom1
                 {
                     if (postac.GetY() <= 31) //Dolna granica mapy
                     {
-                        if ((postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22) || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11)) //Kordynaty przeszkody
-                        {
-
-                        }
-                        else
+                        if (!(postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22) || !(postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11))
                         {
                             postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
                         }
@@ -146,11 +131,7 @@ internal class Poziom1
                 {
                     if (postac.GetX() >= 21) //Lewa granica mapy
                     {
-                        if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106)) //Kordynaty przeszkody
-                        {
-
-                        }
-                        else
+                        if (!(postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52) || !(postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106))
                         {
                             postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
                         }
@@ -160,11 +141,7 @@ internal class Poziom1
                 {
                     if (postac.GetX() <= 109) //Prawa granica mapy
                     {
-                        if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66)) //Kordynaty przeszkody
-                        {
-
-                        }
-                        else
+                        if (!(postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30) || !(postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))
                         {
                             postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
                         }
@@ -177,7 +154,6 @@ internal class Poziom1
                 }
 
             }
-
 
             //Ustaw pozycję postaci i narysują postać
             Console.SetCursorPosition(postac.GetX(), postac.GetY());

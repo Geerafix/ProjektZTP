@@ -65,7 +65,7 @@ internal class Poziom2
     public void Rysuj()
     {
         Console.WriteLine("\n");
-        Console.WriteLine("   ___          _              ___ ");
+        Console.WriteLine("   ___           _              ___ ");
         Console.WriteLine("  / _ \\___ ___ (____  __ _    |_  |");
         Console.WriteLine(" / ___/ _ /_ // / _ \\/  ' \\  / __/ ");
         Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/ /____/ ");
