@@ -1,5 +1,6 @@
 ﻿using KCK___Projekt1;
 
+
 internal class Menu
 {
     private ConsoleKeyInfo przycisk;
@@ -126,5 +127,7 @@ internal class Menu
 
         }
     }
+
+
 }
 

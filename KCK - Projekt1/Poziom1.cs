@@ -1,7 +1,5 @@
 ﻿using KCK___Projekt1;
-using NAudio.Midi;
 using System.Diagnostics;
-
 
 internal class Poziom1
 {
@@ -16,7 +14,6 @@ internal class Poziom1
         this.czas = czas;
         stoper.Start();
         Rysuj();
-
     }
 
     public void Rysuj()
@@ -26,7 +23,7 @@ internal class Poziom1
         //Rysowanie mapy gry:
         NarysujMape();
 
-        Console.WriteLine("   ___          _              ___");
+        Console.WriteLine("   ___           _              ___");
         Console.WriteLine("  / _ \\___ ___ (____  __ _    <  /");
         Console.WriteLine(" / ___/ _ /_ // / _ \\/  ' \\   / / ");
         Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/  /_/  ");
@@ -126,7 +123,7 @@ internal class Poziom1
                         postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
                     }
                 }
-                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && postac.GetX() <= 109) //Jeżeli naciśnięta strzałka w prawo lub "d"
+                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && postac.GetX() <= 125) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
                     if (!((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))) {
                         postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
@@ -138,7 +135,6 @@ internal class Poziom1
                     postac.UstawPozPoczatkowa();
                     Menu menu = new Menu();
                 }
-
             }
 
 

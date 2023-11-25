@@ -4,7 +4,7 @@
         private int PostacX;
         private int PostacY;
 
-        private static Postac postac = new Postac();
+        private static Postac postac = new Postac(); //DODAĆ STAMINĘ
 
         private Postac() {
             PostacX = 60;
