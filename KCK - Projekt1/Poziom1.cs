@@ -1,5 +1,6 @@
 ﻿using KCK___Projekt1;
 using System.Diagnostics;
+using System;
 
 internal class Poziom1
 {
@@ -62,8 +63,7 @@ internal class Poziom1
                     }
                     if (liczCzas % 15000 == 0)
                     {
-                        Console.SetCursorPosition(50, 16);
-                        Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
+                        console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
                         liczCzas = 0;
                     }
 
@@ -110,7 +110,7 @@ internal class Poziom1
                         postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
                     }
                 }
-                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && postac.GetX() <= 125) //Jeżeli naciśnięta strzałka w prawo lub "d"
+                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && postac.GetX() <= 109) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
                     if (!((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))) {
                         postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
