@@ -108,105 +108,28 @@ internal class Poziom1
             {
                 przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
 
-                if (przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) //Jeżeli naciśnięta strzałka w górę lub "w"
+                if ((przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) && postac.GetY() >= 6) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
-                    Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                    Console.Write("  ");
-
-                    if (postac.GetY() >= 6) //Górna granica mapy
-                    {
-                        if ((postac.GetX() >= 31 && postac.GetX() <= 51) && postac.GetY() == 30 || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))
-                        {
-                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                            Console.Write("██");
-                            Console.SetCursorPosition(0, 0);
-                        }
-                        else 
-                        {
-                            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
-                        }
-                    }
-                    if(postac.GetY() == 5) 
-                    {
-                        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                        Console.Write("██");
-                        Console.SetCursorPosition(0, 0);
+                    if (!((postac.GetX() >= 31 && postac.GetX() <= 51) && postac.GetY() == 30) || ((postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))) {
+                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
                     }
                 }
-                if (przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) //Jeżeli naciśnięta strzałka w dół lub "s"
+                if ((przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) && postac.GetY() <= 31) //Jeżeli naciśnięta strzałka w dół lub "s"
                 {
-                    Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                    Console.Write("  ");
-
-                    if (postac.GetY() <= 31) //Dolna granica mapy
-                    {
-                        if ((postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22) || (postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11))
-                        {
-                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                            Console.Write("██");
-                            Console.SetCursorPosition(0, 0);
-                        }
-                        else 
-                        {
-                            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
-                        }
-                    }
-                    if(postac.GetY() == 32)
-                    {
-                        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                        Console.Write("██");
-                        Console.SetCursorPosition(0, 0);
+                    if (!((postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22)) || ((postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11))) {
+                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
                     }
                 }
-                if (przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) //Jeżeli naciśnięta strzałka w lewo lub "a"
+                if ((przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) && postac.GetX() >= 21) //Jeżeli naciśnięta strzałka w lewo lub "a"
                 {
-
-                    Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                    Console.Write("  ");
-
-                    if (postac.GetX() >= 21) //Lewa granica mapy
-                    {
-                        if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106))
-                        {
-                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                            Console.Write("██");
-                            Console.SetCursorPosition(0, 0);
-                        }
-                        else 
-                        {
-                            postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
-                        }
-                    }
-                    if(postac.GetX() == 20)
-                    {
-                        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                        Console.Write("██");
-                        Console.SetCursorPosition(0, 0);
+                    if (!((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106))) {
+                        postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
                     }
                 }
-                if (przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) //Jeżeli naciśnięta strzałka w prawo lub "d"
+                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && postac.GetX() <= 109) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
-                    Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                    Console.Write("  ");
-
-                    if (postac.GetX() <= 109) //Prawa granica mapy
-                    {
-                        if ((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30) || (postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))
-                        {
-                            Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                            Console.Write("██");
-                            Console.SetCursorPosition(0, 0);
-                        }
-                        else 
-                        {
-                            postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
-                        }
-                    }
-                    if(postac.GetX() == 110)
-                    {
-                        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                        Console.Write("██");
-                        Console.SetCursorPosition(0, 0);
+                    if (!((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))) {
+                        postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
                     }
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Kliknij ESC aby wyjść do MENU

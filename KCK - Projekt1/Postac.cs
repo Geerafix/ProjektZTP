@@ -16,7 +16,7 @@
         public int GetY() { return PostacY; }
 
         public void ZmienLokalizacje(int X, int Y) {
-            Console.SetCursorPosition(X, Y);
+            Console.SetCursorPosition(PostacX, PostacY);
             Console.Write("  ");
 
             this.PostacX = X;
