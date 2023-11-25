@@ -29,35 +29,22 @@ internal class Poziom1
         Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/  /_/  ");
         Console.WriteLine("                                  ");
 
-        Console.SetCursorPosition(45, 2);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!");
-        Console.ResetColor();
+        console(45, 2, "UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!", ConsoleColor.Yellow);
+        console(postac.GetX(), postac.GetY(), "██", null);
 
-        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-        Console.Write("██");
-        Console.SetCursorPosition(0, 0);
-
-        for (; ; )
+        while(true)
         {
             Thread.Sleep(1);
 
             // Wyświetl czas na ekranie.
             long pozostalyCzas = stoper.ElapsedMilliseconds;
-            Console.SetCursorPosition(62, 0);
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write("Czas: " + (pozostalyCzas + czas) / 1000 + " s");
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
+            console(62, 0, "Czas: " + (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
 
             //Jeżeli postać znajdzie się na terytorium lavy to zakończ grę
             if ((postac.GetX() >= 22 && postac.GetX() <= 30 && postac.GetY() >= 23 && postac.GetY() <= 29) || (postac.GetX() >= 102 && postac.GetX() <= 110 && postac.GetY() >= 22 && postac.GetY() <= 30) || ((postac.GetX() >= 49 && postac.GetX() <= 66 && postac.GetY() >= 13 && postac.GetY() <= 22)))
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.SetCursorPosition(54, 15);
-                Console.WriteLine("Wpadłeś do lawy"); //Komunikat o śmierci gracza
-                Console.SetCursorPosition(50, 16);
-                Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
+                console(54, 15, "Wpadłeś do lawy", ConsoleColor.Yellow);
+                console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
 
                 czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
@@ -258,5 +245,13 @@ internal class Poziom1
         Console.WriteLine("                   ║                                                                                            ║");
         Console.WriteLine("                   ╚════════════════════════════════════════════════════════════════════════════════════════════╝");
 
+    }
+
+    public void console(int x, int y, string str, ConsoleColor? colour) {
+        Console.SetCursorPosition(x, y);
+        if (colour != null) Console.ForegroundColor = colour.Value;
+        Console.WriteLine(str);
+        Console.ResetColor();
+        Console.SetCursorPosition(0, 0);
     }
 }
