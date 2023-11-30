@@ -10,7 +10,7 @@ namespace KCK___Projekt1 {
     {
         public Szybkosc(IPrzeciwnik przeciwnik) : base(przeciwnik) 
         {
-            this.Przyspieszenie = 10;
+            this.Przyspieszenie = 7;
         }
     }
 }

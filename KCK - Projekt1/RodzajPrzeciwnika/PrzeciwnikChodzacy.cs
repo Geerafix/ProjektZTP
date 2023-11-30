@@ -15,7 +15,7 @@ namespace KCK___Projekt1
 
         public int Wielkosc()
         {
-            return 2;
+            return 3;
         }
         public int Szybkosc()
         {

@@ -10,7 +10,7 @@ namespace KCK___Projekt1 {
     {
         public Wielkosc(IPrzeciwnik przeciwnik) : base(przeciwnik)
         {
-            this.Zwiekszenie = 4;
+            this.Zwiekszenie = 3;
         }
     }
 }

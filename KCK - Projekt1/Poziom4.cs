@@ -17,6 +17,11 @@ internal class Poziom4 : Generator
 
     private Stopwatch stoper = new Stopwatch();
 
+    IPrzeciwnik przeciwnik1 = new PrzeciwnikChodzacy();
+    IPrzeciwnik przeciwnik2 = new PrzeciwnikStrzelajacy();
+    IPrzeciwnik przeciwnik3 = new PrzeciwnikChodzacy();
+    IPrzeciwnik przeciwnik4 = new PrzeciwnikStrzelajacy();
+
     public Poziom4(long czas)
     {
         Console.Clear();
@@ -51,33 +56,29 @@ internal class Poziom4 : Generator
     protected override void Rysuj()
     {
 
-        IPrzeciwnik przeciwnik1 = new PrzeciwnikChodzacy();
         przeciwnik1 = new Szybkosc(przeciwnik1);
 
-        IPrzeciwnik przeciwnik2 = new PrzeciwnikStrzelajacy();
         przeciwnik2 = new Wielkosc(przeciwnik2);
 
-        IPrzeciwnik przeciwnik3 = new PrzeciwnikChodzacy();
         przeciwnik3 = new Wielkosc(new Szybkosc(przeciwnik3));
 
-        IPrzeciwnik przeciwnik4 = new PrzeciwnikStrzelajacy();
         przeciwnik4 = new Szybkosc(new Wielkosc(przeciwnik4));
 
         przeciwnik1.SetX(30);
-        przeciwnik1.SetY(30);
+        przeciwnik1.SetY(29);
         przeciwnik1.SetKierunek(true);
 
         przeciwnik2.SetX(50);
-        przeciwnik2.SetY(20);
-        przeciwnik1.SetKierunek(false);
+        przeciwnik2.SetY(22);
+        przeciwnik2.SetKierunek(false);
 
         przeciwnik3.SetX(80);
-        przeciwnik3.SetY(10);
-        przeciwnik1.SetKierunek(true);
+        przeciwnik3.SetY(15);
+        przeciwnik3.SetKierunek(true);
 
-        przeciwnik4.SetX(50);
-        przeciwnik4.SetY(15);
-        przeciwnik1.SetKierunek(false);
+        przeciwnik4.SetX(70);
+        przeciwnik4.SetY(25);
+        przeciwnik4.SetKierunek(false);
 
 
 
@@ -88,24 +89,38 @@ internal class Poziom4 : Generator
         //Ustaw pozycję postaci i narysuj postać
         postac.UstawPozPoczatkowa();
 
-        long pozostalyCzas = stoper.ElapsedMilliseconds;
+        long pozostalyCzas;
 
         for (; ; )
         {
-            Thread.Sleep(0);
+            Thread.Sleep(1);
+
+            pozostalyCzas = stoper.ElapsedMilliseconds;
 
             console(62, 0, "Czas: " + (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
 
-            if(czas % 10 == 0)
+            if (czas % 13 == 0)
             {
                 WyczyscPrzeciwnika(przeciwnik1);
                 RuszPrzeciwnika(przeciwnik1);
             }
 
-            if(czas % 15 == 0)
+            if(czas % 17 == 0)
             {
                 WyczyscPrzeciwnika(przeciwnik2);
                 RuszPrzeciwnika(przeciwnik2);
+            }
+
+            if (czas % 23 == 0)
+            {
+                WyczyscPrzeciwnika(przeciwnik3);
+                RuszPrzeciwnika(przeciwnik3);
+            }
+
+            if (czas % 7 == 0)
+            {
+                WyczyscPrzeciwnika(przeciwnik4);
+                RuszPrzeciwnika(przeciwnik4);
             }
 
             RysujPostac(przeciwnik1);
@@ -165,12 +180,20 @@ internal class Poziom4 : Generator
             }
 
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA
-            if (false) //CzyTrafiony()
+            if (CzyTrafiony())
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.SetCursorPosition(56, 15);
                 Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza
                 Console.SetCursorPosition(0, 0);
+
+                Thread thread = new Thread(() => {
+                    for (int i = 140 ; i >= 0 ; i -= 10) {
+                        sp.generate(i, 0.5, 7);
+                    }
+                });
+                thread.Start();
+                thread.Join();
 
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
@@ -193,6 +216,8 @@ internal class Poziom4 : Generator
                         liczCzas = 0;
                     }
 
+                    Thread.Sleep(2000);
+
                     if (Console.KeyAvailable)
                     {
                         przycisk = Console.ReadKey(true);
@@ -201,7 +226,7 @@ internal class Poziom4 : Generator
                         {
                             Console.ResetColor();
                             stoper.Restart();
-                            Poziom3 poziom = new Poziom3(czas);
+                            Generator poziom = new Poziom3(czas);
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
@@ -215,18 +240,25 @@ internal class Poziom4 : Generator
             }
         }
     }
-/*    private bool CzyTrafiony() //Czy nasz bohater został dorwany przez przeciwnika
+    private bool CzyTrafiony() //Czy nasz bohater został dorwany przez przeciwnika
     {
-        if ((EnemyX1 == postac.GetX() && EnemyY1 == postac.GetY()) || (EnemyX2 == postac.GetX() && EnemyY2 == postac.GetY()) || (EnemyX3 == postac.GetX() && EnemyY3 == postac.GetY()) || (EnemyX4 == postac.GetX() && EnemyY4 == postac.GetY()) || (EnemyX5 == postac.GetX() && EnemyY5 == postac.GetY()))
+        if (postac.GetX() >= przeciwnik1.GetX() && postac.GetX() <= przeciwnik1.GetX() + przeciwnik1.Wielkosc() && postac.GetY() >= przeciwnik1.GetY() && postac.GetY() <= przeciwnik1.GetY() + przeciwnik1.Wielkosc()) {
+            return true;
+        }
+        if (postac.GetX() >= przeciwnik2.GetX() && postac.GetX() <= przeciwnik2.GetX() + przeciwnik2.Wielkosc() && postac.GetY() >= przeciwnik2.GetY() && postac.GetY() <= przeciwnik2.GetY() + przeciwnik2.Wielkosc())
         {
             return true;
         }
-        if ((EnemyX1 + 1 == postac.GetX() && EnemyY1 == postac.GetY()) || (EnemyX2 + 1 == postac.GetX() && EnemyY2 == postac.GetY()) || (EnemyX3 + 1 == postac.GetX() && EnemyY3 == postac.GetY()) || (EnemyX4 + 1 == postac.GetX() && EnemyY4 == postac.GetY()) || (EnemyX5 + 1 == postac.GetX() && EnemyY5 == postac.GetY()))
+        if (postac.GetX() >= przeciwnik3.GetX() && postac.GetX() <= przeciwnik3.GetX() + przeciwnik3.Wielkosc() && postac.GetY() >= przeciwnik3.GetY() && postac.GetY() <= przeciwnik3.GetY() + przeciwnik3.Wielkosc())
+        {
+            return true;
+        }
+        if (postac.GetX() >= przeciwnik4.GetX() && postac.GetX() <= przeciwnik4.GetX() + przeciwnik4.Wielkosc() && postac.GetY() >= przeciwnik4.GetY() && postac.GetY() <= przeciwnik4.GetY() + przeciwnik4.Wielkosc())
         {
             return true;
         }
         return false;
-    }*/
+    }
 
     private void RysujPostac(IPrzeciwnik przeciwnik)
     {
@@ -269,20 +301,20 @@ internal class Poziom4 : Generator
         }
 
         // Zmiana kierunku przy osiągnięciu granic
-        if (przeciwnik.GetX() <= 21)
+        if (przeciwnik.GetX() <= 20)
         {
             przeciwnik.SetKierunek(false);
             Thread thread = new Thread(() => {
-                sp.generate(400, 0.1, 8);
+                sp.generate(200, 0.5, 10);
             });
             thread.Start();
             thread.Join();
         }
-        else if (przeciwnik.GetX() >= 108)
+        else if (przeciwnik.GetX() + przeciwnik.Wielkosc() >= 112)
         {
             przeciwnik.SetKierunek(true);
             Thread thread = new Thread(() => {
-                sp.generate(400, 0.1, 8);
+                sp.generate(200, 0.5, 10);
             });
             thread.Start();
             thread.Join();
