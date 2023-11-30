@@ -2,13 +2,14 @@
 using System.Diagnostics;
 using System;
 
-internal class Poziom1
+internal class Poziom1 : Generator
 {
     Postac postac = Postac.pobierzPostac();
 
     private ConsoleKeyInfo przycisk;
     private Stopwatch stoper = new Stopwatch();
     private long czas;
+    Random random = new Random();
 
     public Poziom1(long czas)
     {
@@ -17,7 +18,7 @@ internal class Poziom1
         Rysuj();
     }
 
-    public void Rysuj()
+    protected override void Rysuj()
     {
         Console.Clear();
 
@@ -81,7 +82,7 @@ internal class Poziom1
                         {
                             Console.ResetColor();
                             stoper.Restart();
-                            Poziom1 poziom = new Poziom1(czas);
+                            Generator poziom = new Poziom1(czas);
                         }
                     }
                 }
@@ -130,7 +131,7 @@ internal class Poziom1
             {
                 czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
-                Poziom2 poziom2 = new Poziom2(czas); //Przenieś do poziomu drugiego
+                Generator poziom2 = new Poziom2(czas); //Przenieś do poziomu drugiego
             }
         }
 

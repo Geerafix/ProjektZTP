@@ -2,7 +2,7 @@
 using System.Diagnostics;
 
 
-internal class Poziom3
+internal class Poziom3 : Generator
 {
 
     Postac postac = Postac.pobierzPostac();
@@ -61,7 +61,7 @@ internal class Poziom3
         Rysuj();
     }
 
-    public void Rysuj()
+    protected override void Rysuj()
     {
 
         Console.WriteLine("\n");

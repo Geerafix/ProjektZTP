@@ -1,7 +1,7 @@
 ﻿using KCK___Projekt1;
 using System.Diagnostics;
 
-internal class Poziom2
+internal class Poziom2 : Generator
 {
     Postac postac = Postac.pobierzPostac();
 
@@ -62,7 +62,7 @@ internal class Poziom2
 
     }
 
-    public void Rysuj()
+    protected override void Rysuj()
     {
         Console.WriteLine("\n");
         Console.WriteLine("   ___           _              ___ ");
@@ -170,7 +170,7 @@ internal class Poziom2
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
-                Poziom3 poziom3 = new Poziom3(czas); //Przenieś do poziomu trzeciego
+                Generator poziom3 = new Poziom3(czas); //Przenieś do poziomu trzeciego
             }
 
             //Jeżeli postać znajdzie się na terytorium Strzałka to zakończ grę
@@ -210,7 +210,7 @@ internal class Poziom2
                         {
                             Console.ResetColor();
                             stoper.Restart();
-                            Poziom2 poziom = new Poziom2(czas);
+                            Generator poziom = new Poziom2(czas);
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {

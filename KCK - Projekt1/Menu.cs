@@ -101,9 +101,9 @@ internal class Menu
             {
                 przycisk = Console.ReadKey(true);
 
-                if(przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
+                if (przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
                 {
-                    Poziom4 poziom = new Poziom4(0);
+                    Generator poziom = new Poziom4(0);
                 }
                 if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji
                 {

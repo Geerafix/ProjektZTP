@@ -1,12 +1,15 @@
 ﻿using KCK___Projekt1;
 using System.Diagnostics;
+using System.Threading;
 
-internal class Poziom4
+internal class Poziom4 : Generator
 {
     Postac postac = Postac.pobierzPostac();
+    SoundPlayer sp = new SoundPlayer();
 
     private ConsoleKeyInfo przycisk;
     char[] znakiPliku;
+    Random random = new Random();
 
     private long czas;
 
@@ -44,7 +47,8 @@ internal class Poziom4
         Rysuj();
     }
 
-    public void Rysuj()
+
+    protected override void Rysuj()
     {
 
         IPrzeciwnik przeciwnik1 = new PrzeciwnikChodzacy();
@@ -75,43 +79,33 @@ internal class Poziom4
         przeciwnik4.SetY(15);
         przeciwnik1.SetKierunek(false);
 
-        RysujPostac(przeciwnik1);
-        RysujPostac(przeciwnik2);
-        RysujPostac(przeciwnik3);
-        RysujPostac(przeciwnik4);
-
 
 
         Thread.Sleep(1000);
 
-        Console.SetCursorPosition(35, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!");
-        Console.ResetColor();
+        console(35, 1, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
 
         //Ustaw pozycję postaci i narysuj postać
         postac.UstawPozPoczatkowa();
-        
-        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-        Console.Write("██");
-        Console.SetCursorPosition(0, 0);
 
+        long pozostalyCzas = stoper.ElapsedMilliseconds;
 
         for (; ; )
         {
-            Thread.Sleep(1);
+            Thread.Sleep(0);
 
-            // Wyświetl czas na ekranie.
-            long pozostalyCzas = stoper.ElapsedMilliseconds;
-            Console.SetCursorPosition(62, 0);
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write("Czas: " + (pozostalyCzas + czas) / 1000 + " s");
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
+            console(62, 0, "Czas: " + (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
 
-            if(czas % 2 == 0)
+            if(czas % 10 == 0)
             {
+                WyczyscPrzeciwnika(przeciwnik1);
                 RuszPrzeciwnika(przeciwnik1);
+            }
+
+            if(czas % 15 == 0)
+            {
+                WyczyscPrzeciwnika(przeciwnik2);
+                RuszPrzeciwnika(przeciwnik2);
             }
 
             RysujPostac(przeciwnik1);
@@ -161,10 +155,6 @@ internal class Poziom4
                 }
 
             }
-            //Ustaw pozycję postaci i narysują postać
-            Console.SetCursorPosition(postac.GetX(), postac.GetY());
-            Console.Write("██");
-            Console.SetCursorPosition(0, 0);
 
             //Jeżeli postać jest na kordynatach bramy
             if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 3 && postac.GetY() <= 4)
@@ -242,10 +232,8 @@ internal class Poziom4
     {
         Console.ForegroundColor = ConsoleColor.Red;
 
-        for (int i = 0; i < przeciwnik.Wielkosc(); i++) 
-        {
-            for (int j = 0; j < przeciwnik.Wielkosc(); j++)
-            {
+        for (int i = 0 ; i < przeciwnik.Wielkosc() ; i++) {
+            for (int j = 0 ; j < przeciwnik.Wielkosc() ; j++) {
                 Console.SetCursorPosition(przeciwnik.GetX() + i, przeciwnik.GetY() + j);
                 Console.Write("█");
             }
@@ -255,23 +243,57 @@ internal class Poziom4
         Console.SetCursorPosition(0, 0);
     }
 
+    private void WyczyscPrzeciwnika(IPrzeciwnik przeciwnik)
+    {
+        for (int i = 0; i < przeciwnik.Wielkosc(); i++)
+        {
+            for (int j = 0; j < przeciwnik.Wielkosc(); j++)
+            {
+                Console.SetCursorPosition(przeciwnik.GetX() + i, przeciwnik.GetY() + j);
+                Console.Write(" ");
+            }
+        }
+    }
+
     private void RuszPrzeciwnika(IPrzeciwnik przeciwnik)
     {
-        if(przeciwnik.GetKierunek() == true)
+        if (przeciwnik.GetKierunek() == true) 
         {
-            przeciwnik.SetX(przeciwnik.GetX()-1);
-        }
-        if (przeciwnik.GetKierunek() == false)
+            przeciwnik.SetX(przeciwnik.GetX() - 1);
+            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 3)));
+        } 
+        else 
         {
             przeciwnik.SetX(przeciwnik.GetX() + 1);
+            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 3)));
         }
+
+        // Zmiana kierunku przy osiągnięciu granic
         if (przeciwnik.GetX() <= 21)
         {
             przeciwnik.SetKierunek(false);
+            Thread thread = new Thread(() => {
+                sp.generate(400, 0.1, 8);
+            });
+            thread.Start();
+            thread.Join();
         }
-        if (przeciwnik.GetX() >= 109)
+        else if (przeciwnik.GetX() >= 108)
         {
             przeciwnik.SetKierunek(true);
+            Thread thread = new Thread(() => {
+                sp.generate(400, 0.1, 8);
+            });
+            thread.Start();
+            thread.Join();
         }
+    }
+
+    public void console(int x, int y, string str, ConsoleColor? colour) {
+        Console.SetCursorPosition(x, y);
+        if (colour != null) Console.ForegroundColor = colour.Value;
+        Console.WriteLine(str);
+        Console.ResetColor();
+        Console.SetCursorPosition(0, 0);
     }
 }
