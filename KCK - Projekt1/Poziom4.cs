@@ -1,4 +1,4 @@
-﻿/*using KCK___Projekt1;
+﻿using KCK___Projekt1;
 using System.Diagnostics;
 
 internal class Poziom4
@@ -12,24 +12,7 @@ internal class Poziom4
 
     int czasownik = 0;
 
-    *//*private int EnemyX1 = 40;
-    private int EnemyY1 = 7;
-
-    private int EnemyX2 = 90;
-    private int EnemyY2 = 7;
-
-    private int EnemyX3 = 25;
-    private int EnemyY3 = 9;
-
-    private int EnemyX4 = 60;
-    private int EnemyY4 = 9;
-
-    private int EnemyX5 = 758;
-    private int EnemyY5 = 8;*//*
-
     private Stopwatch stoper = new Stopwatch();
-
-    Przeciwnik p1 = new Przeciwnik();
 
     public Poziom4(long czas)
     {
@@ -64,30 +47,55 @@ internal class Poziom4
     public void Rysuj()
     {
 
-        Console.WriteLine("\n");
-        Console.WriteLine("   ___          _              ____");
-        Console.WriteLine("  / _ \\___ ___ (____  __ _    |_  /");
-        Console.WriteLine(" / ___/ _ /_ // / _ \\/  ' \\  _/_ < ");
-        Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/ /____/ ");
-        Console.WriteLine("                                   ");
+        IPrzeciwnik przeciwnik1 = new PrzeciwnikChodzacy();
+        przeciwnik1 = new Szybkosc(przeciwnik1);
+
+        IPrzeciwnik przeciwnik2 = new PrzeciwnikStrzelajacy();
+        przeciwnik2 = new Wielkosc(przeciwnik2);
+
+        IPrzeciwnik przeciwnik3 = new PrzeciwnikChodzacy();
+        przeciwnik3 = new Wielkosc(new Szybkosc(przeciwnik3));
+
+        IPrzeciwnik przeciwnik4 = new PrzeciwnikStrzelajacy();
+        przeciwnik4 = new Szybkosc(new Wielkosc(przeciwnik4));
+
+        przeciwnik1.SetX(30);
+        przeciwnik1.SetY(30);
+        przeciwnik1.SetKierunek(true);
+
+        przeciwnik2.SetX(50);
+        przeciwnik2.SetY(20);
+        przeciwnik1.SetKierunek(false);
+
+        przeciwnik3.SetX(80);
+        przeciwnik3.SetY(10);
+        przeciwnik1.SetKierunek(true);
+
+        przeciwnik4.SetX(50);
+        przeciwnik4.SetY(15);
+        przeciwnik1.SetKierunek(false);
+
+        RysujPostac(przeciwnik1);
+        RysujPostac(przeciwnik2);
+        RysujPostac(przeciwnik3);
+        RysujPostac(przeciwnik4);
+
+
+
+        Thread.Sleep(1000);
 
         Console.SetCursorPosition(35, 1);
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM! UWAGA! ONI CIĘ GONIĄ!");
+        Console.Write("NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!");
         Console.ResetColor();
 
-        //Ustaw pozycję postaci i narysują postać
+        //Ustaw pozycję postaci i narysuj postać
         postac.UstawPozPoczatkowa();
+        
         Console.SetCursorPosition(postac.GetX(), postac.GetY());
         Console.Write("██");
         Console.SetCursorPosition(0, 0);
 
-        //Ustaw pozycję przeciwnika i narysują postać
-        *//*RysujPrzeciwnika(EnemyX1, EnemyY1);
-        RysujPrzeciwnika(EnemyX2, EnemyY2);
-        RysujPrzeciwnika(EnemyX3, EnemyY3);
-        RysujPrzeciwnika(EnemyX4, EnemyY4);
-        RysujPrzeciwnika(EnemyX5, EnemyY5);*//*
 
         for (; ; )
         {
@@ -101,30 +109,15 @@ internal class Poziom4
             Console.ResetColor();
             Console.SetCursorPosition(0, 0);
 
-            czasownik++; //Szybkość przeciwników zależy od "czasownika"
-            if (czasownik >= 10000)
-                czasownik = 0;
-
-            //RYSOWANIE PRZECIWNIKÓW
-            //Przeciwnik 1
-            *//*if (czasownik % 10 == 0)
-                (EnemyX1, EnemyY1) = PrzesunPrzeciwnika(EnemyX1, EnemyY1);
-
-            //Przeciwnik 2
-            if (czasownik % 15 == 0)
-                (EnemyX2, EnemyY2) = PrzesunPrzeciwnika(EnemyX2, EnemyY2);
-
-            //Przeciwnik 3 i 4
-            if (czasownik % 20 == 0)
+            if(czas % 2 == 0)
             {
-                (EnemyX3, EnemyY3) = PrzesunPrzeciwnika(EnemyX3, EnemyY3);
-                (EnemyX4, EnemyY4) = PrzesunPrzeciwnika(EnemyX4, EnemyY4);
+                RuszPrzeciwnika(przeciwnik1);
             }
 
-            // Przeciwnik 5
-            if (czasownik % 25 == 0)
-                (EnemyX5, EnemyY5) = PrzesunPrzeciwnika(EnemyX5, EnemyY5);*//*
-
+            RysujPostac(przeciwnik1);
+            RysujPostac(przeciwnik2);
+            RysujPostac(przeciwnik3);
+            RysujPostac(przeciwnik4);
 
             //PORUSZANIE POSTACIĄ
             if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
@@ -182,7 +175,7 @@ internal class Poziom4
             }
 
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA
-            if (CzyTrafiony())
+            if (false) //CzyTrafiony()
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.SetCursorPosition(56, 15);
@@ -232,8 +225,7 @@ internal class Poziom4
             }
         }
     }
-
-    private bool CzyTrafiony() //Czy nasz bohater został dorwany przez przeciwnika
+/*    private bool CzyTrafiony() //Czy nasz bohater został dorwany przez przeciwnika
     {
         if ((EnemyX1 == postac.GetX() && EnemyY1 == postac.GetY()) || (EnemyX2 == postac.GetX() && EnemyY2 == postac.GetY()) || (EnemyX3 == postac.GetX() && EnemyY3 == postac.GetY()) || (EnemyX4 == postac.GetX() && EnemyY4 == postac.GetY()) || (EnemyX5 == postac.GetX() && EnemyY5 == postac.GetY()))
         {
@@ -244,29 +236,42 @@ internal class Poziom4
             return true;
         }
         return false;
-    }
+    }*/
 
-    private (int x, int y) PrzesunPrzeciwnika(int x, int y)
+    private void RysujPostac(IPrzeciwnik przeciwnik)
     {
-        Console.SetCursorPosition(x, y);
-        Console.Write("  ");
-
-        if (postac.GetX() > x) x++;
-        if (postac.GetX() < x) x--;
-        if (postac.GetY() > y) y++;
-        if (postac.GetY() < y) y--;
-
-        RysujPrzeciwnika(x, y);
-        return (x, y);
-    }
-
-    private void RysujPrzeciwnika(int x, int y)
-    {
-        Console.SetCursorPosition(x, y);
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("██");
+
+        for (int i = 0; i < przeciwnik.Wielkosc(); i++) 
+        {
+            for (int j = 0; j < przeciwnik.Wielkosc(); j++)
+            {
+                Console.SetCursorPosition(przeciwnik.GetX() + i, przeciwnik.GetY() + j);
+                Console.Write("█");
+            }
+        }
+
         Console.ResetColor();
         Console.SetCursorPosition(0, 0);
     }
+
+    private void RuszPrzeciwnika(IPrzeciwnik przeciwnik)
+    {
+        if(przeciwnik.GetKierunek() == true)
+        {
+            przeciwnik.SetX(przeciwnik.GetX()-1);
+        }
+        if (przeciwnik.GetKierunek() == false)
+        {
+            przeciwnik.SetX(przeciwnik.GetX() + 1);
+        }
+        if (przeciwnik.GetX() <= 21)
+        {
+            przeciwnik.SetKierunek(false);
+        }
+        if (przeciwnik.GetX() >= 109)
+        {
+            przeciwnik.SetKierunek(true);
+        }
+    }
 }
-*/

@@ -66,7 +66,7 @@ internal class Menu
             Console.ResetColor();
 
             Thread.Sleep(300);
-            Console.SetCursorPosition(0 , 3);
+            Console.SetCursorPosition(0, 3);
             Console.WriteLine(new string(' ', LogoPlace * 4));
             Console.WriteLine(new string(' ', LogoPlace * 4));
             Console.WriteLine(new string(' ', LogoPlace * 4));
@@ -103,7 +103,7 @@ internal class Menu
 
                 if(przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
                 {
-                    Poziom1 poziom = new Poziom1(0);
+                    Poziom4 poziom = new Poziom4(0);
                 }
                 if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji
                 {
