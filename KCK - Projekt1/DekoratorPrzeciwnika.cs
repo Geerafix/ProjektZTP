@@ -45,5 +45,13 @@
         public void SetKierunek(bool way) {
             przeciwnik.SetKierunek(way);
         }
+
+        public int GetPozycja() {
+            return przeciwnik.GetPozycja();
+        }
+
+        public void SetPozycja(int pozycja) {
+            przeciwnik.SetPozycja(pozycja);
+        }
     }
 }

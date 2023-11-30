@@ -68,19 +68,22 @@ internal class Poziom4 : Generator
         przeciwnik1.SetX(30);
         przeciwnik1.SetY(29);
         przeciwnik1.SetKierunek(true);
+        przeciwnik1.SetPozycja(9);
 
         przeciwnik2.SetX(50);
         przeciwnik2.SetY(22);
         przeciwnik2.SetKierunek(false);
+        przeciwnik2.SetPozycja(12);
 
         przeciwnik3.SetX(80);
         przeciwnik3.SetY(15);
         przeciwnik3.SetKierunek(true);
+        przeciwnik3.SetPozycja(15);
 
         przeciwnik4.SetX(70);
         przeciwnik4.SetY(25);
         przeciwnik4.SetKierunek(false);
-
+        przeciwnik4.SetPozycja(18);
 
 
         Thread.Sleep(1000);
@@ -299,12 +302,12 @@ internal class Poziom4 : Generator
         if (przeciwnik.GetKierunek() == true) 
         {
             przeciwnik.SetX(przeciwnik.GetX() - 1);
-            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 4)));
+            przeciwnik.SetY((int)Math.Abs(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
         } 
         else 
         {
             przeciwnik.SetX(przeciwnik.GetX() + 1);
-            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 4)));
+            przeciwnik.SetY((int)Math.Abs(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
         }
 
         // Zmiana kierunku przy osiągnięciu granic

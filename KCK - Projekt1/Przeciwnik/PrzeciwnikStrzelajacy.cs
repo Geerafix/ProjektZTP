@@ -11,6 +11,7 @@ namespace KCK___Projekt1.Przeciwnik
         private int X;
         private int Y;
         private bool Kierunek;
+        private int Pozycja;
 
         public int Wielkosc()
         {
@@ -46,6 +47,14 @@ namespace KCK___Projekt1.Przeciwnik
         public void SetKierunek(bool way)
         {
             Kierunek = way;
+        }
+        public int GetPozycja()
+        {
+            return Pozycja;
+        }
+        public void SetPozycja(int pozycja)
+        {
+            Pozycja = pozycja;
         }
     }
 }

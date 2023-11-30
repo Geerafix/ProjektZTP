@@ -15,6 +15,8 @@ namespace KCK___Projekt1 {
         void SetY(int y);
         bool GetKierunek();
         void SetKierunek(bool way);
+        int GetPozycja();
+        void SetPozycja(int pozycja);
     }
 }
 
