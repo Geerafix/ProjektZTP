@@ -9,17 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="PrzeciwnikDodatek\Nowy folder\**" />
-    <EmbeddedResource Remove="PrzeciwnikDodatek\Nowy folder\**" />
-    <None Remove="PrzeciwnikDodatek\Nowy folder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="PrzeciwnikDodatek\Szybki.cs" />
-    <Compile Remove="PrzeciwnikDodatek\Wielki.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="SadConsole" Version="10.0.2" />
     <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />

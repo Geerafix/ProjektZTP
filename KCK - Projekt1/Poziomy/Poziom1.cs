@@ -1,6 +1,7 @@
 ﻿using KCK___Projekt1;
 using System.Diagnostics;
 using System;
+using KCK___Projekt1.Poziomy;
 
 internal class Poziom1 : Generator
 {

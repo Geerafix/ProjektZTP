@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1 {
-    internal abstract class Generator {
-        public void GenerateLevel() {
+namespace KCK___Projekt1.Poziomy
+{
+    internal abstract class Generator
+    {
+        public void GenerateLevel()
+        {
             Rysuj();
         }
 

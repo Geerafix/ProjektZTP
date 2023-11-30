@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1 {
+namespace KCK___Projekt1.Przeciwnik
+{
 
     public class Wielkosc : DekoratorPrzeciwnika
     {
         public Wielkosc(IPrzeciwnik przeciwnik) : base(przeciwnik)
         {
-            this.Zwiekszenie = 3;
+            Zwiekszenie = 3;
         }
     }
 }

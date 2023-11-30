@@ -1,5 +1,5 @@
 ﻿using KCK___Projekt1;
-
+using KCK___Projekt1.Poziomy;
 
 internal class Menu
 {

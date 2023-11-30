@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1 {
+namespace KCK___Projekt1.Przeciwnik
+{
 
     public class Szybkosc : DekoratorPrzeciwnika
     {
-        public Szybkosc(IPrzeciwnik przeciwnik) : base(przeciwnik) 
+        public Szybkosc(IPrzeciwnik przeciwnik) : base(przeciwnik)
         {
-            this.Przyspieszenie = 7;
+            Przyspieszenie = 7;
         }
     }
 }

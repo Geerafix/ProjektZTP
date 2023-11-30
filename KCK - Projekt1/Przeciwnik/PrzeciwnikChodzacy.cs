@@ -4,29 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1
+namespace KCK___Projekt1.Przeciwnik
 {
-    internal class PrzeciwnikStrzelajacy : IPrzeciwnik 
+    internal class PrzeciwnikChodzacy : IPrzeciwnik
     {
 
         private int X;
         private int Y;
         private bool Kierunek;
 
-        public int Wielkosc() 
+        public int Wielkosc()
         {
-            return 2;
-        }
-        public int Szybkosc() 
-        { 
             return 3;
         }
+        public int Szybkosc()
+        {
+            return 4;
+        }
 
-        public int GetX() {
+        public int GetX()
+        {
             return X;
         }
 
-        public int GetY() {
+        public int GetY()
+        {
             return Y;
         }
 

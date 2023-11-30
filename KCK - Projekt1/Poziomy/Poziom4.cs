@@ -1,6 +1,7 @@
 ﻿using KCK___Projekt1;
+using KCK___Projekt1.Poziomy;
+using KCK___Projekt1.Przeciwnik;
 using System.Diagnostics;
-using System.Threading;
 
 internal class Poziom4 : Generator
 {
@@ -93,7 +94,7 @@ internal class Poziom4 : Generator
 
         for (; ; )
         {
-            Thread.Sleep(1);
+            Thread.Sleep(2);
 
             pozostalyCzas = stoper.ElapsedMilliseconds;
 
@@ -176,6 +177,12 @@ internal class Poziom4 : Generator
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
+                Thread thread = new Thread(() => {
+                    sp.generate(500, 0.5, 10);
+                    sp.generate(400, 0.5, 10);
+                    sp.generate(600, 0.5, 10);
+                });
+                thread.Start();
                 Wyniki wynik = new Wyniki(czas); //Przenieś do Wyników
             }
 
@@ -292,12 +299,12 @@ internal class Poziom4 : Generator
         if (przeciwnik.GetKierunek() == true) 
         {
             przeciwnik.SetX(przeciwnik.GetX() - 1);
-            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 3)));
+            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 4)));
         } 
         else 
         {
             przeciwnik.SetX(przeciwnik.GetX() + 1);
-            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 3)));
+            przeciwnik.SetY((int)(15 + (Math.Sin(przeciwnik.GetX() / 10.0) * 4)));
         }
 
         // Zmiana kierunku przy osiągnięciu granic
