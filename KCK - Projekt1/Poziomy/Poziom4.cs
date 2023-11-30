@@ -302,12 +302,12 @@ internal class Poziom4 : Generator
         if (przeciwnik.GetKierunek() == true) 
         {
             przeciwnik.SetX(przeciwnik.GetX() - 1);
-            przeciwnik.SetY((int)Math.Abs(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
+            przeciwnik.SetY((int)(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
         } 
         else 
         {
             przeciwnik.SetX(przeciwnik.GetX() + 1);
-            przeciwnik.SetY((int)Math.Abs(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
+            przeciwnik.SetY((int)(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
         }
 
         // Zmiana kierunku przy osiągnięciu granic
