@@ -121,7 +121,7 @@ internal class Poziom4 : Generator
 
             console(62, 0, "Czas: " +  (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
 
-            if (czas % 15 == 0) //Tutaj zrobić żeby poruszali się z różną prędkością
+            if (pom % 1 == 0) //Tutaj zrobić żeby poruszali się z różną prędkością
             {
                 WyczyscPrzeciwnika(przeciwnik1);
                 RuszPrzeciwnika(przeciwnik1);
@@ -133,7 +133,7 @@ internal class Poziom4 : Generator
                 RuszPrzeciwnika(przeciwnik4);
             }
 
-            if (czas % 300 == 0)
+            if (pom % 100 == 0)
             {
 
                 //Strzelcy strzelają na zmianę
@@ -149,7 +149,7 @@ internal class Poziom4 : Generator
                 }
             }
 
-            if (czas % 75 == 0)
+            if (pom % 15 == 0)
             {
                 Strzalki.RuszStrzalki();
             }
@@ -424,17 +424,14 @@ public class Strzala
 
 }
 
-public class StrzalkaManager
-{
+public class StrzalkaManager {
     private List<Strzala> strzalki;
 
-    public StrzalkaManager()
-    {
+    public StrzalkaManager() {
         strzalki = new List<Strzala>();
     }
 
-    public Strzala StworzObiekt(IPrzeciwnik przeciwnik, int x, int y)
-    {
+    public void StworzObiekt(IPrzeciwnik przeciwnik, int x, int y) {
         Strzala nowaStrzalka = new Strzala();
 
         nowaStrzalka.SetStrzalaX(przeciwnik.GetX());
@@ -444,39 +441,41 @@ public class StrzalkaManager
         nowaStrzalka.SetYpostaci(y);
 
         strzalki.Add(nowaStrzalka);
+
+        nowaStrzalka = null;
+
         SprawdzIUsunStareObiekty();
-        return nowaStrzalka;
+
     }
 
-    public void RuszStrzalki()
-    {
-        foreach (var Str in strzalki)
-        {
+    public void RuszStrzalki() {
+        foreach (var Str in strzalki) {
             Console.SetCursorPosition(Str.GetStrzalaX(), Str.GetStrzalaY());
             Console.Write(" ");
-            if (Str.GetStrzalaX() >= Str.GetXpostaci())
-            {
-                Str.SetStrzalaX(Str.GetXpostaci() - 1);
+            if (Str.GetStrzalaX() >= Str.GetXpostaci()) {
+                Str.SetStrzalaX(Str.GetStrzalaX() - 1);
             }
-            if (Str.GetStrzalaX() <= Str.GetXpostaci())
-            {
-                Str.SetStrzalaX(Str.GetXpostaci() + 1);
+            if (Str.GetStrzalaX() <= Str.GetXpostaci()) {
+                Str.SetStrzalaX(Str.GetStrzalaX() + 1);
             }
-            if (Str.GetStrzalaY() >= Str.GetYpostaci())
-            {
-                Str.SetStrzalaY(Str.GetYpostaci() - 1);
+            if (Str.GetStrzalaY() >= Str.GetYpostaci()) {
+                Str.SetStrzalaY(Str.GetStrzalaY() - 1);
             }
-            if (Str.GetStrzalaY() <= Str.GetYpostaci())
-            {
-                Str.SetStrzalaY(Str.GetYpostaci() + 1);
+            if (Str.GetStrzalaY() <= Str.GetYpostaci()) {
+                Str.SetStrzalaY(Str.GetStrzalaY() + 1);
             }
 
             RysujStrzalke(Str);
         }
     }
 
-    private void RysujStrzalke(Strzala strzala)
-    {
+    public void RuszStrzalki2() {
+        foreach (var Str in strzalki) {
+            RysujStrzalke(Str);
+        }
+    }
+
+    private void RysujStrzalke(Strzala strzala) {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.SetCursorPosition(strzala.GetStrzalaX(), strzala.GetStrzalaY());
         Console.Write("I");
@@ -484,14 +483,13 @@ public class StrzalkaManager
         Console.SetCursorPosition(0, 0);
     }
 
-    private void SprawdzIUsunStareObiekty()
-    {
+    private void SprawdzIUsunStareObiekty() {
 
-        foreach (var Str in strzalki)
-        {
-            if (Str.GetStrzalaX() <= 21 || Str.GetStrzalaX() >= 109 || Str.GetStrzalaY() <= 5 || Str.GetStrzalaY() >= 31 || (Str.GetStrzalaX() == Str.GetXpostaci() && Str.GetStrzalaY() == Str.GetYpostaci()))
-            {
-                //Usuń strzałkę             strzalki.RemoveAt(0);
+        for (int i = 0 ; i < strzalki.Count() ; i++) {
+            if (strzalki[i].GetStrzalaX() <= 21 || strzalki[i].GetStrzalaX() >= 109 || strzalki[i].GetStrzalaY() <= 5 || strzalki[i].GetStrzalaY() >= 31 || (strzalki[i].GetStrzalaX() == strzalki[i].GetXpostaci() && strzalki[i].GetStrzalaY() == strzalki[i].GetYpostaci())) {
+                Console.SetCursorPosition(strzalki[i].GetStrzalaX(), strzalki[i].GetStrzalaY());
+                Console.Write(" ");
+                strzalki.RemoveAt(i);
             }
         }
     }
