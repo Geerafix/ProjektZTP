@@ -45,17 +45,18 @@ namespace KCK___Projekt1
             string[] wiersze = File.ReadAllLines(fileName);
 
             // Lista która przechowuje pary (nazwa, czas)
-            List<(string, double)> wyniki = new List<(string, double)>();
+            List<(string, double, string)> wyniki = new List<(string, double, string)>();
 
             foreach (var wiersz in wiersze)
             {
                 string[] czesci = wiersz.Split(' ');
-                if (czesci.Length == 2)
+                if (czesci.Length == 3)
                 {
                     string nazwa = czesci[0];
+                    string data = czesci[2];
                     if (double.TryParse(czesci[1], out double czas))
                     {
-                        wyniki.Add((nazwa, czas));
+                        wyniki.Add((nazwa, czas, data));
                     }
                 }
             }
@@ -75,10 +76,12 @@ namespace KCK___Projekt1
                 pom = i % 7;
                 Console.SetCursorPosition(40, 9 + pom * 4);
                 Console.Write("                                               ");
-                Console.SetCursorPosition(40, 9 + pom * 4);
+                Console.SetCursorPosition(35, 9 + pom * 4);
                 Console.Write($"{i + 1}. {wyniki[i].Item1}");
-                Console.SetCursorPosition(67, 9 + pom * 4);
+                Console.SetCursorPosition(55, 9 + pom * 4);
                 Console.Write($"{wyniki[i].Item2} sekund");
+                Console.SetCursorPosition(75, 9 + pom * 4);
+                Console.Write($"{wyniki[i].Item3}");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 0);
 
@@ -106,7 +109,7 @@ namespace KCK___Projekt1
                         Console.ResetColor();
                         Console.SetCursorPosition(0, 0);
                     }
-                    if((i + 1 == wyniki.Count()) || ((wyniki.Count() % 7 == 0) && (wyniki.Count() - i <= 6)))
+                    if ((i + 1 == wyniki.Count()) || ((wyniki.Count() % 7 == 0) && (wyniki.Count() - i <= 6)))
                     {
                         Console.SetCursorPosition(93, 17);
                         Console.Write("                            ");
@@ -114,7 +117,7 @@ namespace KCK___Projekt1
                         Console.Write("                                ");
                         Console.SetCursorPosition(0, 0);
                     }
-                    if(i == 6)
+                    if (i == 6)
                     {
                         Console.SetCursorPosition(3, 17);
                         Console.Write("                          ");
@@ -169,7 +172,7 @@ namespace KCK___Projekt1
                             }
                             if (przycisk.Key == ConsoleKey.LeftArrow)
                             {
-                                if(i > 6) //Jeżeli jesteśmy nie na pierwszej stronie tabeli
+                                if (i > 6) //Jeżeli jesteśmy nie na pierwszej stronie tabeli
                                 {
                                     //Rysowanie strzałki podczas kliknięcia
                                     Console.ForegroundColor = ConsoleColor.DarkYellow;

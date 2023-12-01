@@ -1,4 +1,5 @@
 ﻿using KCK___Projekt1;
+using KCK___Projekt1.Command;
 using KCK___Projekt1.Poziomy;
 using KCK___Projekt1.Przeciwnik;
 using System.Diagnostics;
@@ -14,6 +15,10 @@ internal class Poziom4 : Generator
 
     private long czas;
 
+    int pom = 0;
+
+    bool KtoryStrzelecStrzela = true;
+
     int czasownik = 0;
 
     private Stopwatch stoper = new Stopwatch();
@@ -23,9 +28,21 @@ internal class Poziom4 : Generator
     IPrzeciwnik przeciwnik3 = new PrzeciwnikChodzacy();
     IPrzeciwnik przeciwnik4 = new PrzeciwnikStrzelajacy();
 
+    StrzalkaManager Strzalki = new StrzalkaManager();
+
+    Lewo lewo;
+    Prawo prawo;
+    Gora gora;
+    Dol dol;
+
     public Poziom4(long czas)
     {
         Console.Clear();
+
+        lewo = new Lewo(postac);
+        prawo = new Prawo(postac);
+        gora = new Gora(postac);
+        dol = new Dol(postac);
 
         this.czas = czas;
 
@@ -56,7 +73,6 @@ internal class Poziom4 : Generator
 
     protected override void Rysuj()
     {
-
         przeciwnik1 = new Szybkosc(przeciwnik1);
 
         przeciwnik2 = new Wielkosc(przeciwnik2);
@@ -97,34 +113,45 @@ internal class Poziom4 : Generator
 
         for (; ; )
         {
-            Thread.Sleep(2);
+            Thread.Sleep(1);
+
+            pom++;
 
             pozostalyCzas = stoper.ElapsedMilliseconds;
 
-            console(62, 0, "Czas: " + (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
+            console(62, 0, "Czas: " +  (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
 
-            if (czas % 13 == 0)
+            if (czas % 15 == 0) //Tutaj zrobić żeby poruszali się z różną prędkością
             {
                 WyczyscPrzeciwnika(przeciwnik1);
                 RuszPrzeciwnika(przeciwnik1);
-            }
-
-            if(czas % 17 == 0)
-            {
                 WyczyscPrzeciwnika(przeciwnik2);
                 RuszPrzeciwnika(przeciwnik2);
-            }
-
-            if (czas % 23 == 0)
-            {
                 WyczyscPrzeciwnika(przeciwnik3);
                 RuszPrzeciwnika(przeciwnik3);
-            }
-
-            if (czas % 7 == 0)
-            {
                 WyczyscPrzeciwnika(przeciwnik4);
                 RuszPrzeciwnika(przeciwnik4);
+            }
+
+            if (czas % 300 == 0)
+            {
+
+                //Strzelcy strzelają na zmianę
+                if (KtoryStrzelecStrzela == true)
+                {
+                    Strzalki.StworzObiekt(przeciwnik2, postac.GetX(), postac.GetY());
+                    KtoryStrzelecStrzela = false;
+                }
+                else
+                {
+                    Strzalki.StworzObiekt(przeciwnik4, postac.GetX(), postac.GetY());
+                    KtoryStrzelecStrzela = true;
+                }
+            }
+
+            if (czas % 75 == 0)
+            {
+                Strzalki.RuszStrzalki();
             }
 
             RysujPostac(przeciwnik1);
@@ -141,28 +168,29 @@ internal class Poziom4 : Generator
                 {
                     if (postac.GetY() >= 4) //Górna granica mapy
                     {
-                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
+                        gora.Wykonaj();
+
                     }
                 }
                 if (przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) //Jeżeli naciśnięta strzałka w dół lub "s"
                 {
                     if (postac.GetY() <= 31) //Dolna granica mapy
                     {
-                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1);
+                        dol.Wykonaj();
                     }
                 }
                 if (przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) //Jeżeli naciśnięta strzałka w lewo lub "a"
                 {
                     if (postac.GetX() >= 21) //Lewa granica mapy
                     {
-                        postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
+                        lewo.Wykonaj();
                     }
                 }
                 if (przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
                     if (postac.GetX() <= 109) //Prawa granica mapy
                     {
-                        postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
+                        prawo.Wykonaj();
                     }
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Wyjdź do menu
@@ -337,5 +365,134 @@ internal class Poziom4 : Generator
         Console.WriteLine(str);
         Console.ResetColor();
         Console.SetCursorPosition(0, 0);
+    }
+}
+
+public class Strzala
+{
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    public int Xpostaci { get; set; }
+    public int Ypostaci { get; set; }
+
+
+
+    public Strzala()
+    {
+
+    }
+
+    public int GetStrzalaX()
+    {
+        return X;
+    }
+
+    public int GetStrzalaY()
+    {
+        return Y;
+    }
+
+    public void SetStrzalaX(int x)
+    {
+        X = x;
+    }
+    public void SetStrzalaY(int y)
+    {
+        Y = y;
+    }
+
+    public void SetXpostaci(int x)
+    {
+        Xpostaci = x;
+    }
+
+    public void SetYpostaci(int y)
+    {
+        Ypostaci = y;
+    }
+
+    public int GetXpostaci()
+    {
+        return Xpostaci;
+    }
+
+    public int GetYpostaci()
+    {
+        return Ypostaci;
+    }
+
+}
+
+public class StrzalkaManager
+{
+    private List<Strzala> strzalki;
+
+    public StrzalkaManager()
+    {
+        strzalki = new List<Strzala>();
+    }
+
+    public Strzala StworzObiekt(IPrzeciwnik przeciwnik, int x, int y)
+    {
+        Strzala nowaStrzalka = new Strzala();
+
+        nowaStrzalka.SetStrzalaX(przeciwnik.GetX());
+        nowaStrzalka.SetStrzalaY(przeciwnik.GetY());
+
+        nowaStrzalka.SetXpostaci(x);
+        nowaStrzalka.SetYpostaci(y);
+
+        strzalki.Add(nowaStrzalka);
+        SprawdzIUsunStareObiekty();
+        return nowaStrzalka;
+    }
+
+    public void RuszStrzalki()
+    {
+        foreach (var Str in strzalki)
+        {
+            Console.SetCursorPosition(Str.GetStrzalaX(), Str.GetStrzalaY());
+            Console.Write(" ");
+            if (Str.GetStrzalaX() >= Str.GetXpostaci())
+            {
+                Str.SetStrzalaX(Str.GetXpostaci() - 1);
+            }
+            if (Str.GetStrzalaX() <= Str.GetXpostaci())
+            {
+                Str.SetStrzalaX(Str.GetXpostaci() + 1);
+            }
+            if (Str.GetStrzalaY() >= Str.GetYpostaci())
+            {
+                Str.SetStrzalaY(Str.GetYpostaci() - 1);
+            }
+            if (Str.GetStrzalaY() <= Str.GetYpostaci())
+            {
+                Str.SetStrzalaY(Str.GetYpostaci() + 1);
+            }
+
+            RysujStrzalke(Str);
+        }
+    }
+
+    private void RysujStrzalke(Strzala strzala)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.SetCursorPosition(strzala.GetStrzalaX(), strzala.GetStrzalaY());
+        Console.Write("I");
+        Console.ResetColor();
+        Console.SetCursorPosition(0, 0);
+    }
+
+    private void SprawdzIUsunStareObiekty()
+    {
+
+        foreach (var Str in strzalki)
+        {
+            if (Str.GetStrzalaX() <= 21 || Str.GetStrzalaX() >= 109 || Str.GetStrzalaY() <= 5 || Str.GetStrzalaY() >= 31 || (Str.GetStrzalaX() == Str.GetXpostaci() && Str.GetStrzalaY() == Str.GetYpostaci()))
+            {
+                //Usuń strzałkę             strzalki.RemoveAt(0);
+            }
+        }
     }
 }

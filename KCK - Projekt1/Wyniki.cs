@@ -8,12 +8,15 @@ namespace KCK___Projekt1
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
         double czasWynik;
+        private DateTime data;
 
         public Wyniki(long czas)
         {
             this.czas = czas;
             czasWynik = czas;
             czasWynik = czasWynik / 1000;
+
+            data = DateTime.Now;
 
             Console.Clear();
 
@@ -52,7 +55,7 @@ namespace KCK___Projekt1
 
             Console.SetCursorPosition(0, 0);
 
-            for(; ; )
+            for (; ; )
             {
                 if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
                 {
@@ -67,7 +70,7 @@ namespace KCK___Projekt1
                         {
                             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-                            if(keyInfo.Key == ConsoleKey.Escape) 
+                            if (keyInfo.Key == ConsoleKey.Escape)
                             {
                                 Menu menu = new Menu();
                             }
@@ -98,7 +101,7 @@ namespace KCK___Projekt1
 
                         using (StreamWriter wyniki = new StreamWriter(fileName, true))
                         {
-                            wyniki.WriteLine($"{nazwa} {czasWynik}");
+                            wyniki.WriteLine($"{nazwa} {czasWynik} {data.ToShortDateString()}");
                         }
 
                         TabelaWynikow tabela = new TabelaWynikow();

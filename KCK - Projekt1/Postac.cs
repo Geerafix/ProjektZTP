@@ -25,7 +25,7 @@
             RysujPostac();
         }
 
-        protected void RysujPostac() //Tutaj może trzeba zrobić jako public abstract
+        private void RysujPostac() //Tutaj może trzeba zrobić jako public abstract
         {
             Console.SetCursorPosition(PostacX, PostacY);
             Console.Write("██");
@@ -36,6 +36,7 @@
             PostacX = 60;
             PostacY = 30;
             Console.SetCursorPosition(60, 30);
+            Console.Write("██");
         }
 
         public static Postac pobierzPostac()

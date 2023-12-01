@@ -1,7 +1,8 @@
-﻿namespace KCK___Projekt1
+﻿namespace KCK___Projekt1.Przeciwnik
 {
 
-    public abstract class DekoratorPrzeciwnika : IPrzeciwnik {
+    public abstract class DekoratorPrzeciwnika : IPrzeciwnik
+    {
 
         IPrzeciwnik przeciwnik = null;
 
@@ -15,42 +16,50 @@
 
         public int Wielkosc()
         {
-            return (przeciwnik.Wielkosc() + Zwiekszenie);
+            return przeciwnik.Wielkosc() + Zwiekszenie;
         }
         public int Szybkosc()
         {
-            return (przeciwnik.Szybkosc() + Przyspieszenie);
+            return przeciwnik.Szybkosc() + Przyspieszenie;
         }
 
-        public int GetX() {
+        public int GetX()
+        {
             return przeciwnik.GetX();
         }
 
-        public int GetY() {
+        public int GetY()
+        {
             return przeciwnik.GetY();
         }
 
-        public void SetX(int x) {
+        public void SetX(int x)
+        {
             przeciwnik.SetX(x);
         }
 
-        public void SetY(int y) {
+        public void SetY(int y)
+        {
             przeciwnik.SetY(y);
         }
 
-        public bool GetKierunek() {
+        public bool GetKierunek()
+        {
             return przeciwnik.GetKierunek();
         }
 
-        public void SetKierunek(bool way) {
+        public void SetKierunek(bool way)
+        {
             przeciwnik.SetKierunek(way);
         }
 
-        public int GetPozycja() {
+        public int GetPozycja()
+        {
             return przeciwnik.GetPozycja();
         }
 
-        public void SetPozycja(int pozycja) {
+        public void SetPozycja(int pozycja)
+        {
             przeciwnik.SetPozycja(pozycja);
         }
     }

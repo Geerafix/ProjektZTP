@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Command\Nowy folder\**" />
+    <EmbeddedResource Remove="Command\Nowy folder\**" />
+    <None Remove="Command\Nowy folder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="SadConsole" Version="10.0.2" />
     <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />

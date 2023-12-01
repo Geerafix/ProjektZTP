@@ -14,7 +14,5 @@ namespace KCK___Projekt1.Poziomy
         {
 
         }
-
-
     }
 }

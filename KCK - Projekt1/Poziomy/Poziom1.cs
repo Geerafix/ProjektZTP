@@ -2,10 +2,16 @@
 using System.Diagnostics;
 using System;
 using KCK___Projekt1.Poziomy;
+using KCK___Projekt1.Command;
 
 internal class Poziom1 : Generator
 {
     Postac postac = Postac.pobierzPostac();
+
+    Lewo lewo;
+    Prawo prawo;
+    Gora gora;
+    Dol dol;
 
     private ConsoleKeyInfo przycisk;
     private Stopwatch stoper = new Stopwatch();
@@ -14,6 +20,10 @@ internal class Poziom1 : Generator
 
     public Poziom1(long czas)
     {
+        lewo = new Lewo(postac);
+        prawo = new Prawo(postac);
+        gora = new Gora(postac);
+        dol = new Dol(postac);
         this.czas = czas;
         stoper.Start();
         Rysuj();
@@ -96,6 +106,7 @@ internal class Poziom1 : Generator
 
                 if ((przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) && postac.GetY() >= 6) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
+
                     if (!((postac.GetX() >= 31 && postac.GetX() <= 51) && postac.GetY() == 30) || ((postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))) {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
                     }
