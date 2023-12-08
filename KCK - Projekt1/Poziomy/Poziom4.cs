@@ -66,8 +66,6 @@ internal class Poziom4 : Generator
             Console.Write(c);
             Console.ResetColor();
         }
-
-        Rysuj();
     }
 
 
