@@ -1,4 +1,4 @@
-﻿namespace KCK___Projekt1.Przeciwnik
+﻿namespace EscapeRoom.Przeciwnik
 {
 
     public abstract class DekoratorPrzeciwnika : IPrzeciwnik

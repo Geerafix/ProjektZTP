@@ -1,4 +1,4 @@
-﻿namespace KCK___Projekt1.ZapisGry {
+﻿namespace EscapeRoom.ZapisGry {
     internal class ResetujGreKomenda : IKomenda {
         public void Wykonaj(StanGry stanGry) {
             String sciezka = "../../../ZapisGry/stan.txt";

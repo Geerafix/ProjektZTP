@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KCK___Projekt1
+namespace EscapeRoom
 {
     internal class Wyniki : IObservable
     {
@@ -99,7 +99,7 @@ namespace KCK___Projekt1
                             Console.Write(new string(' ', 20)); // Wyczyść poprzednią zawartość
                             Console.SetCursorPosition(66, 22);
                             Console.Write(nazwa);
-                            tabelaWynikow.setTabela(nazwa, czas/1000, data);
+                            tabelaWynikow.setTabela(nazwa, czasWynik, data);
                         }
 
                         /*string fileName = "wyniki.txt";

@@ -1,6 +1,6 @@
-﻿using KCK___Projekt1;
-using KCK___Projekt1.Poziomy;
-using KCK___Projekt1.ZapisGry;
+﻿using EscapeRoom;
+using EscapeRoom.Poziomy;
+using EscapeRoom.ZapisGry;
 
 internal class Menu
 {
@@ -108,7 +108,7 @@ internal class Menu
 
                 if (przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
                 {
-                    Generator poziom = new Poziom1(0);
+                    Generator poziom = new Poziom4(0);
                     poziom.GenerateLevel();
                 }
                 if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1.Przeciwnik
+namespace EscapeRoom.Przeciwnik
 {
 
     public class Wielkosc : DekoratorPrzeciwnika {

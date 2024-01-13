@@ -2,7 +2,7 @@
 
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace KCK___Projekt1
+namespace EscapeRoom
 {
     internal class TabelaWynikow : IObserver
     {
@@ -11,7 +11,7 @@ namespace KCK___Projekt1
         char[] znakiPliku;
         string username = null;
         DateTime date;
-        long time;
+        double time;
         bool w = false;
 
         public TabelaWynikow()
@@ -41,7 +41,7 @@ namespace KCK___Projekt1
             WyswietlRanking();
         }
 
-        public void setTabela(string username, long time, DateTime date)
+        public void setTabela(string username, double time, DateTime date)
         {
             this.username = username;
             this.time = time;

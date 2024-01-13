@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1 {
+namespace EscapeRoom {
     internal class Strzala {
         public int X { get; set; }
         public int Y { get; set; }
