@@ -70,6 +70,7 @@ internal class Poziom1 : Generator
                             Console.ResetColor();
                             stoper.Restart();
                             Generator poziom = new Poziom1(czas);
+                            poziom.GenerateLevel();
                         }
                     }
                 }
@@ -120,6 +121,7 @@ internal class Poziom1 : Generator
                 czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
                 Generator poziom2 = new Poziom2(czas); //Przenieś do poziomu drugiego
+                poziom2.GenerateLevel();
             }
         }
 

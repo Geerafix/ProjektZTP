@@ -36,25 +36,6 @@ internal class Poziom4 : Generator
         this.czas = czas;
 
         stoper.Start();
-
-        string sciezkaDoPliku = "KCKPoziom3.txt";
-
-        string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
-
-        znakiPliku = zawartoscPliku.ToCharArray();
-
-        int pom = 0; //zmienna która liczy ilość wgranych znaków z plików
-
-        foreach (char c in znakiPliku)
-        {
-            pom++;
-            if ((pom >= 175 && pom <= 200) || (pom >= 285 && pom <= 302))
-            {
-                Console.ForegroundColor = ConsoleColor.Green; //Brama do drugiego poziomu jst koloru zielonego
-            }
-            Console.Write(c);
-            Console.ResetColor();
-        }
     }
 
 

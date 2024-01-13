@@ -108,7 +108,7 @@ internal class Menu
 
                 if (przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
                 {
-                    Generator poziom = new Poziom4(0);
+                    Generator poziom = new Poziom1(0);
                     poziom.GenerateLevel();
                 }
                 if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji

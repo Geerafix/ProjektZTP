@@ -38,7 +38,7 @@ namespace EscapeRoom.Poziomy
                 nazwaPoziomu = "Poziom2.txt";
 
                 //Rysowanie Przeszkód poziomu:
-                Narysuj("KCKPrzeszkoda3.txt", 28, 4, null);
+                Narysuj("KCKPrzeszkoda3.txt", 1, 32, null);
 
                 console(40, 2, "UWAŻAJ NA CZERWONE STRZAŁKI! NIE DAJ SIĘ USTRZELIĆ!", ConsoleColor.Yellow);
             }

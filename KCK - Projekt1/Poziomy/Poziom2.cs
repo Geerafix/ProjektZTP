@@ -135,6 +135,7 @@ internal class Poziom2 : Generator
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
                 Generator poziom3 = new Poziom3(czas); //Przenieś do poziomu trzeciego
+                poziom3.GenerateLevel();
             }
 
             //Jeżeli postać znajdzie się na terytorium Strzałka to zakończ grę
@@ -175,6 +176,7 @@ internal class Poziom2 : Generator
                             Console.ResetColor();
                             stoper.Restart();
                             Generator poziom = new Poziom2(czas);
+                            poziom.GenerateLevel();
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
