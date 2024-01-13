@@ -1,4 +1,4 @@
-﻿namespace KCK___Projekt1 {
+﻿namespace EscapeRoom {
 
     public class Postac {
         private int PostacX;

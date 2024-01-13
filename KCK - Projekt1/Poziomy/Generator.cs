@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace KCK___Projekt1.Poziomy
+namespace EscapeRoom.Poziomy
 {
     internal abstract class Generator
     {

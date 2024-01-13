@@ -1,7 +1,7 @@
 ﻿using NAudio.Wave.SampleProviders;
 using NAudio.Wave;
 
-namespace KCK___Projekt1 {
+namespace EscapeRoom {
     internal class SoundPlayer {
         private WaveOutEvent waveOut;
         private SignalGenerator signalGenerator;

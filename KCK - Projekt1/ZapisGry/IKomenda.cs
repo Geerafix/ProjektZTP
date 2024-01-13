@@ -1,4 +1,4 @@
-﻿namespace KCK___Projekt1.ZapisGry {
+﻿namespace EscapeRoom.ZapisGry {
     public interface IKomenda {
         void Wykonaj(StanGry stanGry);
     }

@@ -1,6 +1,6 @@
 ﻿
 
-namespace KCK___Projekt1
+namespace EscapeRoom
 {
     internal class Instrukcja
     {

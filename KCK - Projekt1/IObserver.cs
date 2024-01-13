@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1
+namespace EscapeRoom
 {
     internal interface IObserver
     {

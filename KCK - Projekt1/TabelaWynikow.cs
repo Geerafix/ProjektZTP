@@ -2,7 +2,7 @@
 
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace KCK___Projekt1
+namespace EscapeRoom
 {
     internal class TabelaWynikow : IObserver
     {
