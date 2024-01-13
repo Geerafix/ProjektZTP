@@ -65,22 +65,6 @@ internal class Poziom2 : Generator
 
     protected override void Rysuj()
     {
-        Console.WriteLine("\n");
-        Console.WriteLine("   ___           _              ___ ");
-        Console.WriteLine("  / _ \\___ ___ (____  __ _    |_  |");
-        Console.WriteLine(" / ___/ _ /_ // / _ \\/  ' \\  / __/ ");
-        Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/ /____/ ");
-
-        Console.SetCursorPosition(40, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("UWAŻAJ NA CZERWONE STRZAŁKI! NIE DAJ SIĘ USTRZELIĆ!");
-        Console.ResetColor();
-
-        //Ustaw pozycję postaci i narysują postać
-        postac.UstawPozPoczatkowa();
-        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-        Console.Write("██");
-        Console.SetCursorPosition(0, 10);
 
         for (; ; )
         {

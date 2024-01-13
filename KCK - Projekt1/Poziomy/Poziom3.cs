@@ -64,25 +64,6 @@ internal class Poziom3 : Generator
 
     protected override void Rysuj()
     {
-
-        Console.WriteLine("\n");
-        Console.WriteLine("   ___          _              ____");
-        Console.WriteLine("  / _ \\___ ___ (____  __ _    |_  /");
-        Console.WriteLine(" / ___/ _ /_ // / _ \\/  ' \\  _/_ < ");
-        Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/ /____/ ");
-        Console.WriteLine("                                   ");
-
-        Console.SetCursorPosition(35, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM! UWAGA! ONI CIĘ GONIĄ!");
-        Console.ResetColor();
-
-        //Ustaw pozycję postaci i narysują postać
-        postac.UstawPozPoczatkowa();
-        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-        Console.Write("██");
-        Console.SetCursorPosition(0, 0);
-
         //Ustaw pozycję przeciwnika i narysują postać
         RysujPrzeciwnika(EnemyX1, EnemyY1);
         RysujPrzeciwnika(EnemyX2, EnemyY2);

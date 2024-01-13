@@ -7,6 +7,7 @@ using KCK___Projekt1.Command;
 internal class Poziom1 : Generator
 {
     Postac postac = Postac.pobierzPostac();
+    char[] znakiPliku;
 
     Lewo lewo;
     Prawo prawo;
@@ -26,24 +27,10 @@ internal class Poziom1 : Generator
         dol = new Dol(postac);
         this.czas = czas;
         stoper.Start();
-        Rysuj();
     }
 
     protected override void Rysuj()
     {
-        Console.Clear();
-
-        //Rysowanie mapy gry:
-        NarysujMape();
-
-        Console.WriteLine("   ___           _              ___");
-        Console.WriteLine("  / _ \\___ ___ (____  __ _    <  /");
-        Console.WriteLine(" / ___/ _ /_ // / _ \\/  ' \\   / / ");
-        Console.WriteLine("/_/   \\___/__/_/\\___/_/_/_/  /_/  ");
-        Console.WriteLine("                                  ");
-
-        console(45, 2, "UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!", ConsoleColor.Yellow);
-        console(postac.GetX(), postac.GetY(), "██", null);
 
         while(true)
         {
@@ -146,117 +133,6 @@ internal class Poziom1 : Generator
                 Generator poziom2 = new Poziom2(czas); //Przenieś do poziomu drugiego
             }
         }
-
-    }
-
-    public void NarysujMape()
-    {
-        Console.WriteLine("\n");
-        Console.WriteLine("\n");
-        Console.WriteLine("                   ╔════════════════════════════════════════════════════════════════════════════════════════════╗");
-        Console.Write("                   ║                                             ");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("╔╗"); Console.ResetColor();
-        Console.WriteLine("                                             ║");
-        Console.Write("                   ║                                             ");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("╚╝"); Console.ResetColor();
-        Console.WriteLine("                                             ║");
-        Console.WriteLine("                   ║                                                                                            ║");
-        Console.WriteLine("                   ║                                                                                            ║");
-        Console.WriteLine("                   ║                                                                                            ║");
-        Console.WriteLine("                   ║                                                                                            ║");
-        Console.WriteLine("                   ║                                                                                            ║");
-        Console.WriteLine("                   ║                                                ╔════════════════════════════════════╗      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("─────────────────"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ║XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX║      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("|███████████████|"); Console.ResetColor();
-        Console.WriteLine(" ╚════════════════════════════════════╝      ║");
-        Console.Write("                   ║                              ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("─────────────────                                    "); Console.ResetColor();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("─────────║"); Console.ResetColor();
-        Console.Write("                   ║   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("──────── "); Console.ResetColor();
-        Console.Write("╔══════════════════╗                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("|████████║"); Console.ResetColor();
-        Console.Write("                   ║   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("│██████│"); Console.ResetColor();
-        Console.Write(" ║XXXXXXXXXXXXXXXXXX║                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("|████████║"); Console.ResetColor();
-        Console.Write("                   ║   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("│██████│"); Console.ResetColor();
-        Console.Write(" ║XXXXXXXXXXXXXXXXXX║                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("|████████║"); Console.ResetColor();
-        Console.Write("                   ║   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("│██████│"); Console.ResetColor();
-        Console.Write(" ║XXXXXXXXXXXXXXXXXX║                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("|████████║"); Console.ResetColor();
-        Console.Write("                   ║   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("│██████│"); Console.ResetColor();
-        Console.Write(" ║XXXXXXXXXXXXXXXXXX║                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("|████████║"); Console.ResetColor();
-        Console.Write("                   ║   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("│██████│"); Console.ResetColor();
-        Console.Write(" ║XXXXXXXXXXXXXXXXXX║                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("|████████║"); Console.ResetColor();
-        Console.Write("                   ║   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("────────"); Console.ResetColor();
-        Console.Write(" ╚══════════════════╝                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("|████████║"); Console.ResetColor();
-        Console.Write("                   ║                                                                                   ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("─────────║"); Console.ResetColor();
-        Console.WriteLine("                   ║                                                                                            ║");
-        Console.WriteLine("                   ║                                                                                            ║");
-        Console.WriteLine("                   ╚════════════════════════════════════════════════════════════════════════════════════════════╝");
 
     }
 
