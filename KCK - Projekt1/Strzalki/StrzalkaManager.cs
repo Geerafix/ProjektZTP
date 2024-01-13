@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KCK___Projekt1.Przeciwnik;
+using EscapeRoom.Przeciwnik;
 
-namespace KCK___Projekt1
+namespace EscapeRoom
 {
     internal class StrzalkaManager {
         private List<Strzala> strzalki;

@@ -1,6 +1,6 @@
-﻿using KCK___Projekt1;
-using KCK___Projekt1.Poziomy;
-using KCK___Projekt1.Przeciwnik;
+﻿using EscapeRoom;
+using EscapeRoom.Poziomy;
+using EscapeRoom.Przeciwnik;
 using System.Diagnostics;
 
 internal class Poziom4 : Generator

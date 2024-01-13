@@ -1,4 +1,4 @@
-﻿using KCK___Projekt1.ZapisGry;
+﻿using EscapeRoom.ZapisGry;
 
 public class StanGry {
     private long Czas;

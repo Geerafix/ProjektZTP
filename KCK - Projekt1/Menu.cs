@@ -1,6 +1,6 @@
-﻿using KCK___Projekt1;
-using KCK___Projekt1.Poziomy;
-using KCK___Projekt1.ZapisGry;
+﻿using EscapeRoom;
+using EscapeRoom.Poziomy;
+using EscapeRoom.ZapisGry;
 
 internal class Menu
 {

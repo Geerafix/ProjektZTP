@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KCK___Projekt1
+namespace EscapeRoom
 {
     internal class Wyniki : IObservable
     {

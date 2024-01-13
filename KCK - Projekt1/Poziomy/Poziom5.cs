@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1.Poziomy
+namespace EscapeRoom.Poziomy
 {
     internal class Poziom5
     {

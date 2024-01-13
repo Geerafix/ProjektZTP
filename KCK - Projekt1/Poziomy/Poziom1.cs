@@ -1,6 +1,6 @@
-﻿using KCK___Projekt1;
+﻿using EscapeRoom;
 using System.Diagnostics;
-using KCK___Projekt1.Poziomy;
+using EscapeRoom.Poziomy;
 
 internal class Poziom1 : Generator
 {
