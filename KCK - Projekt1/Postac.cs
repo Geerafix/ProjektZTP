@@ -46,10 +46,5 @@
             }
             return postac;
         }
-
-        public void ZmienPozycje()
-        {
-
-        }
     }
 }

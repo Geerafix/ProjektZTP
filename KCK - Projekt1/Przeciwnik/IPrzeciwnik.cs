@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1 {
+namespace KCK___Projekt1.Przeciwnik
+{
     public interface IPrzeciwnik
     {
         int Wielkosc();

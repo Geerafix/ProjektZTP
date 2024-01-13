@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KCK___Projekt1.Przeciwnik;
 
-namespace KCK___Projekt1.Strzalki
+namespace KCK___Projekt1
 {
-    internal class StrzalkaManager
-    {
+    internal class StrzalkaManager {
         private List<Strzala> strzalki;
 
-        public StrzalkaManager()
-        {
+        public StrzalkaManager() {
             strzalki = new List<Strzala>();
         }
 
-        public void StworzObiekt(IPrzeciwnik przeciwnik, int x, int y)
-        {
+        public void StworzObiekt(IPrzeciwnik przeciwnik, int x, int y) {
             Strzala nowaStrzalka = new Strzala();
 
             nowaStrzalka.SetStrzalaX(przeciwnik.GetX());
@@ -33,26 +31,20 @@ namespace KCK___Projekt1.Strzalki
 
         }
 
-        public void RuszStrzalki()
-        {
-            foreach (var Str in strzalki)
-            {
+        public void RuszStrzalki() {
+            foreach (var Str in strzalki) {
                 Console.SetCursorPosition(Str.GetStrzalaX(), Str.GetStrzalaY());
                 Console.Write(" ");
-                if (Str.GetStrzalaX() >= Str.GetXpostaci())
-                {
+                if (Str.GetStrzalaX() >= Str.GetXpostaci()) {
                     Str.SetStrzalaX(Str.GetStrzalaX() - 1);
                 }
-                if (Str.GetStrzalaX() <= Str.GetXpostaci())
-                {
+                if (Str.GetStrzalaX() <= Str.GetXpostaci()) {
                     Str.SetStrzalaX(Str.GetStrzalaX() + 1);
                 }
-                if (Str.GetStrzalaY() >= Str.GetYpostaci())
-                {
+                if (Str.GetStrzalaY() >= Str.GetYpostaci()) {
                     Str.SetStrzalaY(Str.GetStrzalaY() - 1);
                 }
-                if (Str.GetStrzalaY() <= Str.GetYpostaci())
-                {
+                if (Str.GetStrzalaY() <= Str.GetYpostaci()) {
                     Str.SetStrzalaY(Str.GetStrzalaY() + 1);
                 }
 
@@ -60,16 +52,13 @@ namespace KCK___Projekt1.Strzalki
             }
         }
 
-        public void RuszStrzalki2()
-        {
-            foreach (var Str in strzalki)
-            {
+        public void RuszStrzalki2() {
+            foreach (var Str in strzalki) {
                 RysujStrzalke(Str);
             }
         }
 
-        private void RysujStrzalke(Strzala strzala)
-        {
+        private void RysujStrzalke(Strzala strzala) {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(strzala.GetStrzalaX(), strzala.GetStrzalaY());
             Console.Write("I");
@@ -77,13 +66,10 @@ namespace KCK___Projekt1.Strzalki
             Console.SetCursorPosition(0, 0);
         }
 
-        private void SprawdzIUsunStareObiekty()
-        {
+        private void SprawdzIUsunStareObiekty() {
 
-            for (int i = 0; i < strzalki.Count(); i++)
-            {
-                if (strzalki[i].GetStrzalaX() <= 21 || strzalki[i].GetStrzalaX() >= 109 || strzalki[i].GetStrzalaY() <= 5 || strzalki[i].GetStrzalaY() >= 31 || strzalki[i].GetStrzalaX() == strzalki[i].GetXpostaci() && strzalki[i].GetStrzalaY() == strzalki[i].GetYpostaci())
-                {
+            for (int i = 0 ; i < strzalki.Count() ; i++) {
+                if (strzalki[i].GetStrzalaX() <= 21 || strzalki[i].GetStrzalaX() >= 109 || strzalki[i].GetStrzalaY() <= 5 || strzalki[i].GetStrzalaY() >= 31 || (strzalki[i].GetStrzalaX() == strzalki[i].GetXpostaci() && strzalki[i].GetStrzalaY() == strzalki[i].GetYpostaci())) {
                     Console.SetCursorPosition(strzalki[i].GetStrzalaX(), strzalki[i].GetStrzalaY());
                     Console.Write(" ");
                     strzalki.RemoveAt(i);
