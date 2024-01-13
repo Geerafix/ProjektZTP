@@ -13,23 +13,44 @@ namespace KCK___Projekt1.Poziomy
             Console.Clear();
 
             NarysujMape();
-            NarysujPortal();
+
+            //Narysuj Portal
+            Narysuj("KCKPortal.txt", 64, 5, ConsoleColor.Green);
+
+            string nazwaPoziomu = "";
 
             if(this is Poziom1)
             {
-                NarysujLogoPoziomu("Poziom1.txt");
+                nazwaPoziomu = "Poziom1.txt";
+
+                //Rysowanie Przeszkód poziomu:
+                Narysuj("KCKLava1.txt", 22, 23, ConsoleColor.Red);
+                Narysuj("KCKLava2.txt", 49, 13, ConsoleColor.Red);
+                Narysuj("KCKLava3.txt", 102, 22, ConsoleColor.Red);
+                Narysuj("KCKPrzeszkoda1.txt", 31, 23, null);
+                Narysuj("KCKPrzeszkoda2.txt", 67, 12, null);
+
+
                 console(45, 2, "UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!", ConsoleColor.Yellow);
             }
             else if(this is Poziom2) 
             {
-                NarysujLogoPoziomu("Poziom2.txt");
+                nazwaPoziomu = "Poziom2.txt";
+
+                //Rysowanie Przeszkód poziomu:
+                Narysuj("KCKPrzeszkoda3.txt", 28, 4, null);
+
                 console(40, 2, "UWAŻAJ NA CZERWONE STRZAŁKI! NIE DAJ SIĘ USTRZELIĆ!", ConsoleColor.Yellow);
             }
             else if (this is Poziom3)
             {
-                NarysujLogoPoziomu("Poziom3.txt");
+                nazwaPoziomu = "Poziom3.txt";
+
                 console(35, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM! UWAGA! ONI CIĘ GONIĄ!", ConsoleColor.Yellow);
             }
+
+            //Narysuj Logo Poziomu
+            Narysuj(nazwaPoziomu, 5, 35, null);
 
             NarysujPostac();
 
@@ -52,16 +73,13 @@ namespace KCK___Projekt1.Poziomy
             }
         }
 
-        private void NarysujPortal()
+        private void Narysuj(string sciezkaDoPliku, int x, int y, ConsoleColor? colour)
         {
-            string sciezkaDoPliku = "KCKPortal.txt";
-
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
 
             znakiPliku = zawartoscPliku.ToCharArray();
 
-            int x = 64;
-            int y = 5;
+            if (colour != null) Console.ForegroundColor = colour.Value;
 
             Console.SetCursorPosition(x, y);
 
@@ -78,31 +96,8 @@ namespace KCK___Projekt1.Poziomy
                 Console.Write(c);
             }
 
-        }
+            Console.ResetColor();
 
-        private void NarysujLogoPoziomu(string sciezkaDoPliku)
-        {
-            string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
-
-            znakiPliku = zawartoscPliku.ToCharArray();
-
-            int x = 5;
-            int y = 35;
-
-            Console.SetCursorPosition(x, y);
-
-            foreach (char c in znakiPliku)
-            {
-                if (Console.CursorLeft == 0)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                }
-                else
-                {
-                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
-                }
-                Console.Write(c);
-            }
         }
 
         private void NarysujPostac()
