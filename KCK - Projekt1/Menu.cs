@@ -1,5 +1,6 @@
 ﻿using KCK___Projekt1;
 using KCK___Projekt1.Poziomy;
+using KCK___Projekt1.ZapisGry;
 
 internal class Menu
 {
@@ -8,7 +9,11 @@ internal class Menu
 
     public Menu()
     {
+        StanGry s = new(1, 2);
+        s.Zapisz(new ZapiszGreKomenda());
         postac.UstawPozPoczatkowa();
+
+        s.Resetuj(new ResetujGreKomenda());
 
         Console.Clear();
         //Zmienne dotyczące MENU

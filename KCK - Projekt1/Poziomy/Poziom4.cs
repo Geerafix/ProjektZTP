@@ -1,5 +1,4 @@
 ﻿using KCK___Projekt1;
-using KCK___Projekt1.Command;
 using KCK___Projekt1.Poziomy;
 using KCK___Projekt1.Przeciwnik;
 using System.Diagnostics;
@@ -30,19 +29,9 @@ internal class Poziom4 : Generator
 
     StrzalkaManager Strzalki = new StrzalkaManager();
 
-    Lewo lewo;
-    Prawo prawo;
-    Gora gora;
-    Dol dol;
-
     public Poziom4(long czas)
     {
         Console.Clear();
-
-        lewo = new Lewo(postac);
-        prawo = new Prawo(postac);
-        gora = new Gora(postac);
-        dol = new Dol(postac);
 
         this.czas = czas;
 
@@ -131,7 +120,7 @@ internal class Poziom4 : Generator
                 RuszPrzeciwnika(przeciwnik4);
             }
 
-            if (pom % 100 == 0)
+            if (pom % 1000 == 0)
             {
 
                 //Strzelcy strzelają na zmianę
@@ -166,29 +155,28 @@ internal class Poziom4 : Generator
                 {
                     if (postac.GetY() >= 4) //Górna granica mapy
                     {
-                        gora.Wykonaj();
-
+                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
                     }
                 }
                 if (przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) //Jeżeli naciśnięta strzałka w dół lub "s"
                 {
                     if (postac.GetY() <= 31) //Dolna granica mapy
                     {
-                        dol.Wykonaj();
+                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1);
                     }
                 }
                 if (przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) //Jeżeli naciśnięta strzałka w lewo lub "a"
                 {
                     if (postac.GetX() >= 21) //Lewa granica mapy
                     {
-                        lewo.Wykonaj();
+                        postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
                     }
                 }
                 if (przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
                     if (postac.GetX() <= 109) //Prawa granica mapy
                     {
-                        prawo.Wykonaj();
+                        postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY());
                     }
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Wyjdź do menu
@@ -366,132 +354,5 @@ internal class Poziom4 : Generator
         Console.WriteLine(str);
         Console.ResetColor();
         Console.SetCursorPosition(0, 0);
-    }
-}
-
-public class Strzala
-{
-    public int X { get; set; }
-    public int Y { get; set; }
-
-    public int Xpostaci { get; set; }
-    public int Ypostaci { get; set; }
-
-
-
-    public Strzala()
-    {
-
-    }
-
-    public int GetStrzalaX()
-    {
-        return X;
-    }
-
-    public int GetStrzalaY()
-    {
-        return Y;
-    }
-
-    public void SetStrzalaX(int x)
-    {
-        X = x;
-    }
-    public void SetStrzalaY(int y)
-    {
-        Y = y;
-    }
-
-    public void SetXpostaci(int x)
-    {
-        Xpostaci = x;
-    }
-
-    public void SetYpostaci(int y)
-    {
-        Ypostaci = y;
-    }
-
-    public int GetXpostaci()
-    {
-        return Xpostaci;
-    }
-
-    public int GetYpostaci()
-    {
-        return Ypostaci;
-    }
-
-}
-
-public class StrzalkaManager {
-    private List<Strzala> strzalki;
-
-    public StrzalkaManager() {
-        strzalki = new List<Strzala>();
-    }
-
-    public void StworzObiekt(IPrzeciwnik przeciwnik, int x, int y) {
-        Strzala nowaStrzalka = new Strzala();
-
-        nowaStrzalka.SetStrzalaX(przeciwnik.GetX());
-        nowaStrzalka.SetStrzalaY(przeciwnik.GetY());
-
-        nowaStrzalka.SetXpostaci(x);
-        nowaStrzalka.SetYpostaci(y);
-
-        strzalki.Add(nowaStrzalka);
-
-        nowaStrzalka = null;
-
-        SprawdzIUsunStareObiekty();
-
-    }
-
-    public void RuszStrzalki() {
-        foreach (var Str in strzalki) {
-            Console.SetCursorPosition(Str.GetStrzalaX(), Str.GetStrzalaY());
-            Console.Write(" ");
-            if (Str.GetStrzalaX() >= Str.GetXpostaci()) {
-                Str.SetStrzalaX(Str.GetStrzalaX() - 1);
-            }
-            if (Str.GetStrzalaX() <= Str.GetXpostaci()) {
-                Str.SetStrzalaX(Str.GetStrzalaX() + 1);
-            }
-            if (Str.GetStrzalaY() >= Str.GetYpostaci()) {
-                Str.SetStrzalaY(Str.GetStrzalaY() - 1);
-            }
-            if (Str.GetStrzalaY() <= Str.GetYpostaci()) {
-                Str.SetStrzalaY(Str.GetStrzalaY() + 1);
-            }
-
-            RysujStrzalke(Str);
-        }
-    }
-
-    public void RuszStrzalki2() {
-        foreach (var Str in strzalki) {
-            RysujStrzalke(Str);
-        }
-    }
-
-    private void RysujStrzalke(Strzala strzala) {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.SetCursorPosition(strzala.GetStrzalaX(), strzala.GetStrzalaY());
-        Console.Write("I");
-        Console.ResetColor();
-        Console.SetCursorPosition(0, 0);
-    }
-
-    private void SprawdzIUsunStareObiekty() {
-
-        for (int i = 0 ; i < strzalki.Count() ; i++) {
-            if (strzalki[i].GetStrzalaX() <= 21 || strzalki[i].GetStrzalaX() >= 109 || strzalki[i].GetStrzalaY() <= 5 || strzalki[i].GetStrzalaY() >= 31 || (strzalki[i].GetStrzalaX() == strzalki[i].GetXpostaci() && strzalki[i].GetStrzalaY() == strzalki[i].GetYpostaci())) {
-                Console.SetCursorPosition(strzalki[i].GetStrzalaX(), strzalki[i].GetStrzalaY());
-                Console.Write(" ");
-                strzalki.RemoveAt(i);
-            }
-        }
     }
 }
