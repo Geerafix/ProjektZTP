@@ -212,7 +212,10 @@ internal class Poziom4 : Generator
                     sp.generate(600, 0.5, 10);
                 });
                 thread.Start();
-                Wyniki wynik = new Wyniki(czas); //Przenieś do Wyników
+                //Wyniki wynik = new Wyniki(czas); //Przenieś do Wyników
+                
+                TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
+                Wyniki wyniki = new Wyniki(czas, tabelaWynikow);
             }
 
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA

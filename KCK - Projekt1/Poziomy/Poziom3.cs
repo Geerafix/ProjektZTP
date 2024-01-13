@@ -179,7 +179,7 @@ internal class Poziom3 : Generator
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
-                Wyniki wynik = new Wyniki(czas); //Przenieś do Wyników
+                //Wyniki wynik = new Wyniki(czas); //Przenieś do Wyników
             }
 
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA

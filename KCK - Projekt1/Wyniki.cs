@@ -1,8 +1,8 @@
-﻿
+﻿using System;
 
 namespace KCK___Projekt1
 {
-    internal class Wyniki
+    internal class Wyniki : IObservable
     {
         private long czas;
         private ConsoleKeyInfo przycisk;
@@ -10,13 +10,17 @@ namespace KCK___Projekt1
         double czasWynik;
         private DateTime data;
 
-        public Wyniki(long czas)
+        private List<IObserver> observers = new List<IObserver>();
+
+        public Wyniki(long czas, TabelaWynikow tabelaWynikow)
         {
             this.czas = czas;
             czasWynik = czas;
             czasWynik = czasWynik / 1000;
 
             data = DateTime.Now;
+
+            AddObserver(tabelaWynikow);
 
             Console.Clear();
 
@@ -95,16 +99,17 @@ namespace KCK___Projekt1
                             Console.Write(new string(' ', 20)); // Wyczyść poprzednią zawartość
                             Console.SetCursorPosition(66, 22);
                             Console.Write(nazwa);
+                            tabelaWynikow.setTabela(nazwa, czas/1000, data);
                         }
 
-                        string fileName = "wyniki.txt";
+                        /*string fileName = "wyniki.txt";
 
                         using (StreamWriter wyniki = new StreamWriter(fileName, true))
                         {
                             wyniki.WriteLine($"{nazwa} {czasWynik} {data.ToShortDateString()}");
-                        }
-
-                        TabelaWynikow tabela = new TabelaWynikow();
+                        }*/
+                        
+                        NotifyObservers();
                     }
 
 
@@ -115,5 +120,31 @@ namespace KCK___Projekt1
                 }
             }
         }
+
+        // Implementacja IObservable
+        public void AddObserver(IObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void RemoveObserver(IObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in observers)
+            {
+                observer.Update();
+            }
+        }
+    }
+
+    internal interface IObservable
+    {
+        void AddObserver(IObserver observer);
+        void RemoveObserver(IObserver observer);
+        void NotifyObservers();
     }
 }
