@@ -1,31 +1,75 @@
 ﻿
 
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace KCK___Projekt1
 {
-    internal class TabelaWynikow
+    internal class TabelaWynikow : IObserver
     {
         string fileName = "wyniki.txt";
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
+        string username = null;
+        DateTime date;
+        long time;
+        bool w = false;
 
         public TabelaWynikow()
         {
-            Console.Clear();
-
             string sciezkaDoPliku = "TabelaWynikow.txt";
 
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
 
             znakiPliku = zawartoscPliku.ToCharArray();
 
-            int pom = 0; //zmienna która liczy ilość wgranych znaków z plików
+            WyswietlRanking();
+        }
+
+        public TabelaWynikow(bool w)
+        {
+            string sciezkaDoPliku = "TabelaWynikow.txt";
+
+            string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
+
+            znakiPliku = zawartoscPliku.ToCharArray();
+
+            this.w = w;
+        }
+
+        public void Update()
+        {
+            WyswietlRanking();
+        }
+
+        public void setTabela(string username, long time, DateTime date)
+        {
+            this.username = username;
+            this.time = time;
+            this.date = date;
+        }
+
+        public void WyswietlRanking()
+        {
+            if(username!=null)
+            {
+                string fileName = "wyniki.txt";
+
+                using (StreamWriter wynik = new StreamWriter(fileName, true))
+                {
+                    wynik.WriteLine($"{username} {time} {date.ToShortDateString()}");
+                }
+            }
+
+            Console.Clear();
+
+            int pom1 = 0; //zmienna która liczy ilość wgranych znaków z plików
 
             foreach (char c in znakiPliku)
             {
-                pom++;
-                if (pom >= 0 && pom <= 250)
+                pom1++;
+                if (pom1 >= 0 && pom1 <= 250)
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan; //Brama do drugiego poziomu jst koloru zielonego
+                    Console.ForegroundColor = ConsoleColor.Cyan; //Brama do drugiego poziomu jest koloru zielonego
                 }
                 Console.Write(c);
                 Console.ResetColor();
@@ -36,11 +80,8 @@ namespace KCK___Projekt1
             Console.Write("Wciśnij ESC. aby wrócić do MENU.");
             Console.ResetColor();
 
-            WyswietlRanking();
-        }
+            //WyswietlRanking();
 
-        public void WyswietlRanking()
-        {
             // Odczytaj wszystkie linie z pliku
             string[] wiersze = File.ReadAllLines(fileName);
 

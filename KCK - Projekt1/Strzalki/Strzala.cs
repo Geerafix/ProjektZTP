@@ -4,11 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KCK___Projekt1.Strzalki
-{
-    internal class Strzala
-    {
-
+namespace KCK___Projekt1 {
+    internal class Strzala {
         public int X { get; set; }
         public int Y { get; set; }
 
@@ -17,47 +14,38 @@ namespace KCK___Projekt1.Strzalki
 
 
 
-        public Strzala()
-        {
+        public Strzala() {
 
         }
 
-        public int GetStrzalaX()
-        {
+        public int GetStrzalaX() {
             return X;
         }
 
-        public int GetStrzalaY()
-        {
+        public int GetStrzalaY() {
             return Y;
         }
 
-        public void SetStrzalaX(int x)
-        {
+        public void SetStrzalaX(int x) {
             X = x;
         }
-        public void SetStrzalaY(int y)
-        {
+        public void SetStrzalaY(int y) {
             Y = y;
         }
 
-        public void SetXpostaci(int x)
-        {
+        public void SetXpostaci(int x) {
             Xpostaci = x;
         }
 
-        public void SetYpostaci(int y)
-        {
+        public void SetYpostaci(int y) {
             Ypostaci = y;
         }
 
-        public int GetXpostaci()
-        {
+        public int GetXpostaci() {
             return Xpostaci;
         }
 
-        public int GetYpostaci()
-        {
+        public int GetYpostaci() {
             return Ypostaci;
         }
 

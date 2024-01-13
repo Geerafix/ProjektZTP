@@ -1,18 +1,11 @@
 ﻿using KCK___Projekt1;
 using System.Diagnostics;
-using System;
 using KCK___Projekt1.Poziomy;
-using KCK___Projekt1.Command;
 
 internal class Poziom1 : Generator
 {
     Postac postac = Postac.pobierzPostac();
     char[] znakiPliku;
-
-    Lewo lewo;
-    Prawo prawo;
-    Gora gora;
-    Dol dol;
 
     private ConsoleKeyInfo przycisk;
     private Stopwatch stoper = new Stopwatch();
@@ -21,10 +14,6 @@ internal class Poziom1 : Generator
 
     public Poziom1(long czas)
     {
-        lewo = new Lewo(postac);
-        prawo = new Prawo(postac);
-        gora = new Gora(postac);
-        dol = new Dol(postac);
         this.czas = czas;
         stoper.Start();
     }
@@ -142,5 +131,9 @@ internal class Poziom1 : Generator
         Console.WriteLine(str);
         Console.ResetColor();
         Console.SetCursorPosition(0, 0);
+    }
+
+    public void play() {
+        throw new NotImplementedException();
     }
 }
