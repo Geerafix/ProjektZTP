@@ -48,6 +48,18 @@ namespace EscapeRoom.Poziomy
 
                 console(35, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM! UWAGA! ONI CIĘ GONIĄ!", ConsoleColor.Yellow);
             }
+            else if (this is Poziom4)
+            {
+                nazwaPoziomu = "Poziom4.txt";
+
+                console(35, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
+            }
+            else if (this is Poziom5)
+            {
+                nazwaPoziomu = "Poziom5.txt";
+
+                console(35, 2, "", ConsoleColor.Yellow);
+            }
 
             //Narysuj Logo Poziomu
             Narysuj(nazwaPoziomu, 5, 35, null);
