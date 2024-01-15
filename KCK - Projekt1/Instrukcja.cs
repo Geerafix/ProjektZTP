@@ -14,40 +14,18 @@ namespace EscapeRoom
         {
             Console.Clear();
             RysujLogo();
+            RysujRamke();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("     W grze poruszasz się za pomocą strzałek albo za pomocą 'wsad': ");
 
-            Console.WriteLine("\n");
-            Console.WriteLine("\n");
-            Console.WriteLine("\n");
+            Console.SetCursorPosition(5, 14);
+            Console.WriteLine("W grze poruszasz się za pomocą strzałek albo za pomocą 'wsad': ");
 
-            Console.WriteLine("     Wejdź się do zielonego portalu, aby dostać się do następnego poziomu: ");
+            Console.SetCursorPosition(3, 20);
+            Console.WriteLine("Wejdź się do zielonego portalu, aby dostać się do następnego poziomu: ");
 
-            Console.WriteLine("\n");
-            Console.WriteLine("\n");
+            Console.SetCursorPosition(4, 25);
+            Console.Write("Unikaj wszytkiego co jest czerwone, w innym przypadku zginiesz: ");
 
-            Console.Write("     Unikaj wszytkiego co jest czerwone, w innym przypadku zginiesz: ");
-
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            Console.WriteLine(" -->       ██");
-            Console.ResetColor();
-
-            Console.SetCursorPosition(75, 10);
-            Console.Write("╔═════════╗");
-            Console.SetCursorPosition(75, 13);
-            Console.Write("║         ║");
-            Console.SetCursorPosition(75, 12);
-            Console.Write("║         ║");
-            Console.SetCursorPosition(75, 11);
-            Console.Write("║         ║");
-            Console.SetCursorPosition(75, 14);
-            Console.Write("║         ║");
-            Console.SetCursorPosition(75, 15);
-            Console.Write("║         ║");
-            Console.SetCursorPosition(75, 16);
-            Console.Write("╚═════════╝");
-            
             Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(78, 19);
             Console.WriteLine("╔╗");
@@ -55,6 +33,13 @@ namespace EscapeRoom
             Console.WriteLine("╚╝");
             Console.WriteLine();
             Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.SetCursorPosition(70, 25);
+            Console.WriteLine(" -->       ██");
+            Console.ResetColor();
+
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.SetCursorPosition(47, 31);
@@ -113,9 +98,6 @@ namespace EscapeRoom
                     if(przycisk.Key == ConsoleKey.Escape)
                     {
                         Menu menu = new Menu();
-                        menu.NarysujOpcje();
-                        menu.RysujLogo();
-                        menu.WlaczOpcje();
                         break;
                     }
 
@@ -131,13 +113,16 @@ namespace EscapeRoom
 
         public void RysujLogo()
         {
-            Console.WriteLine("\n");
             string instrukcja = File.ReadAllText("../../../Assety/instrukcja.txt");
-            Console.SetCursorPosition(0, 3);
+            Console.SetCursorPosition(0, 2);
             console(instrukcja, ConsoleColor.Cyan);
-            Console.WriteLine("\n");
-            Console.WriteLine("\n");
-            Console.WriteLine("\n");
+        }
+
+        public void RysujRamke()
+        {
+            string ramka = File.ReadAllText("../../../Assety/ramka.txt");
+            Console.SetCursorPosition(75, 10);
+            console(ramka, ConsoleColor.White);
         }
 
         public void console(string str, ConsoleColor? colour)

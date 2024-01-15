@@ -230,9 +230,6 @@ internal class Poziom3 : Generator
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
         Menu menu = new Menu();
-        menu.NarysujOpcje();
-        menu.RysujLogo();
-        menu.WlaczOpcje();
     }
 }
 
