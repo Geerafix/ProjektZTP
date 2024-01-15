@@ -315,18 +315,14 @@ namespace EscapeRoom
 
                             if (przycisk.Key == ConsoleKey.Escape)
                             {
-                                Wyjdz();
+                                Menu menu = new Menu();
+                                menu.NarysujOpcje();
+                                menu.RysujLogo();
+                                menu.WlaczOpcje();
                                 break;
                             }
-                        }
-                    }
-                }
             }
-
-        }
-
-        private void Wyjdz() {
-            Menu menu = new Menu();
+            }
             menu.NarysujOpcje();
             menu.RysujLogo();
             menu.WlaczOpcje();

@@ -244,7 +244,7 @@ namespace EscapeRoom
 
                     if (przycisk.Key == ConsoleKey.Escape)
                     {
-                        Wyjdz();
+                        Menu menu = new Menu();
                         break;
                     }
                 }

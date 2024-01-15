@@ -8,12 +8,18 @@ internal class Menu
     private StanGry stanGry;
     private Thread thread;
     bool czyWatekDziala = true;
+    private IKomenda ZapiszGreKomenda;
+    private IKomenda WczytajGreKomenda;
+    private IKomenda ResetujGreKomenda;
 
     public Menu()
     {
         Console.Clear();
+        ZapiszGreKomenda = new ZapiszGreKomenda();
+        WczytajGreKomenda = new WczytajGreKomenda();
+        ResetujGreKomenda = new ResetujGreKomenda();
         this.stanGry = new StanGry();
-        this.stanGry.WczytajGre(new WczytajGreKomenda());
+        this.stanGry.WczytajGre(WczytajGreKomenda);
     }
 
     public void RysujLogo() {
@@ -123,6 +129,7 @@ internal class Menu
     public void ZapiszPoziom(long czas, int poziom) {
         this.stanGry.SetCzas(czas);
         this.stanGry.SetPoziom(poziom);
+        this.stanGry.ZapiszGre(ZapiszGreKomenda);
     }
 
     public void console(string str, ConsoleColor? colour) {
