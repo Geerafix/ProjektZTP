@@ -46,5 +46,14 @@
             }
             return postac;
         }
+
+        public void SetX(int x)
+        {
+            this.PostacX = x;
+        }
+        public void SetY(int y) 
+        {
+            this.PostacY = y;
+        }
     }
 }
