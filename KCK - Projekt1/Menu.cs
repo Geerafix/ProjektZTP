@@ -15,9 +15,11 @@ internal class Menu
     public Menu()
     {
         Console.Clear();
-        ZapiszGreKomenda = new ZapiszGreKomenda();
-        WczytajGreKomenda = new WczytajGreKomenda();
-        ResetujGreKomenda = new ResetujGreKomenda();
+
+        NarysujOpcje();
+        RysujLogo();
+        WlaczOpcje();
+
         this.stanGry = new StanGry();
         this.stanGry.WczytajGre(WczytajGreKomenda);
     }
@@ -105,11 +107,13 @@ internal class Menu
         }
     }
 
-    public void WczytajPoziom(StanGry stanGry) {
+    public void WczytajPoziom(StanGry stanGry)
+    {
         czyWatekDziala = false;
         soundPlayer.DzwiekWejsciaDoGry();
         Generator poziom = null;
-        switch (stanGry.GetPoziom()) {
+        switch (stanGry.GetPoziom())
+        {
             case 1:
                 poziom = new Poziom1(stanGry.GetCzas());
                 break;

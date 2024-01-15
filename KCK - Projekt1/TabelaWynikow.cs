@@ -249,7 +249,7 @@ namespace EscapeRoom
 
                             if (przycisk.Key == ConsoleKey.Escape)
                             {
-                                Wyjdz();
+                                Menu menu = new Menu();
                             }
 
                         }
@@ -322,10 +322,6 @@ namespace EscapeRoom
                                 break;
                             }
             }
-            }
-            menu.NarysujOpcje();
-            menu.RysujLogo();
-            menu.WlaczOpcje();
         }
     }
 }
