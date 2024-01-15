@@ -52,7 +52,7 @@ namespace EscapeRoom.Poziomy
             {
                 nazwaPoziomu = "Poziom4.txt";
 
-                console(35, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
+                console(40, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
             }
             else if (this is Poziom5)
             {

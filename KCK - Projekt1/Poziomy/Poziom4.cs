@@ -96,7 +96,7 @@ internal class Poziom4 : Generator
                 RuszPrzeciwnika(przeciwnik4);
             }
 
-            if (pom % 1000 == 0)
+            if (pom % 100 == 0)
             {
 
                 //Strzelcy strzelają na zmianę
@@ -112,7 +112,7 @@ internal class Poziom4 : Generator
                 }
             }
 
-            if (pom % 15 == 0)
+            if (pom % 7 == 0)
             {
                 Strzalki.RuszStrzalki();
             }
@@ -245,6 +245,17 @@ internal class Poziom4 : Generator
     }
     private bool CzyTrafiony() //Czy nasz bohater został dorwany przez przeciwnika
     {
+        foreach (var strzala in Strzalki.GetStrzalki())
+        {
+            if (postac.GetX() >= strzala.GetStrzalaX() &&
+                postac.GetX() <= strzala.GetStrzalaX() &&
+                postac.GetY() >= strzala.GetStrzalaY() &&
+                postac.GetY() <= strzala.GetStrzalaY())
+            {
+                return true;
+            }
+        }
+
         if (postac.GetX() >= przeciwnik1.GetX() && postac.GetX() <= przeciwnik1.GetX() + przeciwnik1.Wielkosc() && postac.GetY() >= przeciwnik1.GetY() && postac.GetY() <= przeciwnik1.GetY() + przeciwnik1.Wielkosc()) {
             return true;
         }
@@ -260,6 +271,7 @@ internal class Poziom4 : Generator
         {
             return true;
         }
+
         return false;
     }
 
