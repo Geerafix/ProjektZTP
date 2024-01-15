@@ -7,7 +7,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace EscapeRoom
 {
     public class TabelaWynikow : IObserver {
-        string fileName = "wyniki.txt";
+        string fileName = "../../../Assety/wyniki.txt";
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
         string username = null;
