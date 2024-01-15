@@ -16,7 +16,7 @@ namespace EscapeRoom
         bool w = false;
 
         public TabelaWynikow() {
-            string sciezkaDoPliku = "TabelaWynikow.txt";
+            string sciezkaDoPliku = "../../../Assety/TabelaWynikow.txt";
 
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
 
@@ -26,7 +26,7 @@ namespace EscapeRoom
         }
 
         public TabelaWynikow(bool w) {
-            string sciezkaDoPliku = "TabelaWynikow.txt";
+            string sciezkaDoPliku = "../../../Assety/TabelaWynikow.txt";
 
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
 
@@ -46,7 +46,7 @@ namespace EscapeRoom
         }
 
         public void ZapiszWynik() {
-            string fileName = "wyniki.txt";
+            string fileName = "../../../Assety/wyniki.txt";
 
             using (StreamWriter wynik = new StreamWriter(fileName, true)) {
                 wynik.WriteLine($"{username} {time} {date.ToShortDateString()}");
