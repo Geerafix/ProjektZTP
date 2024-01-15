@@ -131,7 +131,6 @@
             }
 
             Console.ResetColor();
-
         }
 
         protected void console(int x, int y, string znak, ConsoleColor kolor = ConsoleColor.White)
