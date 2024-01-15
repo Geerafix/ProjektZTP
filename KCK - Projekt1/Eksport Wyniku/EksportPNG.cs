@@ -17,7 +17,7 @@ namespace EscapeRoom.Eksport_Wyniku
             // Ustawienie koloru tła
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.Clear(Color.Blue);
+                g.Clear(Color.Transparent);
             }
 
             // Ustawienie koloru i czcionki tekstu
