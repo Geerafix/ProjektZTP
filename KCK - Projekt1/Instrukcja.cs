@@ -119,7 +119,7 @@ namespace EscapeRoom
         public void RysujRamke()
         {
             string ramka = File.ReadAllText("../../../Assety/ramka.txt");
-            Console.SetCursorPosition(75, 10);
+            Console.SetCursorPosition(75, 8);
             console(ramka, ConsoleColor.White);
         }
 
