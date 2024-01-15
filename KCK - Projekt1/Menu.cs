@@ -9,13 +9,12 @@ internal class Menu
 
     public Menu()
     {
-        StanGry s = new(1, 2);
-        s.Zapisz(new ZapiszGreKomenda());
+        StanGry stan = new(1, 2);
+        stan.Zapisz(new ZapiszGreKomenda());
         postac.UstawPozPoczatkowa();
-
-        s.Resetuj(new ResetujGreKomenda());
-
+        stan.Resetuj(new ResetujGreKomenda());
         Console.Clear();
+
         //Zmienne dotyczące MENU
         int LogoLenght = 65; //Długość loga gry
         int LogoPlace = (120 - LogoLenght) / 2; //Ilość spacji do środka konsoli
