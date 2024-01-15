@@ -9,8 +9,8 @@ namespace EscapeRoom
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
         double czasWynik;
-        public DateTime data;
-        int format = 0;
+        DateTime data;
+        string username;
 
         private List<IObserver> observers = new List<IObserver>();
 
@@ -31,6 +31,21 @@ namespace EscapeRoom
             {
                 Console.WriteLine("Nie wybrano strategii eksportu.");
             }
+        }
+
+        public DateTime getDate()
+        {
+            return data;
+        }
+
+        public double getTime()
+        {
+            return czasWynik;
+        }
+
+        public string getUsername()
+        {
+            return username;
         }
 
 
@@ -116,6 +131,8 @@ namespace EscapeRoom
                                 nazwa += keyInfo.KeyChar;
                             }
 
+                            username = nazwa;
+
                             // Wypisz aktualną zawartość nazwy.
                             Console.SetCursorPosition(65, 22);
                             Console.Write(new string(' ', 20)); // Wyczyść poprzednią zawartość
@@ -170,21 +187,27 @@ namespace EscapeRoom
                             if (keyInfo.Key == ConsoleKey.D1)
                             {
                                 SetStrategiaEksportu(new EksportPNG());
+                                EksportujWyniki();
                                 break;
                             }
 
                             if (keyInfo.Key == ConsoleKey.D2)
                             {
                                 SetStrategiaEksportu(new EksportJPEG());
+                                EksportujWyniki();
                                 break;
                             }
 
                             if (keyInfo.Key == ConsoleKey.D3)
                             {
                                 SetStrategiaEksportu(new EksportBMP());
+                                EksportujWyniki();
                                 break;
                             }
                         }
+
+                        Console.SetCursorPosition(40, 35);
+                        Console.Write("Naciśnij Esc by powrócić do menu głównego");
                     }
 
                     if (przycisk.Key == ConsoleKey.Escape)
