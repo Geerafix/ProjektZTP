@@ -4,7 +4,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EscapeRoom
 {
-    internal class TabelaWynikow : IObserver
+    public class TabelaWynikow : IObserver
     {
         string fileName = "wyniki.txt";
         private ConsoleKeyInfo przycisk;
@@ -38,7 +38,7 @@ namespace EscapeRoom
 
         public void Update()
         {
-            WyswietlRanking();
+            ZapiszWynik();
         }
 
         public void setTabela(string username, double time, DateTime date)
@@ -48,18 +48,18 @@ namespace EscapeRoom
             this.date = date;
         }
 
+        public void ZapiszWynik()
+        {
+            string fileName = "wyniki.txt";
+
+            using (StreamWriter wynik = new StreamWriter(fileName, true))
+            {
+                wynik.WriteLine($"{username} {time} {date.ToShortDateString()}");
+            }
+        }
+
         public void WyswietlRanking()
         {
-            if(username!=null)
-            {
-                string fileName = "wyniki.txt";
-
-                using (StreamWriter wynik = new StreamWriter(fileName, true))
-                {
-                    wynik.WriteLine($"{username} {time} {date.ToShortDateString()}");
-                }
-            }
-
             Console.Clear();
 
             int pom1 = 0; //zmienna która liczy ilość wgranych znaków z plików
