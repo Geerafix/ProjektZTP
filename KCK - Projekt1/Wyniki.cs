@@ -22,9 +22,24 @@ namespace EscapeRoom
 
             data = DateTime.Now;
 
-            AddObserver(tabelaWynikow);
+            AddObserver(tabelaWynikow); // Dodanie tabeli wyników jako obserwatora
 
             GenerujWyniki(tabelaWynikow);
+        }
+
+        public DateTime getDate()
+        {
+            return data;
+        }
+
+        public double getTime()
+        {
+            return czasWynik;
+        }
+
+        public string getUsername()
+        {
+            return username;
         }
 
         public void SetStrategiaEksportu(IStrategiaEksportu strategia)
@@ -42,21 +57,6 @@ namespace EscapeRoom
             {
                 Console.WriteLine("Nie wybrano strategii eksportu.");
             }
-        }
-
-        public DateTime getDate()
-        {
-            return data;
-        }
-
-        public double getTime()
-        {
-            return czasWynik;
-        }
-
-        public string getUsername()
-        {
-            return username;
         }
 
         public void ZapiszObrazek()
