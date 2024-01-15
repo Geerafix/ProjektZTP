@@ -1,5 +1,7 @@
 ﻿using EscapeRoom.Eksport_Wyniku;
 using System;
+using static System.Formats.Asn1.AsnWriter;
+using System.Media;
 
 namespace EscapeRoom
 {
@@ -113,7 +115,8 @@ namespace EscapeRoom
 
                             if (keyInfo.Key == ConsoleKey.Escape)
                             {
-                                Menu menu = new Menu();
+                                Wyjdz();
+                                break;
                             }
 
                             if (keyInfo.Key == ConsoleKey.Enter)
@@ -155,7 +158,8 @@ namespace EscapeRoom
 
                             if (keyInfo.Key == ConsoleKey.Escape)
                             {
-                                Menu menu = new Menu();
+                                Wyjdz();
+                                break;
                             }
 
                             if (keyInfo.Key == ConsoleKey.D1)
@@ -165,7 +169,8 @@ namespace EscapeRoom
 
                             if (keyInfo.Key == ConsoleKey.D2)
                             {
-                                Menu menu = new Menu();
+                                Wyjdz();
+                                break;
                             }
                         }
 
@@ -181,7 +186,8 @@ namespace EscapeRoom
 
                             if (keyInfo.Key == ConsoleKey.Escape)
                             {
-                                Menu menu = new Menu();
+                                Wyjdz();
+                                break;
                             }
 
                             if (keyInfo.Key == ConsoleKey.D1)
@@ -212,10 +218,7 @@ namespace EscapeRoom
 
                     if (przycisk.Key == ConsoleKey.Escape)
                     {
-                        Menu menu = new Menu();
-                        menu.NarysujOpcje();
-                        menu.RysujLogo();
-                        menu.WlaczOpcje();
+                        Wyjdz();
                         break;
                     }
                 }
@@ -239,6 +242,13 @@ namespace EscapeRoom
             {
                 observer.Update();
             }
+        }
+
+        private void Wyjdz() {
+            Menu menu = new Menu();
+            menu.NarysujOpcje();
+            menu.RysujLogo();
+            menu.WlaczOpcje();
         }
     }
 
