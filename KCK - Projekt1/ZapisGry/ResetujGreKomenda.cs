@@ -1,8 +1,8 @@
 ﻿namespace EscapeRoom.ZapisGry {
     internal class ResetujGreKomenda : IKomenda {
         public void Wykonaj(StanGry stanGry) {
-            String sciezka = "../../../ZapisGry/stan.txt";
-            using (StreamWriter sw = new StreamWriter(sciezka)) {
+            String sciezkaZapisuGry = "../../../ZapisGry/stan.txt";
+            using (StreamWriter sw = new StreamWriter(sciezkaZapisuGry)) {
                 sw.WriteLine(0);
                 sw.WriteLine(1);
             }

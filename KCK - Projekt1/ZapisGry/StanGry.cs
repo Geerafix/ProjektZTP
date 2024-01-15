@@ -4,20 +4,20 @@ public class StanGry {
     private long Czas;
     private int Poziom;
 
-    public StanGry(long Czas, int Poziom) {
-        this.Czas = Czas;
-        this.Poziom = Poziom;
+    public StanGry() {
+        this.Czas = 0;
+        this.Poziom = 1;
     }
 
-    public void Zapisz(IKomenda komenda) {
+    public void ZapiszGre(IKomenda komenda) {
         komenda.Wykonaj(this);
     }
 
-    public void Wczytaj(IKomenda komenda) {
+    public void WczytajGre(IKomenda komenda) {
         komenda.Wykonaj(this);
     }
 
-    public void Resetuj(IKomenda komenda) {
+    public void ResetujGre(IKomenda komenda) {
         komenda.Wykonaj(this);
     }
 

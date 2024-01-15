@@ -314,6 +314,9 @@ namespace EscapeRoom
                             if (przycisk.Key == ConsoleKey.Escape)
                             {
                                 Menu menu = new Menu();
+                                menu.NarysujOpcje();
+                                menu.RysujLogo();
+                                menu.WlaczOpcje();
                             }
                         }
                     }

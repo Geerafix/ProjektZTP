@@ -12,6 +12,8 @@ class Program
         Console.Title = "ESCAPE ROOM";
 
         Menu menu = new Menu();
-
+        menu.NarysujOpcje();
+        menu.RysujLogo();
+        menu.WlaczOpcje();
     }
 }
