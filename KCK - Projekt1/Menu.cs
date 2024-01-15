@@ -16,12 +16,16 @@ internal class Menu
     {
         Console.Clear();
 
-        NarysujOpcje();
-        RysujLogo();
-        WlaczOpcje();
+        ZapiszGreKomenda = new ZapiszGreKomenda();
+        WczytajGreKomenda = new WczytajGreKomenda();
+        ResetujGreKomenda = new ResetujGreKomenda();
 
         this.stanGry = new StanGry();
         this.stanGry.WczytajGre(WczytajGreKomenda);
+
+        NarysujOpcje();
+        RysujLogo();
+        WlaczOpcje();
     }
 
     public void RysujLogo() {
