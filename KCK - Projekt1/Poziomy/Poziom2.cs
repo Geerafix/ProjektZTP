@@ -91,7 +91,7 @@ internal class Poziom2 : Generator
             {
                 przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
 
-                if ((przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) && (postac.GetY() >= 4)) //Jeżeli naciśnięta strzałka w górę lub "w"
+                if ((przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) && (postac.GetY() >= 6)) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
                     if ((postac.GetX() == 35 && postac.GetY() == 28) || (postac.GetY() != 28) || (postac.GetX() == 93 && postac.GetY() == 28)) {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
@@ -109,7 +109,7 @@ internal class Poziom2 : Generator
                         postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
                     }
                 }
-                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && (postac.GetX() <= 109)) //Jeżeli naciśnięta strzałka w prawo lub "d"
+                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && (postac.GetX() <= 107)) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
                     if (!((postac.GetY() == 27 && postac.GetX() == 35)) || (postac.GetY() == 27 && postac.GetX() == 93)) {
                         postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY());
@@ -130,7 +130,7 @@ internal class Poziom2 : Generator
             Console.SetCursorPosition(0, 10);
 
             //Jeżeli postać jest na kordynatach bramy do poziomu numer 2
-            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 3 && postac.GetY() <= 4)
+            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 5 && postac.GetY() <= 6)
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();

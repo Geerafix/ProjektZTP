@@ -84,25 +84,25 @@ internal class Poziom1 : Generator
                 if ((przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) && postac.GetY() >= 6) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
 
-                    if (!((postac.GetX() >= 31 && postac.GetX() <= 51) && postac.GetY() == 30) || ((postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22))) {
+                    if (!(((postac.GetX() >= 30 && postac.GetX() <= 50) && postac.GetY() == 30) || ((postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 22)))) {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
                     }
                 }
                 if ((przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) && postac.GetY() <= 31) //Jeżeli naciśnięta strzałka w dół lub "s"
                 {
-                    if (!((postac.GetX() >= 31 && postac.GetX() <= 51 && postac.GetY() == 22)) || ((postac.GetX() >= 67 && postac.GetX() <= 105 && postac.GetY() == 11))) {
+                    if (!(((postac.GetX() >= 29 && postac.GetX() <= 49 && postac.GetY() == 22)) || ((postac.GetX() >= 66 && postac.GetX() <= 104 && postac.GetY() == 11)))) {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1); //Przesuń postać w dół
                     }
                 }
                 if ((przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) && postac.GetX() >= 21) //Jeżeli naciśnięta strzałka w lewo lub "a"
                 {
-                    if (!((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 52)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 106))) {
+                    if (!(((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 51)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 105)))) {
                         postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY()); //Przesuń postać w lewo
                     }
                 }
                 if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && postac.GetX() <= 109) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
-                    if (!((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 66))) {
+                    if (!(((postac.GetY() <= 29 && postac.GetY() >= 23 && postac.GetX() == 30)) || ((postac.GetY() >= 12 && postac.GetY() <= 21 && postac.GetX() == 65)))) {
                         postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY()); //Przesuń postać w prawo
                     }
                 }

@@ -19,7 +19,7 @@ namespace EscapeRoom.Poziomy
 
             string nazwaPoziomu = "";
 
-            if(this is Poziom1)
+            if (this is Poziom1)
             {
                 nazwaPoziomu = "Poziom1.txt";
 
@@ -33,7 +33,7 @@ namespace EscapeRoom.Poziomy
 
                 console(45, 2, "UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!", ConsoleColor.Yellow);
             }
-            else if(this is Poziom2) 
+            else if (this is Poziom2)
             {
                 nazwaPoziomu = "Poziom2.txt";
 
