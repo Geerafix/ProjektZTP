@@ -11,7 +11,7 @@ namespace EscapeRoom.Eksport_Wyniku
         public void Eksportuj(Wyniki wyniki)
         {
             // Implement the logic to export wyniki to BMP
-            Console.WriteLine("Exporting wyniki to BMP...");
+            //Console.WriteLine("Exporting wyniki to BMP...");
         }
     }
 }
