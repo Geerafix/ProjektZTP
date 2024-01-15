@@ -6,8 +6,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EscapeRoom
 {
-    public class TabelaWynikow : IObserver
-    {
+    public class TabelaWynikow : IObserver {
         string fileName = "wyniki.txt";
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
@@ -16,8 +15,7 @@ namespace EscapeRoom
         double time;
         bool w = false;
 
-        public TabelaWynikow()
-        {
+        public TabelaWynikow() {
             string sciezkaDoPliku = "TabelaWynikow.txt";
 
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
@@ -27,8 +25,7 @@ namespace EscapeRoom
             WyswietlRanking();
         }
 
-        public TabelaWynikow(bool w)
-        {
+        public TabelaWynikow(bool w) {
             string sciezkaDoPliku = "TabelaWynikow.txt";
 
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
@@ -38,39 +35,32 @@ namespace EscapeRoom
             this.w = w;
         }
 
-        public void Update()
-        {
+        public void Update() {
             ZapiszWynik();
         }
 
-        public void setTabela(string username, double time, DateTime date)
-        {
+        public void setTabela(string username, double time, DateTime date) {
             this.username = username;
             this.time = time;
             this.date = date;
         }
 
-        public void ZapiszWynik()
-        {
+        public void ZapiszWynik() {
             string fileName = "wyniki.txt";
 
-            using (StreamWriter wynik = new StreamWriter(fileName, true))
-            {
+            using (StreamWriter wynik = new StreamWriter(fileName, true)) {
                 wynik.WriteLine($"{username} {time} {date.ToShortDateString()}");
             }
         }
 
-        public void WyswietlRanking()
-        {
+        public void WyswietlRanking() {
             Console.Clear();
 
             int pom1 = 0; //zmienna która liczy ilość wgranych znaków z plików
 
-            foreach (char c in znakiPliku)
-            {
+            foreach (char c in znakiPliku) {
                 pom1++;
-                if (pom1 >= 0 && pom1 <= 250)
-                {
+                if (pom1 >= 0 && pom1 <= 250) {
                     Console.ForegroundColor = ConsoleColor.Cyan; //Brama do drugiego poziomu jest koloru zielonego
                 }
                 Console.Write(c);
@@ -90,15 +80,12 @@ namespace EscapeRoom
             // Lista która przechowuje pary (nazwa, czas)
             List<(string, double, string)> wyniki = new List<(string, double, string)>();
 
-            foreach (var wiersz in wiersze)
-            {
+            foreach (var wiersz in wiersze) {
                 string[] czesci = wiersz.Split(' ');
-                if (czesci.Length == 3)
-                {
+                if (czesci.Length == 3) {
                     string nazwa = czesci[0];
                     string data = czesci[2];
-                    if (double.TryParse(czesci[1], out double czas))
-                    {
+                    if (double.TryParse(czesci[1], out double czas)) {
                         wyniki.Add((nazwa, czas, data));
                     }
                 }
@@ -110,10 +97,8 @@ namespace EscapeRoom
             int pom = 0;
 
             // Wyświetlanie rankingu
-            for (int i = 0; i < wyniki.Count; i++)
-            {
-                if (i == 0)
-                {
+            for (int i = 0 ; i < wyniki.Count ; i++) {
+                if (i == 0) {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                 }
                 pom = i % 7;
@@ -129,8 +114,7 @@ namespace EscapeRoom
                 Console.SetCursorPosition(0, 0);
 
 
-                if ((i + 1) % 7 == 0)
-                {
+                if ((i + 1) % 7 == 0) {
 
                     if (wyniki.Count > i + 1) //Narysuj strzałkę w prawo
                     {
@@ -152,16 +136,14 @@ namespace EscapeRoom
                         Console.ResetColor();
                         Console.SetCursorPosition(0, 0);
                     }
-                    if ((i + 1 == wyniki.Count()) || ((wyniki.Count() % 7 == 0) && (wyniki.Count() - i <= 6)))
-                    {
+                    if ((i + 1 == wyniki.Count()) || ((wyniki.Count() % 7 == 0) && (wyniki.Count() - i <= 6))) {
                         Console.SetCursorPosition(93, 17);
                         Console.Write("                            ");
                         Console.SetCursorPosition(92, 18);
                         Console.Write("                                ");
                         Console.SetCursorPosition(0, 0);
                     }
-                    if (i == 6)
-                    {
+                    if (i == 6) {
                         Console.SetCursorPosition(3, 17);
                         Console.Write("                          ");
                         Console.SetCursorPosition(7, 18);
@@ -169,14 +151,13 @@ namespace EscapeRoom
                         Console.SetCursorPosition(0, 0);
                     }
 
-                    for (; ; )
+                    for ( ; ; )
                     {
                         if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
                         {
                             przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
 
-                            if (przycisk.Key == ConsoleKey.RightArrow && wyniki.Count() != i + 1)
-                            {
+                            if (przycisk.Key == ConsoleKey.RightArrow && wyniki.Count() != i + 1) {
                                 //Rysowanie strzałki podczas kliknięcia
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.SetCursorPosition(111, 19);
@@ -192,8 +173,7 @@ namespace EscapeRoom
 
                                 if (wyniki.Count - i <= 7) //Czyść nieużywane końcowe miejsca w tabeli
                                 {
-                                    for (int j = 0; j < 7; j++)
-                                    {
+                                    for (int j = 0 ; j < 7 ; j++) {
                                         Console.SetCursorPosition(40, 9 + j * 4);
                                         Console.Write("                                              ");
                                     }
@@ -213,8 +193,7 @@ namespace EscapeRoom
                                 Console.SetCursorPosition(0, 0);
                                 break;
                             }
-                            if (przycisk.Key == ConsoleKey.LeftArrow)
-                            {
+                            if (przycisk.Key == ConsoleKey.LeftArrow) {
                                 if (i > 6) //Jeżeli jesteśmy nie na pierwszej stronie tabeli
                                 {
                                     //Rysowanie strzałki podczas kliknięcia
@@ -247,8 +226,7 @@ namespace EscapeRoom
                                 }
                             }
 
-                            if (przycisk.Key == ConsoleKey.Escape)
-                            {
+                            if (przycisk.Key == ConsoleKey.Escape) {
                                 Menu menu = new Menu();
                             }
 
@@ -264,8 +242,7 @@ namespace EscapeRoom
                     Console.Write("                                ");
                     Console.SetCursorPosition(0, 0);
 
-                    if (i + 1 >= 7)
-                    {
+                    if (i + 1 >= 7) {
                         Console.SetCursorPosition(3, 17);
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("Naciśnij strzałkę w lewo,");
@@ -274,14 +251,12 @@ namespace EscapeRoom
                         Console.ResetColor();
                         Console.SetCursorPosition(0, 0);
                     }
-                    for (; ; )
+                    for ( ; ; )
                     {
-                        if (Console.KeyAvailable)
-                        {
+                        if (Console.KeyAvailable) {
                             przycisk = Console.ReadKey(true);
 
-                            if (przycisk.Key == ConsoleKey.LeftArrow)
-                            {
+                            if (przycisk.Key == ConsoleKey.LeftArrow) {
                                 //Rysowanie strzałki podczas kliknięcia
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.SetCursorPosition(7, 19);
@@ -313,8 +288,7 @@ namespace EscapeRoom
                                 break;
                             }
 
-                            if (przycisk.Key == ConsoleKey.Escape)
-                            {
+                            if (przycisk.Key == ConsoleKey.Escape) {
                                 Menu menu = new Menu();
                                 break;
                             }
