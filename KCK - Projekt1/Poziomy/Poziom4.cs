@@ -219,8 +219,6 @@ internal class Poziom4 : Generator
                         liczCzas = 0;
                     }
 
-                    Thread.Sleep(2000);
-
                     if (Console.KeyAvailable)
                     {
                         przycisk = Console.ReadKey(true);
@@ -229,7 +227,8 @@ internal class Poziom4 : Generator
                         {
                             Console.ResetColor();
                             stoper.Restart();
-                            Generator poziom = new Poziom3(czas);
+                            Generator poziom = new Poziom4(czas);
+                            poziom.GenerateLevel();
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
@@ -245,12 +244,17 @@ internal class Poziom4 : Generator
     }
     private bool CzyTrafiony() //Czy nasz bohater został dorwany przez przeciwnika
     {
+
         foreach (var strzala in Strzalki.GetStrzalki())
         {
-            if (postac.GetX() >= strzala.GetStrzalaX() &&
+            if ((postac.GetX() >= strzala.GetStrzalaX() &&
                 postac.GetX() <= strzala.GetStrzalaX() &&
                 postac.GetY() >= strzala.GetStrzalaY() &&
-                postac.GetY() <= strzala.GetStrzalaY())
+                postac.GetY() <= strzala.GetStrzalaY()) ||
+                (postac.GetX()+1 >= strzala.GetStrzalaX() &&
+                postac.GetX()+1 <= strzala.GetStrzalaX() &&
+                postac.GetY() >= strzala.GetStrzalaY() &&
+                postac.GetY() <= strzala.GetStrzalaY()))
             {
                 return true;
             }

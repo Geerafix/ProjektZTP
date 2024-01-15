@@ -181,6 +181,7 @@ internal class Poziom3 : Generator
                             Console.ResetColor();
                             stoper.Restart();
                             Poziom3 poziom = new Poziom3(czas);
+                            poziom.GenerateLevel();
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
