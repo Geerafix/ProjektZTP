@@ -321,9 +321,6 @@ namespace EscapeRoom
                                 menu.WlaczOpcje();
                                 break;
                             }
-                        }
-                    }
-                }
             }
         }
     }
