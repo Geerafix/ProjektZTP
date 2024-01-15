@@ -67,6 +67,9 @@ namespace EscapeRoom
             Console.WriteLine("Wciśnij ESC aby wrócić do MENU");
             Console.ResetColor();
 
+            postac.SetX(78);
+            postac.SetY(12);
+
             //Ustaw pozycję postaci i narysują postać
             Console.SetCursorPosition(postac.GetX(), postac.GetY());
             Console.Write("██");
