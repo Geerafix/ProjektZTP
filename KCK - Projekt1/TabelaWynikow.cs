@@ -317,6 +317,7 @@ namespace EscapeRoom
                                 menu.NarysujOpcje();
                                 menu.RysujLogo();
                                 menu.WlaczOpcje();
+                                break;
                             }
                         }
                     }
