@@ -37,7 +37,6 @@ internal class Poziom2 : Generator
 
     protected override void Rysuj()
     {
-
         for (; ; )
         {
             Thread.Sleep(1);
@@ -77,7 +76,6 @@ internal class Poziom2 : Generator
                 (Strzalka4X, Strzalka4Y) = PrzesunStrzalkeLewo(Strzalka4X, Strzalka4Y);
                 (Strzalka8X, Strzalka8Y) = PrzesunStrzalkePrawo(Strzalka8X, Strzalka8Y);
             }
-
 
             if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
             {

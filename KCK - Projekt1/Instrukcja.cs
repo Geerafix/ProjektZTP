@@ -56,11 +56,9 @@ namespace EscapeRoom
 
             for (; ; )
             {
-
                 if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
                 {
                     przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
-
                     Console.SetCursorPosition(postac.GetX(), postac.GetY());
                     Console.Write("  ");
 
@@ -71,6 +69,7 @@ namespace EscapeRoom
                             postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1); //Przzesuń postać w górę
                         }
                     }
+
                     if (przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) //Jeżeli naciśnięta strzałka w dół lub "s"
                     {
                         if (postac.GetY() <= 14) //Dolna granica mapy
@@ -107,7 +106,6 @@ namespace EscapeRoom
                     Console.Write("██");
                     Console.SetCursorPosition(0, 0);
                 }
-                
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿
 
+using static System.Formats.Asn1.AsnWriter;
+using System.Media;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EscapeRoom
@@ -247,7 +249,7 @@ namespace EscapeRoom
 
                             if (przycisk.Key == ConsoleKey.Escape)
                             {
-                                Menu menu = new Menu();
+                                Wyjdz();
                             }
 
                         }
@@ -314,13 +316,16 @@ namespace EscapeRoom
                             if (przycisk.Key == ConsoleKey.Escape)
                             {
                                 Menu menu = new Menu();
+                                menu.NarysujOpcje();
+                                menu.RysujLogo();
+                                menu.WlaczOpcje();
                                 break;
                             }
-                        }
-                    }
-                }
             }
-
+            }
+            menu.NarysujOpcje();
+            menu.RysujLogo();
+            menu.WlaczOpcje();
         }
     }
 }

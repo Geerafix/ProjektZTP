@@ -1,9 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-
-namespace EscapeRoom.Poziomy
+﻿namespace EscapeRoom.Poziomy
 {
     internal abstract class Generator
     {
