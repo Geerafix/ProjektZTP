@@ -1,6 +1,6 @@
 ﻿using EscapeRoom.Poziomy;
 using System.Diagnostics;
-using System.Media;
+using EscapeRoom;
 
 internal class Poziom1 : Generator
 {
@@ -8,7 +8,7 @@ internal class Poziom1 : Generator
     private ConsoleKeyInfo przycisk;
     private Stopwatch stoper = new Stopwatch();
     private long czas;
-    Random random = new Random();
+    private Random random = new Random();
 
     public Poziom1(long czas)
     {
@@ -29,6 +29,7 @@ internal class Poziom1 : Generator
                 (postac.GetX() >= 102 && postac.GetX() <= 110 && postac.GetY() >= 22 && postac.GetY() <= 30) ||
                 ((postac.GetX() >= 49 && postac.GetX() <= 66 && postac.GetY() >= 13 && postac.GetY() <= 22)))
             {
+                soundPlayer.DzwiekTrafienia();
                 console(54, 15, "Wpadłeś do lawy", ConsoleColor.Yellow);
                 console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
 
@@ -120,6 +121,7 @@ internal class Poziom1 : Generator
             {
                 czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
+                soundPlayer.DzwiekPortalu();
                 Generator poziom2 = new Poziom2(czas);
                 poziom2.GenerujPoziom();
                 break;
@@ -130,7 +132,7 @@ internal class Poziom1 : Generator
     private void Wyjdz() {
         stoper.Stop();
         Console.ResetColor();
-        
+        soundPlayer.DzwiekWyjsciaZGry();
         Menu menu = new Menu();
         menu.NarysujOpcje();
         menu.RysujLogo();

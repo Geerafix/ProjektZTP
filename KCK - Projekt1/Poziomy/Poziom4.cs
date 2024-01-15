@@ -160,6 +160,7 @@ internal class Poziom4 : Generator
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA
             if (CzyTrafiony())
             {
+                soundPlayer.DzwiekTrafienia();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.SetCursorPosition(56, 15);
                 Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza

@@ -173,7 +173,7 @@ namespace EscapeRoom
                         Console.Write("Wybierz format obrazka:");
 
                         Console.SetCursorPosition(45, 32);
-                        Console.Write("1. PNG     2. JPEG     2. BMP");
+                        Console.Write("1. PNG     2. JPEG     3. BMP");
 
                         for (; ; )
                         {
@@ -213,6 +213,10 @@ namespace EscapeRoom
                     if (przycisk.Key == ConsoleKey.Escape)
                     {
                         Menu menu = new Menu();
+                        menu.NarysujOpcje();
+                        menu.RysujLogo();
+                        menu.WlaczOpcje();
+                        break;
                     }
                 }
             }
