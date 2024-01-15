@@ -51,11 +51,11 @@ internal class Menu
 
         Console.SetCursorPosition(0, 18);
         Console.WriteLine("\n");
-        Console.WriteLine(new string(' ', JedenPlace) + "1. Rozpocznij grę" + "\n");
-        Console.WriteLine(new string(' ', DwaPlace) + "2. Opcje" + "\n");
-        Console.WriteLine(new string(' ', TrzyPlace) + "3. Ranking" + "\n");
-        Console.WriteLine(new string(' ', CzteryPlace) + "4. Jak Grać?" + "\n");
-        Console.WriteLine(new string(' ', PiecPlace) + "5. Wyjdź z gry" + "\n");
+        Console.WriteLine(new string(' ', JedenPlace) + "1. Rozpocznij grę" + "\n\n");
+        Console.WriteLine(new string(' ', DwaPlace) + "2. Opcje" + "\n\n");
+        Console.WriteLine(new string(' ', TrzyPlace) + "3. Ranking" + "\n\n");
+        Console.WriteLine(new string(' ', CzteryPlace) + "4. Jak Grać?" + "\n\n");
+        Console.WriteLine(new string(' ', PiecPlace) + "5. Wyjdź z gry" + "\n\n");
     }
 
     public void WlaczOpcje() {

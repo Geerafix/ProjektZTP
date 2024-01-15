@@ -130,6 +130,7 @@ internal class Poziom3 : Generator
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
+                soundPlayer.DzwiekPortalu();
                 Generator poziom = new Poziom4(czas); //Przenieś do poziomu czwartego
                 poziom.GenerujPoziom();
             }
@@ -137,6 +138,7 @@ internal class Poziom3 : Generator
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA
             if (CzyTrafiony())
             {
+                soundPlayer.DzwiekTrafienia();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.SetCursorPosition(56, 15);
                 Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza
@@ -171,6 +173,7 @@ internal class Poziom3 : Generator
                         {
                             Console.ResetColor();
                             stoper.Restart();
+                            soundPlayer.DzwiekPortalu();
                             Poziom3 poziom = new Poziom3(czas);
                             poziom.GenerujPoziom();
                         }
