@@ -140,7 +140,7 @@ internal class Poziom3 : Generator
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
                 Generator poziom = new Poziom4(czas); //Przenieś do poziomu czwartego
-                poziom.GenerateLevel();
+                poziom.GenerujPoziom();
             }
 
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA
@@ -181,7 +181,7 @@ internal class Poziom3 : Generator
                             Console.ResetColor();
                             stoper.Restart();
                             Poziom3 poziom = new Poziom3(czas);
-                            poziom.GenerateLevel();
+                            poziom.GenerujPoziom();
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {

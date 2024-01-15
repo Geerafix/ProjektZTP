@@ -228,7 +228,7 @@ internal class Poziom4 : Generator
                             Console.ResetColor();
                             stoper.Restart();
                             Generator poziom = new Poziom4(czas);
-                            poziom.GenerateLevel();
+                            poziom.GenerujPoziom();
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
