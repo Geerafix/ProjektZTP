@@ -1,8 +1,10 @@
 ﻿using EscapeRoom.Poziomy;
 using System.Diagnostics;
+using System.Media;
 
 internal class Poziom1 : Generator
 {
+    private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private Stopwatch stoper = new Stopwatch();
     private long czas;
@@ -55,9 +57,8 @@ internal class Poziom1 : Generator
 
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
-                            Console.ResetColor();
-                            stoper.Stop();
-                            Menu menu = new Menu();
+                            Wyjdz();
+                            break;
                         }
                         if (przycisk.Key == ConsoleKey.Spacebar)
                         {
@@ -65,6 +66,7 @@ internal class Poziom1 : Generator
                             stoper.Restart();
                             Generator poziom = new Poziom1(czas);
                             poziom.GenerujPoziom();
+                            break;
                         }
                     }
                 }
@@ -108,9 +110,9 @@ internal class Poziom1 : Generator
                 }
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
-                    stoper.Stop();
                     postac.UstawPozPoczatkowa();
-                    Menu menu = new Menu();
+                    Wyjdz();
+                    break;
                 }
             }
 
@@ -120,7 +122,18 @@ internal class Poziom1 : Generator
                 stoper.Stop();
                 Generator poziom2 = new Poziom2(czas);
                 poziom2.GenerujPoziom();
+                break;
             }
         }
+    }
+
+    private void Wyjdz() {
+        stoper.Stop();
+        Console.ResetColor();
+        
+        Menu menu = new Menu();
+        menu.NarysujOpcje();
+        menu.RysujLogo();
+        menu.WlaczOpcje();
     }
 }

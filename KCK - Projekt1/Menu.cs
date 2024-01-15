@@ -117,7 +117,7 @@ internal class Menu
                 poziom = new Poziom4(stanGry.GetCzas());
                 break;
         }
-        poziom.GenerateLevel();
+        poziom.GenerujPoziom();
     }
 
     public void ZapiszPoziom(long czas, int poziom) {

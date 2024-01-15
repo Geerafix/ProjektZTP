@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 internal class Poziom4 : Generator
 {
-    SoundPlayer soundplayer = new SoundPlayer();
+    private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private long czas;
     int mierz_czas = 0;
@@ -139,10 +139,9 @@ internal class Poziom4 : Generator
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Wyjdź do menu
                 {
-                    Console.ResetColor();
-                    stoper.Stop();
                     postac.UstawPozPoczatkowa();
-                    Menu menu = new Menu();
+                    Wyjdz();
+                    break;
                 }
 
             }
@@ -152,12 +151,7 @@ internal class Poziom4 : Generator
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
-                Thread thread = new Thread(() => {
-                    soundplayer.generate(500, 0.5, 10);
-                    soundplayer.generate(400, 0.5, 10);
-                    soundplayer.generate(600, 0.5, 10);
-                });
-                thread.Start();
+                soundPlayer.DzwiekPortalu();
                 
                 TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
                 Wyniki wyniki = new Wyniki(czas, tabelaWynikow);
@@ -171,13 +165,7 @@ internal class Poziom4 : Generator
                 Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza
                 Console.SetCursorPosition(0, 0);
 
-                Thread thread = new Thread(() => {
-                    for (int i = 140 ; i >= 0 ; i -= 10) {
-                        soundplayer.generate(i, 0.5, 7);
-                    }
-                });
-                thread.Start();
-                thread.Join();
+                soundPlayer.DzwiekTrafienia();
 
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
@@ -213,9 +201,8 @@ internal class Poziom4 : Generator
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
-                            Console.ResetColor();
-                            stoper.Stop();
-                            Menu menu = new Menu();
+                            Wyjdz();
+                            break;
                         }
                     }
                 }
@@ -308,20 +295,22 @@ internal class Poziom4 : Generator
         if (przeciwnik.GetX() <= 20)
         {
             przeciwnik.SetKierunek(false);
-            Thread thread = new Thread(() => {
-                soundplayer.generate(200, 0.5, 10);
-            });
-            thread.Start();
-            thread.Join();
+            soundPlayer.DzwiekOdbiciaOdSciany();
         }
         else if (przeciwnik.GetX() + przeciwnik.Wielkosc() >= 112)
         {
             przeciwnik.SetKierunek(true);
-            Thread thread = new Thread(() => {
-                soundplayer.generate(200, 0.5, 10);
-            });
-            thread.Start();
-            thread.Join();
+            soundPlayer.DzwiekOdbiciaOdSciany();
         }
+    }
+
+    private void Wyjdz() {
+        stoper.Stop();
+        Console.ResetColor();
+        soundPlayer.DzwiekWyjsciaZGry();
+        Menu menu = new Menu();
+        menu.NarysujOpcje();
+        menu.RysujLogo();
+        menu.WlaczOpcje();
     }
 }

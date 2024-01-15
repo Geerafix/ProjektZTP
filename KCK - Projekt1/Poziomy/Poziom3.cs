@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 internal class Poziom3 : Generator
 {
+    private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private long czas;
     int czasownik = 0;
@@ -113,10 +114,9 @@ internal class Poziom3 : Generator
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Wyjdź do menu
                 {
-                    Console.ResetColor();
-                    stoper.Stop();
                     postac.UstawPozPoczatkowa();
-                    Menu menu = new Menu();
+                    Wyjdz();
+                    break;
                 }
 
             }
@@ -176,9 +176,8 @@ internal class Poziom3 : Generator
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
-                            Console.ResetColor();
-                            stoper.Stop();
-                            Menu menu = new Menu();
+                            Wyjdz();
+                            break;
                         }
                     }
                 }
@@ -221,6 +220,16 @@ internal class Poziom3 : Generator
         Console.Write("██");
         Console.ResetColor();
         Console.SetCursorPosition(0, 0);
+    }
+
+    private void Wyjdz() {
+        stoper.Stop();
+        Console.ResetColor();
+        soundPlayer.DzwiekWyjsciaZGry();
+        Menu menu = new Menu();
+        menu.NarysujOpcje();
+        menu.RysujLogo();
+        menu.WlaczOpcje();
     }
 }
 

@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 internal class Poziom2 : Generator
 {
+    private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private long czas;
     private Stopwatch stoper = new Stopwatch();
@@ -112,10 +113,9 @@ internal class Poziom2 : Generator
                 }
                 if (przycisk.Key == ConsoleKey.Escape) //Wciśnij ESC aby wrócić do Menu
                 {
-                    Console.ResetColor();
-                    stoper.Stop();
                     postac.UstawPozPoczatkowa();
-                    Menu menu = new Menu();
+                    Wyjdz();
+                    break;
                 }
             }
 
@@ -136,6 +136,7 @@ internal class Poziom2 : Generator
             //Jeżeli postać znajdzie się na terytorium Strzałka to zakończ grę
             if (CzyTrafiony())
             {
+                soundPlayer.DzwiekTrafienia();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.SetCursorPosition(55, 15);
                 Console.WriteLine("Zostałeś trafiony"); //Komunikat o śmierci gracza
@@ -175,9 +176,8 @@ internal class Poziom2 : Generator
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
-                            Console.ResetColor();
-                            stoper.Stop();
-                            Menu menu = new Menu();
+                            Wyjdz();
+                            break;
                         }
                     }
                 }
@@ -245,5 +245,15 @@ internal class Poziom2 : Generator
         Console.SetCursorPosition(0, 0);
 
         return (nowyX, nowyY);
+    }
+
+    private void Wyjdz() {
+        stoper.Stop();
+        Console.ResetColor();
+        soundPlayer.DzwiekWyjsciaZGry();
+        Menu menu = new Menu();
+        menu.NarysujOpcje();
+        menu.RysujLogo();
+        menu.WlaczOpcje();
     }
 }
