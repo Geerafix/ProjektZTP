@@ -109,7 +109,7 @@ internal class Poziom2 : Generator
                         postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
                     }
                 }
-                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && (postac.GetX() <= 107)) //Jeżeli naciśnięta strzałka w prawo lub "d"
+                if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && (postac.GetX() <= 109)) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
                     if (!((postac.GetY() == 27 && postac.GetX() == 35)) || (postac.GetY() == 27 && postac.GetX() == 93)) {
                         postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY());

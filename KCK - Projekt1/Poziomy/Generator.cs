@@ -26,7 +26,7 @@ namespace EscapeRoom.Poziomy
                 //Rysowanie Przeszkód poziomu:
                 Narysuj("KCKLava1.txt", 22, 23, ConsoleColor.Red);
                 Narysuj("KCKLava2.txt", 49, 13, ConsoleColor.Red);
-                Narysuj("KCKLava3.txt", 102, 22, ConsoleColor.Red);
+                Narysuj("KCKLava3.txt", 103, 22, ConsoleColor.Red);
                 Narysuj("KCKPrzeszkoda1.txt", 31, 23, null);
                 Narysuj("KCKPrzeszkoda2.txt", 67, 12, null);
 
@@ -38,7 +38,7 @@ namespace EscapeRoom.Poziomy
                 nazwaPoziomu = "Poziom2.txt";
 
                 //Rysowanie Przeszkód poziomu:
-                Narysuj("KCKPrzeszkoda3.txt", 1, 32, null);
+                Narysuj("KCKPrzeszkoda3.txt", 20, 27, null);
 
                 console(40, 2, "UWAŻAJ NA CZERWONE STRZAŁKI! NIE DAJ SIĘ USTRZELIĆ!", ConsoleColor.Yellow);
             }
@@ -114,7 +114,7 @@ namespace EscapeRoom.Poziomy
 
         private void NarysujPostac()
         {
-            console(postac.GetX(), postac.GetY(), "██", null);
+            postac.UstawPozPoczatkowa();
         }
 
         public void console(int x, int y, string str, ConsoleColor? colour)
