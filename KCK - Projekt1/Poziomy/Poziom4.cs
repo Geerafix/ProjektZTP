@@ -53,8 +53,7 @@ internal class Poziom4 : Generator
         przeciwnik4.SetKierunek(false);
         przeciwnik4.SetPozycja(18);
 
-
-        Thread.Sleep(1000);
+        Thread.Sleep(100);
 
         long pozostalyCzas;
 
