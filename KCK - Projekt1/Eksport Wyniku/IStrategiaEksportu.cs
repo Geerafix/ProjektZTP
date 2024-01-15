@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EscapeRoom
+namespace EscapeRoom.Eksport_Wyniku
 {
-    public interface IObserver
+    public interface IStrategiaEksportu
     {
-        void Update();
+        void Eksportuj(Wyniki wyniki);
     }
 }

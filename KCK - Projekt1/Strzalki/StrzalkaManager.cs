@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using EscapeRoom.Przeciwnik;
@@ -31,26 +32,48 @@ namespace EscapeRoom
 
         }
 
-        public void RuszStrzalki() {
-            foreach (var Str in strzalki) {
+        public void RuszStrzalki()
+        {
+            for (int i = strzalki.Count - 1; i >= 0; i--)
+            {
+                Strzala Str = strzalki[i];
+
                 Console.SetCursorPosition(Str.GetStrzalaX(), Str.GetStrzalaY());
                 Console.Write(" ");
-                if (Str.GetStrzalaX() >= Str.GetXpostaci()) {
+
+                int oldX = Str.GetStrzalaX();
+                int oldY = Str.GetStrzalaY();
+
+                if (Str.GetStrzalaX() > Str.GetXpostaci())
+                {
                     Str.SetStrzalaX(Str.GetStrzalaX() - 1);
                 }
-                if (Str.GetStrzalaX() <= Str.GetXpostaci()) {
+                else if (Str.GetStrzalaX() < Str.GetXpostaci())
+                {
                     Str.SetStrzalaX(Str.GetStrzalaX() + 1);
                 }
-                if (Str.GetStrzalaY() >= Str.GetYpostaci()) {
+
+                if (Str.GetStrzalaY() > Str.GetYpostaci())
+                {
                     Str.SetStrzalaY(Str.GetStrzalaY() - 1);
                 }
-                if (Str.GetStrzalaY() <= Str.GetYpostaci()) {
+                else if (Str.GetStrzalaY() < Str.GetYpostaci())
+                {
                     Str.SetStrzalaY(Str.GetStrzalaY() + 1);
                 }
 
-                RysujStrzalke(Str);
+                if (oldX == Str.GetStrzalaX() && oldY == Str.GetStrzalaY())
+                {
+                    strzalki.RemoveAt(i);
+                }
+                else
+                {
+                    RysujStrzalke(Str);
+                }
             }
         }
+
+
 
         public void RuszStrzalki2() {
             foreach (var Str in strzalki) {
@@ -66,15 +89,26 @@ namespace EscapeRoom
             Console.SetCursorPosition(0, 0);
         }
 
-        private void SprawdzIUsunStareObiekty() {
+        private void SprawdzIUsunStareObiekty()
+        {
+            for (int i = 0; i < strzalki.Count; i++)
+            {
+                Strzala currentArrow = strzalki[i];
 
-            for (int i = 0 ; i < strzalki.Count() ; i++) {
-                if (strzalki[i].GetStrzalaX() <= 21 || strzalki[i].GetStrzalaX() >= 109 || strzalki[i].GetStrzalaY() <= 5 || strzalki[i].GetStrzalaY() >= 31 || (strzalki[i].GetStrzalaX() == strzalki[i].GetXpostaci() && strzalki[i].GetStrzalaY() == strzalki[i].GetYpostaci())) {
-                    Console.SetCursorPosition(strzalki[i].GetStrzalaX(), strzalki[i].GetStrzalaY());
+                if (currentArrow.GetStrzalaX() <= 21 || currentArrow.GetStrzalaX() >= 109 ||
+                    currentArrow.GetStrzalaY() <= 5 || currentArrow.GetStrzalaY() >= 31 ||
+                    (currentArrow.GetStrzalaX() == currentArrow.GetXpostaci() && currentArrow.GetStrzalaY() == currentArrow.GetYpostaci()))
+                {
+                    Console.SetCursorPosition(currentArrow.GetStrzalaX(), currentArrow.GetStrzalaY());
                     Console.Write(" ");
                     strzalki.RemoveAt(i);
                 }
             }
+        }
+
+        public List<Strzala> GetStrzalki()
+        {
+            return strzalki;
         }
     }
 

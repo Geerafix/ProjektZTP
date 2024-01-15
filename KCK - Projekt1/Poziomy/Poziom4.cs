@@ -5,21 +5,11 @@ using System.Diagnostics;
 
 internal class Poziom4 : Generator
 {
-    Postac postac = Postac.pobierzPostac();
-    SoundPlayer sp = new SoundPlayer();
-
+    SoundPlayer soundplayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
-    char[] znakiPliku;
-    Random random = new Random();
-
     private long czas;
-
-    int pom = 0;
-
+    int mierz_czas = 0;
     bool KtoryStrzelecStrzela = true;
-
-    int czasownik = 0;
-
     private Stopwatch stoper = new Stopwatch();
 
     IPrzeciwnik przeciwnik1 = new PrzeciwnikChodzacy();
@@ -32,40 +22,15 @@ internal class Poziom4 : Generator
     public Poziom4(long czas)
     {
         Console.Clear();
-
         this.czas = czas;
-
         stoper.Start();
-
-        string sciezkaDoPliku = "KCKPoziom3.txt";
-
-        string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
-
-        znakiPliku = zawartoscPliku.ToCharArray();
-
-        int pom = 0; //zmienna która liczy ilość wgranych znaków z plików
-
-        foreach (char c in znakiPliku)
-        {
-            pom++;
-            if ((pom >= 175 && pom <= 200) || (pom >= 285 && pom <= 302))
-            {
-                Console.ForegroundColor = ConsoleColor.Green; //Brama do drugiego poziomu jst koloru zielonego
-            }
-            Console.Write(c);
-            Console.ResetColor();
-        }
     }
-
 
     protected override void Rysuj()
     {
         przeciwnik1 = new Szybkosc(przeciwnik1);
-
         przeciwnik2 = new Wielkosc(przeciwnik2);
-
         przeciwnik3 = new Wielkosc(new Szybkosc(przeciwnik3));
-
         przeciwnik4 = new Szybkosc(new Wielkosc(przeciwnik4));
 
         przeciwnik1.SetX(30);
@@ -91,24 +56,17 @@ internal class Poziom4 : Generator
 
         Thread.Sleep(1000);
 
-        console(35, 1, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
-
-        //Ustaw pozycję postaci i narysuj postać
-        postac.UstawPozPoczatkowa();
-
         long pozostalyCzas;
 
         for (; ; )
         {
             Thread.Sleep(1);
-
-            pom++;
-
+            mierz_czas++;
             pozostalyCzas = stoper.ElapsedMilliseconds;
-
             console(62, 0, "Czas: " +  (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
 
-            if (pom % 1 == 0) //Tutaj zrobić żeby poruszali się z różną prędkością
+
+            if (mierz_czas % 1 == 0)
             {
                 WyczyscPrzeciwnika(przeciwnik1);
                 RuszPrzeciwnika(przeciwnik1);
@@ -120,7 +78,7 @@ internal class Poziom4 : Generator
                 RuszPrzeciwnika(przeciwnik4);
             }
 
-            if (pom % 1000 == 0)
+            if (mierz_czas % 100 == 0)
             {
 
                 //Strzelcy strzelają na zmianę
@@ -136,7 +94,7 @@ internal class Poziom4 : Generator
                 }
             }
 
-            if (pom % 15 == 0)
+            if (mierz_czas % 7 == 0)
             {
                 Strzalki.RuszStrzalki();
             }
@@ -153,7 +111,7 @@ internal class Poziom4 : Generator
 
                 if (przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
-                    if (postac.GetY() >= 4) //Górna granica mapy
+                    if (postac.GetY() >= 6) //Górna granica mapy
                     {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
                     }
@@ -190,17 +148,16 @@ internal class Poziom4 : Generator
             }
 
             //Jeżeli postać jest na kordynatach bramy
-            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 3 && postac.GetY() <= 4)
+            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 5 && postac.GetY() <= 6)
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
                 Thread thread = new Thread(() => {
-                    sp.generate(500, 0.5, 10);
-                    sp.generate(400, 0.5, 10);
-                    sp.generate(600, 0.5, 10);
+                    soundplayer.generate(500, 0.5, 10);
+                    soundplayer.generate(400, 0.5, 10);
+                    soundplayer.generate(600, 0.5, 10);
                 });
                 thread.Start();
-                //Wyniki wynik = new Wyniki(czas); //Przenieś do Wyników
                 
                 TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
                 Wyniki wyniki = new Wyniki(czas, tabelaWynikow);
@@ -216,7 +173,7 @@ internal class Poziom4 : Generator
 
                 Thread thread = new Thread(() => {
                     for (int i = 140 ; i >= 0 ; i -= 10) {
-                        sp.generate(i, 0.5, 7);
+                        soundplayer.generate(i, 0.5, 7);
                     }
                 });
                 thread.Start();
@@ -225,7 +182,7 @@ internal class Poziom4 : Generator
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
 
-                int liczCzas = 10000; //zmienna pomocnicza, do migania wiadomości
+                int liczCzas = 10000; //zmienna pomocnicza, do migania wiadomościami
 
                 for (; ; )
                 {
@@ -243,8 +200,6 @@ internal class Poziom4 : Generator
                         liczCzas = 0;
                     }
 
-                    Thread.Sleep(2000);
-
                     if (Console.KeyAvailable)
                     {
                         przycisk = Console.ReadKey(true);
@@ -253,7 +208,8 @@ internal class Poziom4 : Generator
                         {
                             Console.ResetColor();
                             stoper.Restart();
-                            Generator poziom = new Poziom3(czas);
+                            Generator poziom = new Poziom4(czas);
+                            poziom.GenerujPoziom();
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
@@ -267,23 +223,44 @@ internal class Poziom4 : Generator
             }
         }
     }
-    private bool CzyTrafiony() //Czy nasz bohater został dorwany przez przeciwnika
+    //Czy nasz bohater został dorwany przez przeciwnika
+    private bool CzyTrafiony()
     {
-        if (postac.GetX() >= przeciwnik1.GetX() && postac.GetX() <= przeciwnik1.GetX() + przeciwnik1.Wielkosc() && postac.GetY() >= przeciwnik1.GetY() && postac.GetY() <= przeciwnik1.GetY() + przeciwnik1.Wielkosc()) {
+        foreach (var strzala in Strzalki.GetStrzalki())
+        {
+            if ((postac.GetX() >= strzala.GetStrzalaX() &&
+                postac.GetX() <= strzala.GetStrzalaX() &&
+                postac.GetY() >= strzala.GetStrzalaY() &&
+                postac.GetY() <= strzala.GetStrzalaY()) ||
+                (postac.GetX()+1 >= strzala.GetStrzalaX() &&
+                postac.GetX()+1 <= strzala.GetStrzalaX() &&
+                postac.GetY() >= strzala.GetStrzalaY() &&
+                postac.GetY() <= strzala.GetStrzalaY()))
+            {
+                return true;
+            }
+        }
+
+        if (postac.GetX() >= przeciwnik1.GetX() && postac.GetX() <= przeciwnik1.GetX() + przeciwnik1.Wielkosc() && postac.GetY() >= przeciwnik1.GetY() 
+            && postac.GetY() <= przeciwnik1.GetY() + przeciwnik1.Wielkosc()) {
             return true;
         }
-        if (postac.GetX() >= przeciwnik2.GetX() && postac.GetX() <= przeciwnik2.GetX() + przeciwnik2.Wielkosc() && postac.GetY() >= przeciwnik2.GetY() && postac.GetY() <= przeciwnik2.GetY() + przeciwnik2.Wielkosc())
+        if (postac.GetX() >= przeciwnik2.GetX() && postac.GetX() <= przeciwnik2.GetX() + przeciwnik2.Wielkosc() && postac.GetY() >= przeciwnik2.GetY() 
+            && postac.GetY() <= przeciwnik2.GetY() + przeciwnik2.Wielkosc())
         {
             return true;
         }
-        if (postac.GetX() >= przeciwnik3.GetX() && postac.GetX() <= przeciwnik3.GetX() + przeciwnik3.Wielkosc() && postac.GetY() >= przeciwnik3.GetY() && postac.GetY() <= przeciwnik3.GetY() + przeciwnik3.Wielkosc())
+        if (postac.GetX() >= przeciwnik3.GetX() && postac.GetX() <= przeciwnik3.GetX() + przeciwnik3.Wielkosc() && postac.GetY() >= przeciwnik3.GetY() 
+            && postac.GetY() <= przeciwnik3.GetY() + przeciwnik3.Wielkosc())
         {
             return true;
         }
-        if (postac.GetX() >= przeciwnik4.GetX() && postac.GetX() <= przeciwnik4.GetX() + przeciwnik4.Wielkosc() && postac.GetY() >= przeciwnik4.GetY() && postac.GetY() <= przeciwnik4.GetY() + przeciwnik4.Wielkosc())
+        if (postac.GetX() >= przeciwnik4.GetX() && postac.GetX() <= przeciwnik4.GetX() + przeciwnik4.Wielkosc() && postac.GetY() >= przeciwnik4.GetY() 
+            && postac.GetY() <= przeciwnik4.GetY() + przeciwnik4.Wielkosc())
         {
             return true;
         }
+
         return false;
     }
 
@@ -332,7 +309,7 @@ internal class Poziom4 : Generator
         {
             przeciwnik.SetKierunek(false);
             Thread thread = new Thread(() => {
-                sp.generate(200, 0.5, 10);
+                soundplayer.generate(200, 0.5, 10);
             });
             thread.Start();
             thread.Join();
@@ -341,18 +318,10 @@ internal class Poziom4 : Generator
         {
             przeciwnik.SetKierunek(true);
             Thread thread = new Thread(() => {
-                sp.generate(200, 0.5, 10);
+                soundplayer.generate(200, 0.5, 10);
             });
             thread.Start();
             thread.Join();
         }
-    }
-
-    public void console(int x, int y, string str, ConsoleColor? colour) {
-        Console.SetCursorPosition(x, y);
-        if (colour != null) Console.ForegroundColor = colour.Value;
-        Console.WriteLine(str);
-        Console.ResetColor();
-        Console.SetCursorPosition(0, 0);
     }
 }

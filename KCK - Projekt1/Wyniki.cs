@@ -1,16 +1,53 @@
-﻿using System;
+﻿using EscapeRoom.Eksport_Wyniku;
+using System;
 
 namespace EscapeRoom
 {
-    internal class Wyniki : IObservable
+    public class Wyniki : IObservable
     {
         private long czas;
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
         double czasWynik;
-        private DateTime data;
+        DateTime data;
+        string username;
 
         private List<IObserver> observers = new List<IObserver>();
+
+        private IStrategiaEksportu strategiaEksportu;
+
+        public void SetStrategiaEksportu(IStrategiaEksportu strategia)
+        {
+            strategiaEksportu = strategia;
+        }
+
+        public void EksportujWyniki()
+        {
+            if (strategiaEksportu != null)
+            {
+                strategiaEksportu.Eksportuj(this);
+            }
+            else
+            {
+                Console.WriteLine("Nie wybrano strategii eksportu.");
+            }
+        }
+
+        public DateTime getDate()
+        {
+            return data;
+        }
+
+        public double getTime()
+        {
+            return czasWynik;
+        }
+
+        public string getUsername()
+        {
+            return username;
+        }
+
 
         public Wyniki(long czas, TabelaWynikow tabelaWynikow)
         {
@@ -94,6 +131,8 @@ namespace EscapeRoom
                                 nazwa += keyInfo.KeyChar;
                             }
 
+                            username = nazwa;
+
                             // Wypisz aktualną zawartość nazwy.
                             Console.SetCursorPosition(65, 22);
                             Console.Write(new string(' ', 20)); // Wyczyść poprzednią zawartość
@@ -101,17 +140,75 @@ namespace EscapeRoom
                             Console.Write(nazwa);
                             tabelaWynikow.setTabela(nazwa, czasWynik, data);
                         }
-
-                        /*string fileName = "wyniki.txt";
-
-                        using (StreamWriter wyniki = new StreamWriter(fileName, true))
-                        {
-                            wyniki.WriteLine($"{nazwa} {czasWynik} {data.ToShortDateString()}");
-                        }*/
                         
-                        NotifyObservers();
-                    }
+                        NotifyObservers(); //Powiadom subskrybentów (w tym przypadku klasę TabelaWynikow)
 
+                        Console.SetCursorPosition(43, 26);
+                        Console.Write("Czy zapisać wynik w formie obrazka?");
+
+                        Console.SetCursorPosition(45, 28);
+                        Console.Write("1. Tak                2. Nie");
+
+                        for (; ; )
+                        {
+                            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                            if (keyInfo.Key == ConsoleKey.Escape)
+                            {
+                                Menu menu = new Menu();
+                            }
+
+                            if (keyInfo.Key == ConsoleKey.D1)
+                            {
+                                break;
+                            }
+
+                            if (keyInfo.Key == ConsoleKey.D2)
+                            {
+                                Menu menu = new Menu();
+                            }
+                        }
+
+                        Console.SetCursorPosition(45, 30);
+                        Console.Write("Wybierz format obrazka:");
+
+                        Console.SetCursorPosition(45, 32);
+                        Console.Write("1. PNG     2. JPEG     2. BMP");
+
+                        for (; ; )
+                        {
+                            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                            if (keyInfo.Key == ConsoleKey.Escape)
+                            {
+                                Menu menu = new Menu();
+                            }
+
+                            if (keyInfo.Key == ConsoleKey.D1)
+                            {
+                                SetStrategiaEksportu(new EksportPNG());
+                                EksportujWyniki();
+                                break;
+                            }
+
+                            if (keyInfo.Key == ConsoleKey.D2)
+                            {
+                                SetStrategiaEksportu(new EksportJPEG());
+                                EksportujWyniki();
+                                break;
+                            }
+
+                            if (keyInfo.Key == ConsoleKey.D3)
+                            {
+                                SetStrategiaEksportu(new EksportBMP());
+                                EksportujWyniki();
+                                break;
+                            }
+                        }
+
+                        Console.SetCursorPosition(40, 35);
+                        Console.Write("Naciśnij Esc by powrócić do menu głównego");
+                    }
 
                     if (przycisk.Key == ConsoleKey.Escape)
                     {
