@@ -318,6 +318,9 @@ namespace EscapeRoom
                                 Menu menu = new Menu();
                                 break;
                             }
+                        }
+                    }
+                }
             }
         }
     }
