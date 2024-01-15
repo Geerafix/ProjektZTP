@@ -1,5 +1,7 @@
 ﻿
 
+using System.Threading;
+
 namespace EscapeRoom
 {
     internal class Instrukcja
@@ -11,15 +13,7 @@ namespace EscapeRoom
         public Instrukcja()
         {
             Console.Clear();
-            Console.WriteLine("\n");
-            Console.WriteLine("                     _  _      ____  _____  ____  _     _  __ ____     _  ____ ");
-            Console.WriteLine("                    / \\/ \\  /|/ ___\\/__ __\\/  __\\/ \\ /\\/ |/ //   _\\   / |/  _ \\");
-            Console.WriteLine("                    | || |\\ |||    \\  / \\  |  \\/|| | |||   / |  /     | || / \\|");
-            Console.WriteLine("                    | || | \\||\\___ |  | |  |    /| \\_/||   \\ |  \\_ /\\_| || |-||");
-            Console.WriteLine("                    \\_/\\_/  \\|\\____/  \\_/  \\_/\\_\\\\____/\\_|\\_\\\\____/\\____/\\_/ \\|");
-            Console.WriteLine("\n");
-            Console.WriteLine("\n");
-            Console.WriteLine("\n");
+            RysujLogo();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("     W grze poruszasz się za pomocą strzałek albo za pomocą 'wsad': ");
 
@@ -133,6 +127,24 @@ namespace EscapeRoom
                 }
                 
             }
+        }
+
+        public void RysujLogo()
+        {
+            Console.WriteLine("\n");
+            string instrukcja = File.ReadAllText("../../../Assety/instrukcja.txt");
+            Console.SetCursorPosition(0, 3);
+            console(instrukcja, ConsoleColor.Cyan);
+            Console.WriteLine("\n");
+            Console.WriteLine("\n");
+            Console.WriteLine("\n");
+        }
+
+        public void console(string str, ConsoleColor? colour)
+        {
+            if (colour != null) Console.ForegroundColor = colour.Value;
+            Console.Write(str);
+            Console.ResetColor();
         }
     }
 }
