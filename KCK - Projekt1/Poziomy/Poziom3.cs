@@ -5,15 +5,10 @@ using System.Diagnostics;
 
 internal class Poziom3 : Generator
 {
-
-    Postac postac = Postac.pobierzPostac();
-
     private ConsoleKeyInfo przycisk;
-    char[] znakiPliku;
-
     private long czas;
-
     int czasownik = 0;
+    private Stopwatch stoper = new Stopwatch();
 
     private int EnemyX1 = 40;
     private int EnemyY1 = 7;
@@ -30,14 +25,10 @@ internal class Poziom3 : Generator
     private int EnemyX5 = 75;
     private int EnemyY5 = 8;
 
-    private Stopwatch stoper = new Stopwatch();
-
     public Poziom3(long czas)
     {
         Console.Clear();
-
         this.czas = czas;
-
         stoper.Start();
     }
 

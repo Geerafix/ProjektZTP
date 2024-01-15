@@ -4,12 +4,9 @@ using System.Diagnostics;
 
 internal class Poziom2 : Generator
 {
-    Postac postac = Postac.pobierzPostac();
-
     private ConsoleKeyInfo przycisk;
-    char[] znakiPliku;
-
     private long czas;
+    private Stopwatch stoper = new Stopwatch();
 
     int czas_strzalka = 0;
     int Strzalka1X = 109;
@@ -30,16 +27,11 @@ internal class Poziom2 : Generator
     int Strzalka8X = 21;
     int Strzalka8Y = 26;
 
-    private Stopwatch stoper = new Stopwatch();
-
     public Poziom2(long czas)
     {
         Console.Clear();
-
         stoper.Start();
-
         this.czas = czas;
-
     }
 
     protected override void Rysuj()
@@ -86,32 +78,35 @@ internal class Poziom2 : Generator
             }
 
 
-
             if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
             {
                 przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
 
                 if ((przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) && (postac.GetY() >= 6)) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
-                    if ((postac.GetX() == 35 && postac.GetY() == 28) || (postac.GetY() != 28) || (postac.GetX() == 93 && postac.GetY() == 28)) {
+                    if ((postac.GetX() == 35 && postac.GetY() == 28) || (postac.GetY() != 28) || (postac.GetX() == 93 && postac.GetY() == 28))
+                    {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
                     }
                 }
                 if ((przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) && (postac.GetY() <= 31)) //Jeżeli naciśnięta strzałka w dół lub "s"
                 {
-                    if ((postac.GetX() == 35 && postac.GetY() == 26) || (postac.GetY() != 26) || (postac.GetX() == 93 && postac.GetY() == 26)) {
+                    if ((postac.GetX() == 35 && postac.GetY() == 26) || (postac.GetY() != 26) || (postac.GetX() == 93 && postac.GetY() == 26))
+                    {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1);
                     }
                 }
                 if ((przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) && (postac.GetX() >= 21)) //Jeżeli naciśnięta strzałka w lewo lub "a"
                 {
-                    if (!((postac.GetY() == 27 && postac.GetX() == 35)) || (postac.GetY() == 27 && postac.GetX() == 93)) {
+                    if (!((postac.GetY() == 27 && postac.GetX() == 35)) || (postac.GetY() == 27 && postac.GetX() == 93))
+                    {
                         postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
                     }
                 }
                 if ((przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) && (postac.GetX() <= 109)) //Jeżeli naciśnięta strzałka w prawo lub "d"
                 {
-                    if (!((postac.GetY() == 27 && postac.GetX() == 35)) || (postac.GetY() == 27 && postac.GetX() == 93)) {
+                    if (!((postac.GetY() == 27 && postac.GetX() == 35)) || (postac.GetY() == 27 && postac.GetX() == 93))
+                    {
                         postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY());
                     }
                 }
@@ -124,8 +119,8 @@ internal class Poziom2 : Generator
                 }
             }
 
-                //Ustaw pozycję postaci i narysują postać
-                Console.SetCursorPosition(postac.GetX(), postac.GetY());
+            //Ustaw pozycję postaci i narysują postać
+            Console.SetCursorPosition(postac.GetX(), postac.GetY());
             Console.Write("██");
             Console.SetCursorPosition(0, 10);
 

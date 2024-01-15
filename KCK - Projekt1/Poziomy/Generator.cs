@@ -9,7 +9,7 @@ namespace EscapeRoom.Poziomy
     {
         private char[] znakiPliku;
 
-        private Postac postac = Postac.pobierzPostac();
+        protected Postac postac = Postac.pobierzPostac();
 
         public void GenerujPoziom()
         {
@@ -139,7 +139,7 @@ namespace EscapeRoom.Poziomy
 
         }
 
-        private void console(int x, int y, string znak, ConsoleColor kolor = ConsoleColor.White)
+        protected void console(int x, int y, string znak, ConsoleColor kolor = ConsoleColor.White)
         {
             Console.SetCursorPosition(x, y);
             Console.ForegroundColor = kolor;

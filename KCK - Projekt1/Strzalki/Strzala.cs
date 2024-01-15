@@ -12,8 +12,6 @@ namespace EscapeRoom {
         public int Xpostaci { get; set; }
         public int Ypostaci { get; set; }
 
-
-
         public Strzala() {
 
         }
