@@ -72,11 +72,6 @@ internal class Poziom4 : Generator
 
         Thread.Sleep(1000);
 
-        console(35, 1, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
-
-        //Ustaw pozycję postaci i narysuj postać
-        postac.UstawPozPoczatkowa();
-
         long pozostalyCzas;
 
         for (; ; )
@@ -134,7 +129,7 @@ internal class Poziom4 : Generator
 
                 if (przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
-                    if (postac.GetY() >= 4) //Górna granica mapy
+                    if (postac.GetY() >= 6) //Górna granica mapy
                     {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
                     }
@@ -171,7 +166,7 @@ internal class Poziom4 : Generator
             }
 
             //Jeżeli postać jest na kordynatach bramy
-            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 3 && postac.GetY() <= 4)
+            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 5 && postac.GetY() <= 6)
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();

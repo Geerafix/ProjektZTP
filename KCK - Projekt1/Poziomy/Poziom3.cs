@@ -94,7 +94,7 @@ internal class Poziom3 : Generator
 
                 if (przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) //Jeżeli naciśnięta strzałka w górę lub "w"
                 {
-                    if (postac.GetY() >= 4) //Górna granica mapy
+                    if (postac.GetY() >= 6) //Górna granica mapy
                     {
                         postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
                     }
@@ -135,11 +135,12 @@ internal class Poziom3 : Generator
             Console.SetCursorPosition(0, 0);
 
             //Jeżeli postać jest na kordynatach bramy
-            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 3 && postac.GetY() <= 4)
+            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 5 && postac.GetY() <= 6)
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
-                //Wyniki wynik = new Wyniki(czas); //Przenieś do Wyników
+                Generator poziom = new Poziom4(czas); //Przenieś do poziomu czwartego
+                poziom.GenerateLevel();
             }
 
             //JEŻELI POSTAĆ ZOSTAŁA ZABITA
