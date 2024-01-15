@@ -8,14 +8,14 @@ internal class Poziom4 : Generator
     private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private long czas;
-    int mierz_czas = 0;
-    bool KtoryStrzelecStrzela = true;
+    private int mierz_czas = 0;
+    private bool KtoryStrzelecStrzela = true;
     private Stopwatch stoper = new Stopwatch();
 
-    IPrzeciwnik przeciwnik1 = new PrzeciwnikChodzacy();
-    IPrzeciwnik przeciwnik2 = new PrzeciwnikStrzelajacy();
-    IPrzeciwnik przeciwnik3 = new PrzeciwnikChodzacy();
-    IPrzeciwnik przeciwnik4 = new PrzeciwnikStrzelajacy();
+    private IPrzeciwnik przeciwnik1 = new Szybkosc(new PrzeciwnikChodzacy());
+    private IPrzeciwnik przeciwnik2 = new Wielkosc(new PrzeciwnikStrzelajacy());
+    private IPrzeciwnik przeciwnik3 = new Wielkosc(new Szybkosc(new PrzeciwnikChodzacy()));
+    private IPrzeciwnik przeciwnik4 = new Szybkosc(new Wielkosc(new PrzeciwnikStrzelajacy()));
 
     StrzalkaManager Strzalki = new StrzalkaManager();
 
@@ -28,30 +28,7 @@ internal class Poziom4 : Generator
 
     protected override void Rysuj()
     {
-        przeciwnik1 = new Szybkosc(przeciwnik1);
-        przeciwnik2 = new Wielkosc(przeciwnik2);
-        przeciwnik3 = new Wielkosc(new Szybkosc(przeciwnik3));
-        przeciwnik4 = new Szybkosc(new Wielkosc(przeciwnik4));
-
-        przeciwnik1.SetX(30);
-        przeciwnik1.SetY(29);
-        przeciwnik1.SetKierunek(true);
-        przeciwnik1.SetPozycja(9);
-
-        przeciwnik2.SetX(50);
-        przeciwnik2.SetY(22);
-        przeciwnik2.SetKierunek(false);
-        przeciwnik2.SetPozycja(12);
-
-        przeciwnik3.SetX(80);
-        przeciwnik3.SetY(15);
-        przeciwnik3.SetKierunek(true);
-        przeciwnik3.SetPozycja(15);
-
-        przeciwnik4.SetX(70);
-        przeciwnik4.SetY(25);
-        przeciwnik4.SetKierunek(false);
-        przeciwnik4.SetPozycja(18);
+        InicjalizujPrzeciwnikow();
 
         Thread.Sleep(100);
 
@@ -62,24 +39,12 @@ internal class Poziom4 : Generator
             Thread.Sleep(1);
             mierz_czas++;
             pozostalyCzas = stoper.ElapsedMilliseconds;
-            console(62, 0, "Czas: " +  (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
+            console(62, 0, $"Czas: {(pozostalyCzas + czas) / 1000} s", ConsoleColor.DarkBlue);
 
-
-            if (mierz_czas % 1 == 0)
-            {
-                WyczyscPrzeciwnika(przeciwnik1);
-                RuszPrzeciwnika(przeciwnik1);
-                WyczyscPrzeciwnika(przeciwnik2);
-                RuszPrzeciwnika(przeciwnik2);
-                WyczyscPrzeciwnika(przeciwnik3);
-                RuszPrzeciwnika(przeciwnik3);
-                WyczyscPrzeciwnika(przeciwnik4);
-                RuszPrzeciwnika(przeciwnik4);
-            }
+            AktualizujPrzeciwnikow();
 
             if (mierz_czas % 100 == 0)
             {
-
                 //Strzelcy strzelają na zmianę
                 if (KtoryStrzelecStrzela == true)
                 {
@@ -98,119 +63,203 @@ internal class Poziom4 : Generator
                 Strzalki.RuszStrzalki();
             }
 
-            RysujPostac(przeciwnik1);
-            RysujPostac(przeciwnik2);
-            RysujPostac(przeciwnik3);
-            RysujPostac(przeciwnik4);
+            RysujPrzeciwnikow();
 
-            //PORUSZANIE POSTACIĄ
-            if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
+            PoruszaniePostacia();
+
+            SprawdzWarunkiKonca();
+        }
+    }
+
+    private void InicjalizujPrzeciwnikow()
+    {
+        InicjalizujPrzeciwnika(przeciwnik1, 30, 29, true, 9);
+        InicjalizujPrzeciwnika(przeciwnik2, 50, 22, false, 12);
+        InicjalizujPrzeciwnika(przeciwnik3, 80, 15, true, 15);
+        InicjalizujPrzeciwnika(przeciwnik4, 70, 25, false, 18);
+    }
+
+    private void InicjalizujPrzeciwnika(IPrzeciwnik przeciwnik, int x, int y, bool kierunek, int pozycja)
+    {
+        przeciwnik.SetX(x);
+        przeciwnik.SetY(y);
+        przeciwnik.SetKierunek(kierunek);
+        przeciwnik.SetPozycja(pozycja);
+    }
+
+    private void AktualizujPrzeciwnikow()
+    {
+        AktualizujPrzeciwnika(przeciwnik1);
+        AktualizujPrzeciwnika(przeciwnik2);
+        AktualizujPrzeciwnika(przeciwnik3);
+        AktualizujPrzeciwnika(przeciwnik4);
+    }
+
+    private void AktualizujPrzeciwnika(IPrzeciwnik przeciwnik)
+    {
+        WyczyscPrzeciwnika(przeciwnik);
+        RuszPrzeciwnika(przeciwnik);
+    }
+
+    private void RysujPrzeciwnikow()
+    {
+        RysujPostac(przeciwnik1);
+        RysujPostac(przeciwnik2);
+        RysujPostac(przeciwnik3);
+        RysujPostac(przeciwnik4);
+    }
+
+    private void PoruszaniePostacia()
+    {
+        if (Console.KeyAvailable)
+        {
+            przycisk = Console.ReadKey(true);
+            ObslugaKlawiszy();
+        }
+    }
+
+    private void ObslugaKlawiszy()
+    {
+        switch (przycisk.Key)
+        {
+            case ConsoleKey.UpArrow:
+            case ConsoleKey.W:
+                PoruszanieWGore();
+                break;
+            case ConsoleKey.DownArrow:
+            case ConsoleKey.S:
+                PoruszanieWDol();
+                break;
+            case ConsoleKey.LeftArrow:
+            case ConsoleKey.A:
+                PoruszanieWLewo();
+                break;
+            case ConsoleKey.RightArrow:
+            case ConsoleKey.D:
+                PoruszanieWPrawo();
+                break;
+            case ConsoleKey.Escape:
+                Wyjdz();
+                break;
+        }
+    }
+
+    private void PoruszanieWGore()
+    {
+        if (postac.GetY() >= 6)
+        {
+            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
+        }
+    }
+
+    private void PoruszanieWDol()
+    {
+        if (postac.GetY() <= 31)
+        {
+            postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1);
+        }
+    }
+
+    private void PoruszanieWLewo()
+    {
+        if (postac.GetX() >= 21)
+        {
+            postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
+        }
+    }
+
+    private void PoruszanieWPrawo()
+    {
+        if (postac.GetX() <= 109)
+        {
+            postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY());
+        }
+    }
+
+    private void SprawdzWarunkiKonca()
+    {
+        if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 5 && postac.GetY() <= 6)
+        {
+            ZakonczPoziom();
+        }
+
+        if (CzyTrafiony())
+        {
+            ObslugaSmierci();
+        }
+    }
+
+    private void ZakonczPoziom()
+    {
+        this.czas += stoper.ElapsedMilliseconds;
+        stoper.Stop();
+        soundPlayer.DzwiekPortalu();
+
+        TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
+        Wyniki wyniki = new Wyniki(czas, tabelaWynikow);
+    }
+
+    private void ObslugaSmierci()
+    {
+        soundPlayer.DzwiekTrafienia();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.SetCursorPosition(56, 15);
+        Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza
+        Console.SetCursorPosition(0, 0);
+
+        soundPlayer.DzwiekTrafienia();
+
+        this.czas += stoper.ElapsedMilliseconds;
+        stoper.Stop();
+
+        int liczCzas = 10000; //zmienna pomocnicza, do migania wiadomościami
+
+        for (; ; )
+        {
+            //Wyświetlenie wiadomości po śmierci gracza
+            liczCzas++;
+            if (liczCzas % 13000 == 0)
             {
-                przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
+                Console.SetCursorPosition(50, 16);
+                Console.WriteLine("                               ");
+            }
+            if (liczCzas % 15000 == 0)
+            {
+                Console.SetCursorPosition(50, 16);
+                Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
+                liczCzas = 0;
+            }
 
-                if (przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) //Jeżeli naciśnięta strzałka w górę lub "w"
+            if (Console.KeyAvailable)
+            {
+                przycisk = Console.ReadKey(true);
+
+                if (przycisk.Key == ConsoleKey.Spacebar)
                 {
-                    if (postac.GetY() >= 6) //Górna granica mapy
-                    {
-                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() - 1);
-                    }
+                    Console.ResetColor();
+                    stoper.Restart();
+                    Generator poziom = new Poziom4(czas);
+                    poziom.GenerujPoziom();
                 }
-                if (przycisk.Key == ConsoleKey.DownArrow || przycisk.Key == ConsoleKey.S) //Jeżeli naciśnięta strzałka w dół lub "s"
+                if (przycisk.Key == ConsoleKey.Escape)
                 {
-                    if (postac.GetY() <= 31) //Dolna granica mapy
-                    {
-                        postac.ZmienLokalizacje(postac.GetX(), postac.GetY() + 1);
-                    }
-                }
-                if (przycisk.Key == ConsoleKey.LeftArrow || przycisk.Key == ConsoleKey.A) //Jeżeli naciśnięta strzałka w lewo lub "a"
-                {
-                    if (postac.GetX() >= 21) //Lewa granica mapy
-                    {
-                        postac.ZmienLokalizacje(postac.GetX() - 1, postac.GetY());
-                    }
-                }
-                if (przycisk.Key == ConsoleKey.RightArrow || przycisk.Key == ConsoleKey.D) //Jeżeli naciśnięta strzałka w prawo lub "d"
-                {
-                    if (postac.GetX() <= 109) //Prawa granica mapy
-                    {
-                        postac.ZmienLokalizacje(postac.GetX() + 1, postac.GetY());
-                    }
-                }
-                if (przycisk.Key == ConsoleKey.Escape) //Wyjdź do menu
-                {
-                    postac.UstawPozPoczatkowa();
                     Wyjdz();
                     break;
                 }
-
-            }
-
-            //Jeżeli postać jest na kordynatach bramy
-            if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 5 && postac.GetY() <= 6)
-            {
-                this.czas += stoper.ElapsedMilliseconds;
-                stoper.Stop();
-                soundPlayer.DzwiekPortalu();
-                
-                TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
-                Wyniki wyniki = new Wyniki(czas, tabelaWynikow);
-            }
-
-            //JEŻELI POSTAĆ ZOSTAŁA ZABITA
-            if (CzyTrafiony())
-            {
-                soundPlayer.DzwiekTrafienia();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.SetCursorPosition(56, 15);
-                Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza
-                Console.SetCursorPosition(0, 0);
-
-                soundPlayer.DzwiekTrafienia();
-
-                this.czas += stoper.ElapsedMilliseconds;
-                stoper.Stop();
-
-                int liczCzas = 10000; //zmienna pomocnicza, do migania wiadomościami
-
-                for (; ; )
-                {
-                    //Wyświetlenie wiadomości po śmierci gracza
-                    liczCzas++;
-                    if (liczCzas % 13000 == 0)
-                    {
-                        Console.SetCursorPosition(50, 16);
-                        Console.WriteLine("                               ");
-                    }
-                    if (liczCzas % 15000 == 0)
-                    {
-                        Console.SetCursorPosition(50, 16);
-                        Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
-                        liczCzas = 0;
-                    }
-
-                    if (Console.KeyAvailable)
-                    {
-                        przycisk = Console.ReadKey(true);
-
-                        if (przycisk.Key == ConsoleKey.Spacebar)
-                        {
-                            Console.ResetColor();
-                            stoper.Restart();
-                            Generator poziom = new Poziom4(czas);
-                            poziom.GenerujPoziom();
-                        }
-                        if (przycisk.Key == ConsoleKey.Escape)
-                        {
-                            Wyjdz();
-                            break;
-                        }
-                    }
-                }
-
             }
         }
     }
-    //Czy nasz bohater został dorwany przez przeciwnika
+
+
+
+    private void KontynuujGre()
+    {
+        Console.ResetColor();
+        stoper.Restart();
+        Generator poziom = new Poziom4(czas);
+        poziom.GenerujPoziom();
+    }
+
     private bool CzyTrafiony()
     {
         foreach (var strzala in Strzalki.GetStrzalki())
@@ -219,8 +268,8 @@ internal class Poziom4 : Generator
                 postac.GetX() <= strzala.GetStrzalaX() &&
                 postac.GetY() >= strzala.GetStrzalaY() &&
                 postac.GetY() <= strzala.GetStrzalaY()) ||
-                (postac.GetX()+1 >= strzala.GetStrzalaX() &&
-                postac.GetX()+1 <= strzala.GetStrzalaX() &&
+                (postac.GetX() + 1 >= strzala.GetStrzalaX() &&
+                postac.GetX() + 1 <= strzala.GetStrzalaX() &&
                 postac.GetY() >= strzala.GetStrzalaY() &&
                 postac.GetY() <= strzala.GetStrzalaY()))
             {
@@ -228,26 +277,24 @@ internal class Poziom4 : Generator
             }
         }
 
-        if (postac.GetX() >= przeciwnik1.GetX() && postac.GetX() <= przeciwnik1.GetX() + przeciwnik1.Wielkosc() && postac.GetY() >= przeciwnik1.GetY() 
-            && postac.GetY() <= przeciwnik1.GetY() + przeciwnik1.Wielkosc()) {
-            return true;
-        }
-        if (postac.GetX() >= przeciwnik2.GetX() && postac.GetX() <= przeciwnik2.GetX() + przeciwnik2.Wielkosc() && postac.GetY() >= przeciwnik2.GetY() 
-            && postac.GetY() <= przeciwnik2.GetY() + przeciwnik2.Wielkosc())
+        foreach (var przeciwnik in new IPrzeciwnik[] { przeciwnik1, przeciwnik2, przeciwnik3, przeciwnik4 })
         {
-            return true;
-        }
-        if (postac.GetX() >= przeciwnik3.GetX() && postac.GetX() <= przeciwnik3.GetX() + przeciwnik3.Wielkosc() && postac.GetY() >= przeciwnik3.GetY() 
-            && postac.GetY() <= przeciwnik3.GetY() + przeciwnik3.Wielkosc())
-        {
-            return true;
-        }
-        if (postac.GetX() >= przeciwnik4.GetX() && postac.GetX() <= przeciwnik4.GetX() + przeciwnik4.Wielkosc() && postac.GetY() >= przeciwnik4.GetY() 
-            && postac.GetY() <= przeciwnik4.GetY() + przeciwnik4.Wielkosc())
-        {
-            return true;
+            if (CzyKolizjaZPrzeciwnikiem(przeciwnik))
+            {
+                return true;
+            }
         }
 
+        return false;
+    }
+
+    private bool CzyKolizjaZPrzeciwnikiem(IPrzeciwnik przeciwnik)
+    {
+        if (postac.GetX() >= przeciwnik.GetX() && postac.GetX() <= przeciwnik.GetX() + przeciwnik.Wielkosc()
+            && postac.GetY() >= przeciwnik.GetY() && postac.GetY() <= przeciwnik.GetY() + przeciwnik.Wielkosc())
+        {
+            return true;
+        }
         return false;
     }
 
@@ -255,8 +302,10 @@ internal class Poziom4 : Generator
     {
         Console.ForegroundColor = ConsoleColor.Red;
 
-        for (int i = 0 ; i < przeciwnik.Wielkosc() ; i++) {
-            for (int j = 0 ; j < przeciwnik.Wielkosc() ; j++) {
+        for (int i = 0; i < przeciwnik.Wielkosc(); i++)
+        {
+            for (int j = 0; j < przeciwnik.Wielkosc(); j++)
+            {
                 Console.SetCursorPosition(przeciwnik.GetX() + i, przeciwnik.GetY() + j);
                 Console.Write("█");
             }
@@ -280,31 +329,24 @@ internal class Poziom4 : Generator
 
     private void RuszPrzeciwnika(IPrzeciwnik przeciwnik)
     {
-        if (przeciwnik.GetKierunek() == true) 
-        {
-            przeciwnik.SetX(przeciwnik.GetX() - 1);
-            przeciwnik.SetY((int)(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
-        } 
-        else 
-        {
-            przeciwnik.SetX(przeciwnik.GetX() + 1);
-            przeciwnik.SetY((int)(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
-        }
+        int kierunek = przeciwnik.GetKierunek() ? -1 : 1;
+        przeciwnik.SetX(przeciwnik.GetX() + kierunek);
+        przeciwnik.SetY((int)(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
 
-        // Zmiana kierunku przy osiągnięciu granic
-        if (przeciwnik.GetX() <= 20)
+        ZmianaKierunku(przeciwnik);
+    }
+
+    private void ZmianaKierunku(IPrzeciwnik przeciwnik)
+    {
+        if (przeciwnik.GetX() <= 20 || przeciwnik.GetX() + przeciwnik.Wielkosc() >= 112)
         {
-            przeciwnik.SetKierunek(false);
-            soundPlayer.DzwiekOdbiciaOdSciany();
-        }
-        else if (przeciwnik.GetX() + przeciwnik.Wielkosc() >= 112)
-        {
-            przeciwnik.SetKierunek(true);
+            przeciwnik.SetKierunek(!przeciwnik.GetKierunek());
             soundPlayer.DzwiekOdbiciaOdSciany();
         }
     }
 
-    private void Wyjdz() {
+    private void Wyjdz()
+    {
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();

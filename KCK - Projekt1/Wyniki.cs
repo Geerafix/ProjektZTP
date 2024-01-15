@@ -272,9 +272,6 @@ namespace EscapeRoom
 
         private void Wyjdz() {
             Menu menu = new Menu();
-            menu.NarysujOpcje();
-            menu.RysujLogo();
-            menu.WlaczOpcje();
         }
     }
 
