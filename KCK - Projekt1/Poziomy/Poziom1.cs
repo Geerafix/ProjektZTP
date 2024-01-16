@@ -59,7 +59,6 @@ internal class Poziom1 : Generator
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
                             Wyjdz();
-                            break;
                         }
                         if (przycisk.Key == ConsoleKey.Spacebar)
                         {

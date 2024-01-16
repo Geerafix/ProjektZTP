@@ -1,5 +1,6 @@
 ﻿using EscapeRoom;
 using EscapeRoom.Poziomy;
+using EscapeRoom.ZapisGry;
 using System.Diagnostics;
 
 internal class Poziom2 : Generator
@@ -8,6 +9,7 @@ internal class Poziom2 : Generator
     private ConsoleKeyInfo przycisk;
     private long czas;
     private Stopwatch stoper = new Stopwatch();
+    private bool running = true;
 
     int czas_strzalka = 0;
     int Strzalka1X = 109;
@@ -37,7 +39,7 @@ internal class Poziom2 : Generator
 
     protected override void Rysuj()
     {
-        for (; ; )
+        while (running)
         {
             Thread.Sleep(1);
 
@@ -175,12 +177,12 @@ internal class Poziom2 : Generator
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
+                            running = false;
                             Wyjdz();
                             break;
                         }
                     }
                 }
-
             }
         }
     }
@@ -249,10 +251,11 @@ internal class Poziom2 : Generator
         return (nowyX, nowyY);
     }
 
-    private void Wyjdz() {
+    public void Wyjdz() {
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
         Menu menu = new Menu();
+        menu.ZapiszPoziom(czas, 2);
     }
 }

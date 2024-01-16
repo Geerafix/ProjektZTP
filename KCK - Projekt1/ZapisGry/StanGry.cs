@@ -29,12 +29,12 @@ public class StanGry {
         return this.Poziom;
     }
 
-    public long SetCzas(long Czas) {
-        return this.Czas = Czas;
+    public void SetCzas(long Czas) {
+        this.Czas = Czas;
     }
 
-    public int SetPoziom(int Poziom) {
-        return this.Poziom = Poziom;
+    public void SetPoziom(int Poziom) {
+        this.Poziom = Poziom;
     }
 }
 
