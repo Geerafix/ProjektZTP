@@ -1,7 +1,4 @@
 ﻿using EscapeRoom.Eksport_Wyniku;
-using System;
-using static System.Formats.Asn1.AsnWriter;
-using System.Media;
 
 namespace EscapeRoom
 {
@@ -66,11 +63,6 @@ namespace EscapeRoom
                 while (true) {
                     ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-                    if (keyInfo.Key == ConsoleKey.Escape) {
-                        Wyjdz();
-                        break;
-                    }
-
                     if (keyInfo.Key == ConsoleKey.D1) {
                         SetStrategiaEksportu(new EksportPNG());
                         EksportujWyniki();
@@ -98,39 +90,41 @@ namespace EscapeRoom
         public void CzyZapisacObrazek()
         {
             if (running) {
-                            Console.SetCursorPosition(43, 26);
-            Console.Write("Czy zapisać wynik w formie obrazka?");
+                Console.SetCursorPosition(43, 26);
+                Console.Write("Czy zapisać wynik w formie obrazka?");
 
-            Console.SetCursorPosition(45, 28);
-            Console.Write("1. Tak                2. Nie");
+                Console.SetCursorPosition(45, 28);
+                Console.Write("1. Tak                2. Nie");
 
-            while (true)
-            {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-
-                if (keyInfo.Key == ConsoleKey.Escape)
+                while (running)
                 {
-                    Wyjdz();
-                    break;
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                    if (keyInfo.Key == ConsoleKey.Escape)
+                    {
+                        running = false;
+                        Wyjdz();
+                        break;
+                    }
+
+                    if (keyInfo.Key == ConsoleKey.D1)
+                    {
+                        break;
+                    }
+
+                    if (keyInfo.Key == ConsoleKey.D2)
+                    {
+                        running = false;
+                        Wyjdz();
+                        break;
+                    }
                 }
 
-                if (keyInfo.Key == ConsoleKey.D1)
-                {
-                    break;
-                }
+                Console.SetCursorPosition(45, 30);
+                Console.Write("Wybierz format obrazka:");
 
-                if (keyInfo.Key == ConsoleKey.D2)
-                {
-                    Wyjdz();
-                    break;
-                }
-            }
-
-            Console.SetCursorPosition(45, 30);
-            Console.Write("Wybierz format obrazka:");
-
-            Console.SetCursorPosition(45, 32);
-            Console.Write("1. PNG     2. JPEG     3. BMP");
+                Console.SetCursorPosition(45, 32);
+                Console.Write("1. PNG     2. JPEG     3. BMP");
             }
         }
 
@@ -241,6 +235,8 @@ namespace EscapeRoom
                         CzyZapisacObrazek();
 
                         ZapiszObrazek();
+
+                        break;
                     }
 
                     if (przycisk.Key == ConsoleKey.Escape)
