@@ -251,6 +251,7 @@ namespace EscapeRoom
 
                     if (przycisk.Key == ConsoleKey.Escape)
                     {
+                        running = false;
                         Wyjdz();
                         break;
                     }
