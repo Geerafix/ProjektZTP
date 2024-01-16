@@ -109,6 +109,12 @@ namespace EscapeRoom
 
                     if (keyInfo.Key == ConsoleKey.D1)
                     {
+                        Console.SetCursorPosition(45, 30);
+                        Console.Write("Wybierz format obrazka:");
+
+                        Console.SetCursorPosition(45, 32);
+                        Console.Write("1. PNG     2. JPEG     3. BMP");
+                        ZapiszObrazek();
                         break;
                     }
 
@@ -119,12 +125,6 @@ namespace EscapeRoom
                         break;
                     }
                 }
-
-                Console.SetCursorPosition(45, 30);
-                Console.Write("Wybierz format obrazka:");
-
-                Console.SetCursorPosition(45, 32);
-                Console.Write("1. PNG     2. JPEG     3. BMP");
             }
         }
 
@@ -167,8 +167,10 @@ namespace EscapeRoom
                 Console.Write(new string(' ', 20)); // Wyczyść poprzednią zawartość
                 Console.SetCursorPosition(66, 22);
                 Console.Write(nazwa);
-                tabelaWynikow.setTabela(nazwa, czasWynik, data);
             }
+
+            tabelaWynikow.setTabela(nazwa, czasWynik, data);
+            NotifyObservers(); //Powiadom subskrybentów (w tym przypadku obiekt TabelaWynikow)
         }
 
         public void WypiszWynik()
@@ -230,18 +232,14 @@ namespace EscapeRoom
                     {
                         WpiszNazwe(tabelaWynikow);
 
-                        NotifyObservers(); //Powiadom subskrybentów (w tym przypadku obiekt TabelaWynikow)
-
                         CzyZapisacObrazek();
-
-                        ZapiszObrazek();
 
                         break;
                     }
 
                     if (przycisk.Key == ConsoleKey.Escape)
                     {
-                        Menu menu = new Menu();
+                        Wyjdz();
                         break;
                     }
                 }
