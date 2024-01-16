@@ -146,6 +146,11 @@ internal class Menu
         stanGry.ZapiszGre(ZapiszGreKomenda);
     }
 
+    public void ResetujGre()
+    {
+        stanGry.ResetujGre(ResetujGreKomenda);
+    }
+
     public void console(string str, ConsoleColor? colour) {
         if (colour != null) Console.ForegroundColor = colour.Value;
         Console.Write(str);

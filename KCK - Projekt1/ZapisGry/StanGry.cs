@@ -18,6 +18,8 @@ public class StanGry {
     }
 
     public void ResetujGre(IKomenda komenda) {
+        Czas = 0;
+        Poziom = 1;
         komenda.Wykonaj(this);
     }
 

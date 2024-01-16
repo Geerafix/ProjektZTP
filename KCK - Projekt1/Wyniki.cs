@@ -267,6 +267,7 @@ namespace EscapeRoom
 
         private void Wyjdz() {
             Menu menu = new Menu();
+            menu.ResetujGre();
         }
     }
 
