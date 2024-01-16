@@ -9,6 +9,7 @@ internal class Poziom3 : Generator
     private long czas;
     private int czasownik = 0;
     private Stopwatch stoper = new Stopwatch();
+    private bool running = true;
 
     private (int x, int y)[] przeciwnicy = new (int x, int y)[]
     {
@@ -30,7 +31,7 @@ internal class Poziom3 : Generator
     {
         InicjalizujPrzeciwnikow();
 
-        for (; ; )
+        while(running)
         {
             Thread.Sleep(1);
 
@@ -117,6 +118,7 @@ internal class Poziom3 : Generator
                 PoruszanieWPrawo();
                 break;
             case ConsoleKey.Escape:
+                running = false;
                 Wyjdz();
                 break;
         }
@@ -194,7 +196,7 @@ internal class Poziom3 : Generator
 
         int liczCzas = 10000;
 
-        for (; ; )
+        for(; ;)
         {
             //Wyświetlenie wiadomości po śmierci gracza
             liczCzas++;
@@ -224,6 +226,7 @@ internal class Poziom3 : Generator
                 }
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
+                    running = false;
                     Wyjdz();
                     break;
                 }
@@ -295,5 +298,6 @@ internal class Poziom3 : Generator
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
         Menu menu = new Menu();
+        menu.ZapiszPoziom(czas, 3);
     }
 }

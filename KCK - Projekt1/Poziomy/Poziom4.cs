@@ -11,6 +11,7 @@ internal class Poziom4 : Generator
     private int mierz_czas = 0;
     private bool KtoryStrzelecStrzela = true;
     private Stopwatch stoper = new Stopwatch();
+    private bool running = true;
 
     private IPrzeciwnik przeciwnik1 = new Szybkosc(new PrzeciwnikChodzacy());
     private IPrzeciwnik przeciwnik2 = new Wielkosc(new PrzeciwnikStrzelajacy());
@@ -34,7 +35,7 @@ internal class Poziom4 : Generator
 
         long pozostalyCzas;
 
-        for (; ; )
+        while(running)
         {
             Thread.Sleep(1);
             mierz_czas++;
@@ -139,6 +140,7 @@ internal class Poziom4 : Generator
                 PoruszanieWPrawo();
                 break;
             case ConsoleKey.Escape:
+                running = false;
                 Wyjdz();
                 break;
         }
@@ -243,6 +245,7 @@ internal class Poziom4 : Generator
                 }
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
+                    running = false;
                     Wyjdz();
                     break;
                 }
@@ -351,5 +354,6 @@ internal class Poziom4 : Generator
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
         Menu menu = new Menu();
+        menu.ZapiszPoziom(czas, 4);
     }
 }
