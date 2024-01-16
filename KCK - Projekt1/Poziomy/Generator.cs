@@ -10,7 +10,7 @@
         {
             Console.Clear();
             NarysujMape();
-            NarysujPortal("KCKPortal.txt", 64, 5, ConsoleColor.Green);
+            NarysujPortal("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
 
             string nazwaPoziomu = UstawNazwePoziomu();
 
@@ -30,22 +30,22 @@
 
             if (this is Poziom1)
             {
-                nazwaPoziomu = "Poziom1.txt";
+                nazwaPoziomu = "../../../Assety/Poziom1.txt";
                 console(45, 2, "UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!", ConsoleColor.Yellow);
             }
             else if (this is Poziom2)
             {
-                nazwaPoziomu = "Poziom2.txt";
+                nazwaPoziomu = "../../../Assety/Poziom2.txt";
                 console(40, 2, "UWAŻAJ NA CZERWONE STRZAŁKI! NIE DAJ SIĘ USTRZELIĆ!", ConsoleColor.Yellow);
             }
             else if (this is Poziom3)
             {
-                nazwaPoziomu = "Poziom3.txt";
+                nazwaPoziomu = "../../../Assety/Poziom3.txt";
                 console(35, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM! UWAGA! ONI CIĘ GONIĄ!", ConsoleColor.Yellow);
             }
             else if (this is Poziom4)
             {
-                nazwaPoziomu = "Poziom4.txt";
+                nazwaPoziomu = "../../../Assety/Poziom4.txt";
                 console(45, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
             }
 
@@ -61,15 +61,15 @@
         {
             if (this is Poziom1)
             {
-                Narysuj("KCKLava1.txt", 22, 23, ConsoleColor.Red);
-                Narysuj("KCKLava2.txt", 49, 13, ConsoleColor.Red);
-                Narysuj("KCKLava3.txt", 103, 22, ConsoleColor.Red);
-                Narysuj("KCKPrzeszkoda1.txt", 31, 23, null);
-                Narysuj("KCKPrzeszkoda2.txt", 67, 12, null);
+                Narysuj("../../../Assety/KCKLava1.txt", 22, 23, ConsoleColor.Red);
+                Narysuj("../../../Assety/KCKLava2.txt", 49, 13, ConsoleColor.Red);
+                Narysuj("../../../Assety/KCKLava3.txt", 103, 22, ConsoleColor.Red);
+                Narysuj("../../../Assety/KCKPrzeszkoda1.txt", 31, 23, null);
+                Narysuj("../../../Assety/KCKPrzeszkoda2.txt", 67, 12, null);
             }
             else if (this is Poziom2)
             {
-                Narysuj("KCKPrzeszkoda3.txt", 20, 27, null);
+                Narysuj("../../../Assety/KCKPrzeszkoda3.txt", 20, 27, null);
             }
             else if (this is Poziom3)
             {
@@ -95,7 +95,7 @@
 
         private void NarysujMape()
         {
-            string sciezkaDoPliku = "KCKMapa.txt";
+            string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
 
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
 
