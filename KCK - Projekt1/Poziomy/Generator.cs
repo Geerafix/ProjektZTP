@@ -3,6 +3,7 @@
     internal abstract class Generator
     {
         private char[] znakiPliku;
+        protected SoundPlayer soundPlayer = new SoundPlayer();
 
         protected Postac postac = Postac.pobierzPostac();
 

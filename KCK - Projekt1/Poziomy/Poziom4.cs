@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 internal class Poziom4 : Generator
 {
-    private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private long czas;
     private int mierz_czas = 0;

@@ -6,7 +6,6 @@ using System.Threading;
 
 internal class Poziom1 : Generator
 {
-    private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private Stopwatch stoper = new Stopwatch();
     private long czas;

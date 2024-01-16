@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 internal class Poziom2 : Generator
 {
-    private SoundPlayer soundPlayer = new SoundPlayer();
     private ConsoleKeyInfo przycisk;
     private long czas;
     private Stopwatch stoper = new Stopwatch();
