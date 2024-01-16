@@ -129,6 +129,7 @@ internal class Poziom2 : Generator
             {
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
+                running = false;
                 soundPlayer.DzwiekPortalu();
                 Generator poziom3 = new Poziom3(czas); //Przenieś do poziomu trzeciego
                 poziom3.GenerujPoziom();
@@ -174,6 +175,8 @@ internal class Poziom2 : Generator
                             stoper.Restart();
                             Generator poziom = new Poziom2(czas);
                             poziom.GenerujPoziom();
+                            running = false;
+                            break;
                         }
                         if (przycisk.Key == ConsoleKey.Escape)
                         {

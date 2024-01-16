@@ -11,6 +11,7 @@ internal class Poziom1 : Generator
     private Stopwatch stoper = new Stopwatch();
     private long czas;
     private Random random = new Random();
+    private bool running = true;
 
     public Poziom1(long czas)
     {
@@ -20,7 +21,7 @@ internal class Poziom1 : Generator
 
     protected override void Rysuj()
     {
-        while (true)
+        while (running)
         {
             Thread.Sleep(1);
 
@@ -70,12 +71,15 @@ internal class Poziom1 : Generator
 
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
+                            running = false;
                             Wyjdz();
+                            break;
                         }
                         if (przycisk.Key == ConsoleKey.Spacebar)
                         {
                             Console.ResetColor();
                             stoper.Restart();
+                            running = false;
                             Generator poziom = new Poziom1(czas);
                             poziom.GenerujPoziom();
                             break;
@@ -123,6 +127,7 @@ internal class Poziom1 : Generator
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
                     postac.UstawPozPoczatkowa();
+                    running = false;
                     Wyjdz();
                     break;
                 }
@@ -131,6 +136,7 @@ internal class Poziom1 : Generator
             if (postac.GetX() >= 64 && postac.GetX() <= 66 && postac.GetY() >= 5 && postac.GetY() <= 6)
             {
                 czas += stoper.ElapsedMilliseconds;
+                running = false;
                 stoper.Stop();
                 soundPlayer.DzwiekPortalu();
                 Generator poziom2 = new Poziom2(czas);

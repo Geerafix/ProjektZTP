@@ -35,7 +35,7 @@ internal class Poziom4 : Generator
 
         long pozostalyCzas;
 
-        while(running)
+        while (running)
         {
             Thread.Sleep(1);
             mierz_czas++;
@@ -196,7 +196,7 @@ internal class Poziom4 : Generator
         this.czas += stoper.ElapsedMilliseconds;
         stoper.Stop();
         soundPlayer.DzwiekPortalu();
-
+        running = false;
         TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
         Wyniki wyniki = new Wyniki(czas, tabelaWynikow);
     }
@@ -240,8 +240,10 @@ internal class Poziom4 : Generator
                 {
                     Console.ResetColor();
                     stoper.Restart();
+                    running = false;
                     Generator poziom = new Poziom4(czas);
                     poziom.GenerujPoziom();
+                    break;
                 }
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
@@ -253,12 +255,11 @@ internal class Poziom4 : Generator
         }
     }
 
-
-
     private void KontynuujGre()
     {
         Console.ResetColor();
         stoper.Restart();
+        running = false;
         Generator poziom = new Poziom4(czas);
         poziom.GenerujPoziom();
     }

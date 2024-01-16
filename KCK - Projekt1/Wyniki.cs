@@ -14,6 +14,7 @@ namespace EscapeRoom
         string username;
         private List<IObserver> observers = new List<IObserver>();
         private IStrategiaEksportu strategiaEksportu;
+        private bool running = true;
 
         public Wyniki(long czas, TabelaWynikow tabelaWynikow)
         {
@@ -61,51 +62,49 @@ namespace EscapeRoom
 
         public void ZapiszObrazek()
         {
-            for (; ; )
-            {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            if (running) {
+                while (true) {
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-                if (keyInfo.Key == ConsoleKey.Escape)
-                {
-                    Wyjdz();
-                    break;
+                    if (keyInfo.Key == ConsoleKey.Escape) {
+                        Wyjdz();
+                        break;
+                    }
+
+                    if (keyInfo.Key == ConsoleKey.D1) {
+                        SetStrategiaEksportu(new EksportPNG());
+                        EksportujWyniki();
+                        break;
+                    }
+
+                    if (keyInfo.Key == ConsoleKey.D2) {
+                        SetStrategiaEksportu(new EksportJPEG());
+                        EksportujWyniki();
+                        break;
+                    }
+
+                    if (keyInfo.Key == ConsoleKey.D3) {
+                        SetStrategiaEksportu(new EksportBMP());
+                        EksportujWyniki();
+                        break;
+                    }
                 }
 
-                if (keyInfo.Key == ConsoleKey.D1)
-                {
-                    SetStrategiaEksportu(new EksportPNG());
-                    EksportujWyniki();
-                    break;
-                }
-
-                if (keyInfo.Key == ConsoleKey.D2)
-                {
-                    SetStrategiaEksportu(new EksportJPEG());
-                    EksportujWyniki();
-                    break;
-                }
-
-                if (keyInfo.Key == ConsoleKey.D3)
-                {
-                    SetStrategiaEksportu(new EksportBMP());
-                    EksportujWyniki();
-                    break;
-                }
+                Console.SetCursorPosition(40, 35);
+                Console.Write("Naciśnij Esc by powrócić do menu głównego");
             }
-
-            Console.SetCursorPosition(40, 35);
-            Console.Write("Naciśnij Esc by powrócić do menu głównego");
         }
 
         public void CzyZapisacObrazek()
         {
-            Console.SetCursorPosition(43, 26);
+            if (running) {
+                            Console.SetCursorPosition(43, 26);
             Console.Write("Czy zapisać wynik w formie obrazka?");
 
             Console.SetCursorPosition(45, 28);
             Console.Write("1. Tak                2. Nie");
 
-            for (; ; )
+            while (true)
             {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
@@ -132,6 +131,7 @@ namespace EscapeRoom
 
             Console.SetCursorPosition(45, 32);
             Console.Write("1. PNG     2. JPEG     3. BMP");
+            }
         }
 
         public void WpiszNazwe(TabelaWynikow tabelaWynikow)
@@ -146,6 +146,7 @@ namespace EscapeRoom
 
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
+                    running = false;
                     Wyjdz();
                     break;
                 }
@@ -225,7 +226,7 @@ namespace EscapeRoom
 
             WypiszWynik();
 
-            for (; ; )
+            while (running)
             {
                 if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
                 {

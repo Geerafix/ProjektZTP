@@ -177,6 +177,7 @@ internal class Poziom3 : Generator
         this.czas += stoper.ElapsedMilliseconds;
         stoper.Stop();
         soundPlayer.DzwiekPortalu();
+        running = false;
         Generator poziom = new Poziom4(czas);
         poziom.GenerujPoziom();
     }
@@ -220,9 +221,11 @@ internal class Poziom3 : Generator
                 {
                     Console.ResetColor();
                     stoper.Restart();
+                    running = false;
                     soundPlayer.DzwiekPortalu();
                     Poziom3 poziom = new Poziom3(czas);
                     poziom.GenerujPoziom();
+                    break;
                 }
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
@@ -240,6 +243,7 @@ internal class Poziom3 : Generator
     {
         Console.ResetColor();
         stoper.Restart();
+        running = false;
         Poziom3 poziom = new Poziom3(czas);
         poziom.GenerujPoziom();
     }
