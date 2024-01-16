@@ -4,8 +4,7 @@ using static System.Formats.Asn1.AsnWriter;
 using System.Media;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace EscapeRoom
-{
+namespace EscapeRoom {
     public class TabelaWynikow : IObserver {
         string fileName = "../../../Assety/wyniki.txt";
         private ConsoleKeyInfo przycisk;
@@ -18,9 +17,7 @@ namespace EscapeRoom
 
         public TabelaWynikow() {
             string sciezkaDoPliku = "../../../Assety/TabelaWynikow.txt";
-
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
-
             znakiPliku = zawartoscPliku.ToCharArray();
 
             WyswietlRanking();
@@ -28,9 +25,7 @@ namespace EscapeRoom
 
         public TabelaWynikow(bool w) {
             string sciezkaDoPliku = "../../../Assety/TabelaWynikow.txt";
-
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
-
             znakiPliku = zawartoscPliku.ToCharArray();
 
             this.w = w;
@@ -57,12 +52,12 @@ namespace EscapeRoom
         public void WyswietlRanking() {
             Console.Clear();
 
-            int pom1 = 0; //zmienna która liczy ilość wgranych znaków z plików
+            int pom = 0; //zmienna która liczy ilość wgranych znaków z plików
 
             foreach (char c in znakiPliku) {
-                pom1++;
-                if (pom1 >= 0 && pom1 <= 230) {
-                    Console.ForegroundColor = ConsoleColor.Cyan; //Brama do drugiego poziomu jest koloru zielonego
+                pom++;
+                if (pom >= 0 && pom <= 230) {
+                    Console.ForegroundColor = ConsoleColor.Cyan; //Tytul jest koloru cyjanowego
                 }
                 Console.Write(c);
                 Console.ResetColor();
@@ -72,8 +67,6 @@ namespace EscapeRoom
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write("Wciśnij ESC. aby wrócić do MENU.");
             Console.ResetColor();
-
-            //WyswietlRanking();
 
             // Odczytaj wszystkie linie z pliku
             string[] wiersze = File.ReadAllLines(fileName);
@@ -91,12 +84,10 @@ namespace EscapeRoom
                     }
                 }
             }
-
             // Sortowanie wyników według czasu (rosnąco)
             wyniki.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 
-            int pom = 0;
-
+            pom = 0;
             // Wyświetlanie rankingu
             for (int i = 0 ; i < wyniki.Count ; i++) {
                 if (!running) return;
@@ -104,52 +95,24 @@ namespace EscapeRoom
                     Console.ForegroundColor = ConsoleColor.Yellow;
                 }
                 pom = i % 7;
-                Console.SetCursorPosition(40, 9 + pom * 4);
-                Console.Write("                                               ");
-                Console.SetCursorPosition(35, 9 + pom * 4);
-                Console.Write($"{i + 1}. {wyniki[i].Item1}");
-                Console.SetCursorPosition(55, 9 + pom * 4);
-                Console.Write($"{wyniki[i].Item2} sekund");
-                Console.SetCursorPosition(75, 9 + pom * 4);
-                Console.Write($"{wyniki[i].Item3}");
-                Console.ResetColor();
-                Console.SetCursorPosition(0, 0);
+
+                WypiszWynik(i, pom, wyniki[i].Item1, wyniki[i].Item2, wyniki[i].Item3);
 
                 if ((i + 1) % 7 == 0) {
 
                     if (wyniki.Count > i + 1) //Narysuj strzałkę w prawo
                     {
-                        Console.SetCursorPosition(94, 17);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write(" Naciśnij strzałkę w prawo,");
-                        Console.SetCursorPosition(92, 18);
-                        Console.Write(" aby sprawdzić reszte rankingu");
-                        Console.ResetColor();
-                        Console.SetCursorPosition(0, 0);
+                        TekstPrawejStrzalki();
                     }
                     if (i > 6) //Narysuj strzałkę w lewo
                     {
-                        Console.SetCursorPosition(3, 17);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("Naciśnij strzałkę w lewo,");
-                        Console.SetCursorPosition(7, 18);
-                        Console.Write(" aby wrócić");
-                        Console.ResetColor();
-                        Console.SetCursorPosition(0, 0);
+                        TekstLewejStrzalki();
                     }
                     if ((i + 1 == wyniki.Count()) || ((wyniki.Count() % 7 == 0) && (wyniki.Count() - i <= 6))) {
-                        Console.SetCursorPosition(93, 17);
-                        Console.Write("                            ");
-                        Console.SetCursorPosition(92, 18);
-                        Console.Write("                                ");
-                        Console.SetCursorPosition(0, 0);
+                        CzyscLewyTekst();
                     }
                     if (i == 6) {
-                        Console.SetCursorPosition(3, 17);
-                        Console.Write("                          ");
-                        Console.SetCursorPosition(7, 18);
-                        Console.Write("            ");
-                        Console.SetCursorPosition(0, 0);
+                        CzyscPrawyTekst();
                     }
 
                     for ( ; ; )
@@ -161,17 +124,7 @@ namespace EscapeRoom
                             if (przycisk.Key == ConsoleKey.RightArrow && wyniki.Count() != i + 1) {
                                 //Rysowanie strzałki podczas kliknięcia
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                Console.SetCursorPosition(111, 19);
-                                Console.Write("_");
-                                Console.SetCursorPosition(107, 20);
-                                Console.Write("____"); Console.Write("\\ "); Console.Write("\\ ");
-                                Console.SetCursorPosition(106, 21);
-                                Console.Write("|____ ) )");
-                                Console.SetCursorPosition(111, 22);
-                                Console.Write("/_/");
-                                Console.ResetColor();
-                                Console.SetCursorPosition(0, 0);
-
+                                PrawaStrzalka();
                                 if (wyniki.Count - i <= 7) //Czyść nieużywane końcowe miejsca w tabeli
                                 {
                                     for (int j = 0 ; j < 7 ; j++) {
@@ -181,17 +134,7 @@ namespace EscapeRoom
                                     Console.SetCursorPosition(0, 0);
                                 }
                                 Thread.Sleep(100);
-
-                                //Odrysowanie strzałki podczas kliknięcia
-                                Console.SetCursorPosition(111, 19);
-                                Console.Write("_");
-                                Console.SetCursorPosition(107, 20);
-                                Console.Write("____"); Console.Write("\\ "); Console.Write("\\ ");
-                                Console.SetCursorPosition(106, 21);
-                                Console.Write("|____ ) )");
-                                Console.SetCursorPosition(111, 22);
-                                Console.Write("/_/");
-                                Console.SetCursorPosition(0, 0);
+                                PrawaStrzalka();
                                 break;
                             }
                             if (przycisk.Key == ConsoleKey.LeftArrow) {
@@ -199,30 +142,9 @@ namespace EscapeRoom
                                 {
                                     //Rysowanie strzałki podczas kliknięcia
                                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                    Console.SetCursorPosition(7, 19);
-                                    Console.Write("_");
-                                    Console.SetCursorPosition(6, 20);
-                                    Console.Write("/ /"); Console.Write("____");
-                                    Console.SetCursorPosition(5, 21);
-                                    Console.Write("( ( ____|");
-                                    Console.SetCursorPosition(6, 22);
-                                    Console.Write("\\_\\");
-                                    Console.ResetColor();
-                                    Console.SetCursorPosition(0, 0);
-                                    Thread.Sleep(100);
-
+                                    LewaStrzalka();
                                     i = i - 14;
-
-                                    Console.SetCursorPosition(7, 19);
-                                    Console.Write("_");
-                                    Console.SetCursorPosition(6, 20);
-                                    Console.Write("/ /"); Console.Write("____");
-                                    Console.SetCursorPosition(5, 21);
-                                    Console.Write("( ( ____|");
-                                    Console.SetCursorPosition(6, 22);
-                                    Console.Write("\\_\\");
-                                    Console.SetCursorPosition(0, 0);
-
+                                    LewaStrzalka();
                                     break;
                                 }
                             }
@@ -238,22 +160,11 @@ namespace EscapeRoom
                 }
                 if (i + 1 == wyniki.Count) //Jeżeli pętla jest na ostatnim wyniku
                 {
-
-                    Console.SetCursorPosition(93, 17);
-                    Console.Write("                            ");
-                    Console.SetCursorPosition(92, 18);
-                    Console.Write("                                ");
-                    Console.SetCursorPosition(0, 0);
-
+                    CzyscLewyTekst();
                     if (i + 1 >= 7) {
-                        Console.SetCursorPosition(3, 17);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("Naciśnij strzałkę w lewo,");
-                        Console.SetCursorPosition(7, 18);
-                        Console.Write(" aby wrócić");
-                        Console.ResetColor();
-                        Console.SetCursorPosition(0, 0);
+                        TekstLewejStrzalki();
                     }
+
                     for ( ; ; )
                     {
                         if (Console.KeyAvailable) {
@@ -262,32 +173,10 @@ namespace EscapeRoom
                             if (przycisk.Key == ConsoleKey.LeftArrow) {
                                 //Rysowanie strzałki podczas kliknięcia
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                Console.SetCursorPosition(7, 19);
-                                Console.Write("_");
-                                Console.SetCursorPosition(6, 20);
-                                Console.Write("/ /"); Console.Write("____");
-                                Console.SetCursorPosition(5, 21);
-                                Console.Write("( ( ____|");
-                                Console.SetCursorPosition(6, 22);
-                                Console.Write("\\_\\");
-                                Console.ResetColor();
-                                Console.SetCursorPosition(0, 0);
-                                Thread.Sleep(100);
-
-                                int pom2 = wyniki.Count % 7;
-                                i = i - pom2;
+                                LewaStrzalka();
+                                i = i - wyniki.Count % 7;
                                 i = i - 7;
-
-                                Console.SetCursorPosition(7, 19);
-                                Console.Write("_");
-                                Console.SetCursorPosition(6, 20);
-                                Console.Write("/ /"); Console.Write("____");
-                                Console.SetCursorPosition(5, 21);
-                                Console.Write("( ( ____|");
-                                Console.SetCursorPosition(6, 22);
-                                Console.Write("\\_\\");
-                                Console.SetCursorPosition(0, 0);
-
+                                LewaStrzalka();
                                 break;
                             }
 
@@ -300,6 +189,82 @@ namespace EscapeRoom
                     }
                 }
             }
+        }
+
+        private void TekstPrawejStrzalki() {
+            Console.SetCursorPosition(94, 17);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" Naciśnij strzałkę w prawo,");
+            Console.SetCursorPosition(92, 18);
+            Console.Write(" aby sprawdzić reszte rankingu");
+            Console.ResetColor();
+            Console.SetCursorPosition(0, 0);
+        }
+
+        private void TekstLewejStrzalki() {
+            Console.SetCursorPosition(3, 17);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Naciśnij strzałkę w lewo,");
+            Console.SetCursorPosition(7, 18);
+            Console.Write(" aby wrócić");
+            Console.ResetColor();
+            Console.SetCursorPosition(0, 0);
+        }
+
+        private void PrawaStrzalka() {
+            Console.SetCursorPosition(111, 19);
+            Console.Write("_");
+            Console.SetCursorPosition(107, 20);
+            Console.Write("____"); Console.Write("\\ "); Console.Write("\\ ");
+            Console.SetCursorPosition(106, 21);
+            Console.Write("|____ ) )");
+            Console.SetCursorPosition(111, 22);
+            Console.Write("/_/");
+            Console.ResetColor();
+            Console.SetCursorPosition(0, 0);
+        }
+
+        private void LewaStrzalka() {
+            Console.SetCursorPosition(7, 19);
+            Console.Write("_");
+            Console.SetCursorPosition(6, 20);
+            Console.Write("/ /"); Console.Write("____");
+            Console.SetCursorPosition(5, 21);
+            Console.Write("( ( ____|");
+            Console.SetCursorPosition(6, 22);
+            Console.Write("\\_\\");
+            Console.ResetColor();
+            Console.SetCursorPosition(0, 0);
+            Thread.Sleep(100);
+        }
+
+        private void CzyscLewyTekst() {
+            Console.SetCursorPosition(93, 17);
+            Console.Write("                            ");
+            Console.SetCursorPosition(92, 18);
+            Console.Write("                                ");
+            Console.SetCursorPosition(0, 0);
+        }
+
+        private void CzyscPrawyTekst() {
+            Console.SetCursorPosition(3, 17);
+            Console.Write("                          ");
+            Console.SetCursorPosition(7, 18);
+            Console.Write("            ");
+            Console.SetCursorPosition(0, 0);
+        }
+
+        private void WypiszWynik(int i, int pom, string item1, double item2, string item3) {
+            Console.SetCursorPosition(40, 9 + pom * 4);
+            Console.Write("                                               ");
+            Console.SetCursorPosition(35, 9 + pom * 4);
+            Console.Write($"{i + 1}. {item1}");
+            Console.SetCursorPosition(55, 9 + pom * 4);
+            Console.Write($"{item2} sekund");
+            Console.SetCursorPosition(75, 9 + pom * 4);
+            Console.Write($"{item3}");
+            Console.ResetColor();
+            Console.SetCursorPosition(0, 0);
         }
     }
 }
