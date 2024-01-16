@@ -1,6 +1,8 @@
-﻿using EscapeRoom.Poziomy;
+﻿using EscapeRoom;
+using EscapeRoom.Poziomy;
+using System;
 using System.Diagnostics;
-using EscapeRoom;
+using System.Threading;
 
 internal class Poziom1 : Generator
 {
@@ -23,15 +25,22 @@ internal class Poziom1 : Generator
             Thread.Sleep(1);
 
             long pozostalyCzas = stoper.ElapsedMilliseconds;
-            console(62, 0, "Czas: " + (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
+            Console.SetCursorPosition(62, 0);
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write("Czas: " + (pozostalyCzas + czas) / 1000 + " s");
+            Console.ResetColor();
 
             if ((postac.GetX() >= 22 && postac.GetX() <= 30 && postac.GetY() >= 23 && postac.GetY() <= 29) ||
                 (postac.GetX() >= 102 && postac.GetX() <= 110 && postac.GetY() >= 22 && postac.GetY() <= 30) ||
                 ((postac.GetX() >= 49 && postac.GetX() <= 66 && postac.GetY() >= 13 && postac.GetY() <= 22)))
             {
                 soundPlayer.DzwiekTrafienia();
-                console(54, 15, "Wpadłeś do lawy", ConsoleColor.Yellow);
-                console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
+                Console.SetCursorPosition(54, 15);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("Wpadłeś do lawy");
+                Console.SetCursorPosition(50, 16);
+                Console.Write("*Wcisnij SPACE aby kontynuować*");
+                Console.ResetColor();
 
                 czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
@@ -44,11 +53,14 @@ internal class Poziom1 : Generator
                     if (liczCzas % 13000 == 0)
                     {
                         Console.SetCursorPosition(50, 16);
-                        Console.WriteLine("                               ");
+                        Console.Write("                               ");
                     }
                     if (liczCzas % 15000 == 0)
                     {
-                        console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
+                        Console.SetCursorPosition(50, 16);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("*Wcisnij SPACE aby kontynuować*");
+                        Console.ResetColor();
                         liczCzas = 0;
                     }
 
@@ -128,7 +140,8 @@ internal class Poziom1 : Generator
         }
     }
 
-    private void Wyjdz() {
+    private void Wyjdz()
+    {
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
