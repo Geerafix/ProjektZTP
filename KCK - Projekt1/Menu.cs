@@ -6,8 +6,9 @@ internal class Menu
 {
     private SoundPlayer soundPlayer = new SoundPlayer();
     private StanGry stanGry;
-    private Thread thread;
+    private Thread thread, thread1;
     bool czyWatekDziala = true;
+    bool watekMenu = true;
     private IKomenda ZapiszGreKomenda;
     private IKomenda WczytajGreKomenda;
     private IKomenda ResetujGreKomenda;
@@ -72,48 +73,53 @@ internal class Menu
 
     public void WlaczOpcje() {
         ConsoleKeyInfo przycisk;
-        for ( ; ; )
-        {
-            if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
+
+        thread1 = new(() => {
+            while (watekMenu)
             {
-                przycisk = Console.ReadKey(true);
-
-                if (przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
+                if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
                 {
-                    WczytajPoziom(this.stanGry);
-                    break;
-                }
+                    przycisk = Console.ReadKey(true);
 
-                if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji
-                {
-                    czyWatekDziala = false;
-                    Opcje opcje = new Opcje();
-                }
+                    if (przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
+                    {
+                        WczytajPoziom(this.stanGry);
+                        break;
+                    }
 
-                if (przycisk.Key == ConsoleKey.D3) //Jeżeli wciśniemy 2 to idź do tabeli wyników
-                {
-                    czyWatekDziala = false;
-                    TabelaWynikow tabela = new TabelaWynikow();
-                }
+                    if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji
+                    {
+                        czyWatekDziala = false;
+                        Opcje opcje = new Opcje();
+                    }
 
-                if (przycisk.Key == ConsoleKey.D4) //Jeżeli wciśniemy 4 to wyświetl instrukcję
-                {
-                    czyWatekDziala = false;
-                    Instrukcja instrukcja = new Instrukcja();
-                }
+                    if (przycisk.Key == ConsoleKey.D3) //Jeżeli wciśniemy 2 to idź do tabeli wyników
+                    {
+                        czyWatekDziala = false;
+                        TabelaWynikow tabela = new TabelaWynikow();
+                    }
 
-                if (przycisk.Key == ConsoleKey.D5) //Jeżeli wciśniemy 5 to wyjdź z gry
-                {
-                    Console.Clear();
-                    Environment.Exit(0);
+                    if (przycisk.Key == ConsoleKey.D4) //Jeżeli wciśniemy 4 to wyświetl instrukcję
+                    {
+                        czyWatekDziala = false;
+                        Instrukcja instrukcja = new Instrukcja();
+                    }
+
+                    if (przycisk.Key == ConsoleKey.D5) //Jeżeli wciśniemy 5 to wyjdź z gry
+                    {
+                        Console.Clear();
+                        Environment.Exit(0);
+                    }
                 }
             }
-        }
+        });
+        thread1.Start();
     }
 
     public void WczytajPoziom(StanGry stanGry)
     {
         czyWatekDziala = false;
+        watekMenu = false;
         soundPlayer.DzwiekWejsciaDoGry();
         Generator poziom = null;
         switch (stanGry.GetPoziom())
@@ -135,9 +141,9 @@ internal class Menu
     }
 
     public void ZapiszPoziom(long czas, int poziom) {
-        this.stanGry.SetCzas(czas);
-        this.stanGry.SetPoziom(poziom);
-        this.stanGry.ZapiszGre(ZapiszGreKomenda);
+        stanGry.SetCzas(czas);
+        stanGry.SetPoziom(poziom);
+        stanGry.ZapiszGre(ZapiszGreKomenda);
     }
 
     public void console(string str, ConsoleColor? colour) {
