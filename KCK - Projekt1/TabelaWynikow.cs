@@ -1,9 +1,4 @@
 ﻿
-
-using static System.Formats.Asn1.AsnWriter;
-using System.Media;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace EscapeRoom {
     public class TabelaWynikow : IObserver {
         string fileName = "../../../Assety/wyniki.txt";

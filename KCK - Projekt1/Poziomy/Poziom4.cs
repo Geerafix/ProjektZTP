@@ -17,7 +17,7 @@ internal class Poziom4 : Generator
     private IPrzeciwnik przeciwnik3 = new Wielkosc(new Szybkosc(new PrzeciwnikChodzacy()));
     private IPrzeciwnik przeciwnik4 = new Szybkosc(new Wielkosc(new PrzeciwnikStrzelajacy()));
 
-    StrzalkaManager Strzalki = new StrzalkaManager();
+    private StrzalkaManager Strzalki = new StrzalkaManager();
 
     public Poziom4(long czas)
     {
@@ -64,9 +64,7 @@ internal class Poziom4 : Generator
             }
 
             RysujPrzeciwnikow();
-
             PoruszaniePostacia();
-
             SprawdzWarunkiKonca();
         }
     }
@@ -207,8 +205,6 @@ internal class Poziom4 : Generator
         Console.SetCursorPosition(56, 15);
         Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza
         Console.SetCursorPosition(0, 0);
-
-        soundPlayer.DzwiekTrafienia();
 
         this.czas += stoper.ElapsedMilliseconds;
         stoper.Stop();
@@ -353,7 +349,6 @@ internal class Poziom4 : Generator
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
-        Menu menu = new Menu();
-        menu.ZapiszPoziom(czas, 4);
+        Menu menu = new Menu(czas, 4);
     }
 }

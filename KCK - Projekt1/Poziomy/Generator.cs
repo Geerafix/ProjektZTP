@@ -4,7 +4,6 @@
     {
         private char[] znakiPliku;
         protected SoundPlayer soundPlayer = new SoundPlayer();
-
         protected Postac postac = Postac.pobierzPostac();
 
         public void GenerujPoziom()
@@ -16,10 +15,8 @@
             string nazwaPoziomu = UstawNazwePoziomu();
 
             NarysujPrzeszkodyINapis(nazwaPoziomu);
-
             NarysujLogoPoziomu(nazwaPoziomu);
             NarysujPostac();
-
             Rysuj();
         }
 

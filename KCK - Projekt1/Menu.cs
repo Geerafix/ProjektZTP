@@ -6,9 +6,6 @@ internal class Menu
 {
     private SoundPlayer soundPlayer = new SoundPlayer();
     private StanGry stanGry;
-    private Thread thread, thread1;
-    bool czyWatekDziala = true;
-    bool watekMenu = true;
     private IKomenda ZapiszGreKomenda;
     private IKomenda WczytajGreKomenda;
     private IKomenda ResetujGreKomenda;
@@ -25,29 +22,25 @@ internal class Menu
         this.stanGry.WczytajGre(WczytajGreKomenda);
 
         NarysujOpcje();
-        RysujLogo();
         WlaczOpcje();
     }
 
-    public void RysujLogo() {
-        string logoLewo = File.ReadAllText("../../../Assety/logoLewo.txt");
-        string logoPrawo = File.ReadAllText("../../../Assety/logoPrawo.txt");
-        int czestotliwosc = 300;
-        int x = 0;
+    public Menu(long czas, int poziom) {
+        Console.Clear();
 
-        thread = new(() => {
-            while (czyWatekDziala) {
-                Console.SetCursorPosition(0, 6);
-                if (x % 2 == 0) {
-                    console(logoLewo, ConsoleColor.Cyan);
-                } else {
-                    console(logoPrawo, ConsoleColor.Yellow);
-                }
-                Thread.Sleep(czestotliwosc);
-                ++x;
-            }
-        });
-        thread.Start();
+        ZapiszGreKomenda = new ZapiszGreKomenda();
+        WczytajGreKomenda = new WczytajGreKomenda();
+        ResetujGreKomenda = new ResetujGreKomenda();
+
+        this.stanGry = new StanGry();
+        if (poziom <= 4) {
+            ZapiszPoziom(czas, poziom);
+        } else {
+            ResetujGre();
+        }
+
+        NarysujOpcje();
+        WlaczOpcje();
     }
 
     public void NarysujOpcje() {
@@ -72,57 +65,60 @@ internal class Menu
     }
 
     public void WlaczOpcje() {
+        string logoLewo = File.ReadAllText("../../../Assety/logoLewo.txt");
+        string logoPrawo = File.ReadAllText("../../../Assety/logoPrawo.txt");
+        int czestotliwosc = 300;
+        int x = 0;
+
         ConsoleKeyInfo przycisk;
 
-        thread1 = new(() => {
-            while (watekMenu)
+        while (true)
+        {
+            Console.SetCursorPosition(0, 6);
+            if (x % 2 == 0) {
+                console(logoLewo, ConsoleColor.Cyan);
+            } else {
+                console(logoPrawo, ConsoleColor.Yellow);
+            }
+            Thread.Sleep(czestotliwosc);
+            ++x;
+
+            if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
             {
-                if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
+                przycisk = Console.ReadKey(true);
+
+                if (przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
                 {
-                    przycisk = Console.ReadKey(true);
+                    WczytajPoziom(this.stanGry);
+                    break;
+                }
 
-                    if (przycisk.Key == ConsoleKey.D1) //Jeżeli wciśniemy 1 to idź do poziomu 1
-                    {
-                        WczytajPoziom(this.stanGry);
-                        break;
-                    }
+                if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji
+                {
+                    Opcje opcje = new Opcje();
+                }
 
-                    if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji
-                    {
-                        watekMenu = false;
-                        czyWatekDziala = false;
-                        Opcje opcje = new Opcje();
-                    }
+                if (przycisk.Key == ConsoleKey.D3) //Jeżeli wciśniemy 2 to idź do tabeli wyników
+                {
+                    TabelaWynikow tabela = new TabelaWynikow();
+                }
 
-                    if (przycisk.Key == ConsoleKey.D3) //Jeżeli wciśniemy 2 to idź do tabeli wyników
-                    {
-                        watekMenu = false;
-                        czyWatekDziala = false;
-                        TabelaWynikow tabela = new TabelaWynikow();
-                    }
+                if (przycisk.Key == ConsoleKey.D4) //Jeżeli wciśniemy 4 to wyświetl instrukcję
+                {
+                    Instrukcja instrukcja = new Instrukcja();
+                }
 
-                    if (przycisk.Key == ConsoleKey.D4) //Jeżeli wciśniemy 4 to wyświetl instrukcję
-                    {
-                        watekMenu = false;
-                        czyWatekDziala = false;
-                        Instrukcja instrukcja = new Instrukcja();
-                    }
-
-                    if (przycisk.Key == ConsoleKey.D5) //Jeżeli wciśniemy 5 to wyjdź z gry
-                    {
-                        Console.Clear();
-                        Environment.Exit(0);
-                    }
+                if (przycisk.Key == ConsoleKey.D5) //Jeżeli wciśniemy 5 to wyjdź z gry
+                {
+                    Console.Clear();
+                    Environment.Exit(0);
                 }
             }
-        });
-        thread1.Start();
+        }
     }
 
     public void WczytajPoziom(StanGry stanGry)
     {
-        czyWatekDziala = false;
-        watekMenu = false;
         soundPlayer.DzwiekWejsciaDoGry();
         Generator poziom = null;
         switch (stanGry.GetPoziom())

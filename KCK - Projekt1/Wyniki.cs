@@ -5,10 +5,10 @@ namespace EscapeRoom
     public class Wyniki : IObservable
     {
         private ConsoleKeyInfo przycisk;
-        char[] znakiPliku;
-        double czasWynik;
-        DateTime data;
-        string username;
+        private char[] znakiPliku;
+        private double czasWynik;
+        private DateTime data;
+        private string username;
         private List<IObserver> observers = new List<IObserver>();
         private IStrategiaEksportu strategiaEksportu;
         private bool running = true;
@@ -17,11 +17,9 @@ namespace EscapeRoom
         {
             czasWynik = czas;
             czasWynik = czasWynik / 1000;
-
             data = DateTime.Now;
 
             AddObserver(tabelaWynikow); // Dodanie tabeli wyników jako obserwatora
-
             GenerujWyniki(tabelaWynikow);
         }
 
@@ -51,6 +49,7 @@ namespace EscapeRoom
             {
                 strategiaEksportu.Eksportuj(this);
             }
+
             else
             {
                 Console.WriteLine("Nie wybrano strategii eksportu.");

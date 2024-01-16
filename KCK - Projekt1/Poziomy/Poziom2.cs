@@ -1,6 +1,4 @@
-﻿using EscapeRoom;
-using EscapeRoom.Poziomy;
-using EscapeRoom.ZapisGry;
+﻿using EscapeRoom.Poziomy;
 using System.Diagnostics;
 
 internal class Poziom2 : Generator
@@ -10,24 +8,24 @@ internal class Poziom2 : Generator
     private Stopwatch stoper = new Stopwatch();
     private bool running = true;
 
-    int czas_strzalka = 0;
-    int Strzalka1X = 109;
-    int Strzalka1Y = 24;
-    int Strzalka2X = 109;
-    int Strzalka2Y = 20;
-    int Strzalka3X = 109;
-    int Strzalka3Y = 16;
-    int Strzalka4X = 109;
-    int Strzalka4Y = 12;
+    private int czas_strzalka = 0;
+    private int Strzalka1X = 109;
+    private int Strzalka1Y = 24;
+    private int Strzalka2X = 109;
+    private int Strzalka2Y = 20;
+    private int Strzalka3X = 109;
+    private int Strzalka3Y = 16;
+    private int Strzalka4X = 109;
+    private int Strzalka4Y = 12;
 
-    int Strzalka5X = 21;
-    int Strzalka5Y = 22;
-    int Strzalka6X = 21;
-    int Strzalka6Y = 18;
-    int Strzalka7X = 21;
-    int Strzalka7Y = 14;
-    int Strzalka8X = 21;
-    int Strzalka8Y = 26;
+    private int Strzalka5X = 21;
+    private int Strzalka5Y = 22;
+    private int Strzalka6X = 21;
+    private int Strzalka6Y = 18;
+    private int Strzalka7X = 21;
+    private int Strzalka7Y = 14;
+    private int Strzalka8X = 21;
+    private int Strzalka8Y = 26;
 
     public Poziom2(long czas)
     {
@@ -41,7 +39,6 @@ internal class Poziom2 : Generator
         while (running)
         {
             Thread.Sleep(1);
-
             // Wyświetl czas na ekranie.
             long pozostalyCzas = stoper.ElapsedMilliseconds;
             Console.SetCursorPosition(62, 0);
@@ -257,7 +254,6 @@ internal class Poziom2 : Generator
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
-        Menu menu = new Menu();
-        menu.ZapiszPoziom(czas, 2);
+        Menu menu = new Menu(czas, 2);
     }
 }
