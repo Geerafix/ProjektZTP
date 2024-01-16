@@ -89,18 +89,21 @@ internal class Menu
 
                     if (przycisk.Key == ConsoleKey.D2) //Jeżeli wciśniemy 2 to idź do opcji
                     {
+                        watekMenu = false;
                         czyWatekDziala = false;
                         Opcje opcje = new Opcje();
                     }
 
                     if (przycisk.Key == ConsoleKey.D3) //Jeżeli wciśniemy 2 to idź do tabeli wyników
                     {
+                        watekMenu = false;
                         czyWatekDziala = false;
                         TabelaWynikow tabela = new TabelaWynikow();
                     }
 
                     if (przycisk.Key == ConsoleKey.D4) //Jeżeli wciśniemy 4 to wyświetl instrukcję
                     {
+                        watekMenu = false;
                         czyWatekDziala = false;
                         Instrukcja instrukcja = new Instrukcja();
                     }

@@ -14,6 +14,7 @@ namespace EscapeRoom
         DateTime date;
         double time;
         bool w = false;
+        private bool running = true;
 
         public TabelaWynikow() {
             string sciezkaDoPliku = "../../../Assety/TabelaWynikow.txt";
@@ -60,7 +61,7 @@ namespace EscapeRoom
 
             foreach (char c in znakiPliku) {
                 pom1++;
-                if (pom1 >= 0 && pom1 <= 250) {
+                if (pom1 >= 0 && pom1 <= 230) {
                     Console.ForegroundColor = ConsoleColor.Cyan; //Brama do drugiego poziomu jest koloru zielonego
                 }
                 Console.Write(c);
@@ -98,6 +99,7 @@ namespace EscapeRoom
 
             // Wyświetlanie rankingu
             for (int i = 0 ; i < wyniki.Count ; i++) {
+                if (!running) return;
                 if (i == 0) {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                 }
@@ -112,7 +114,6 @@ namespace EscapeRoom
                 Console.Write($"{wyniki[i].Item3}");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 0);
-
 
                 if ((i + 1) % 7 == 0) {
 
@@ -227,7 +228,9 @@ namespace EscapeRoom
                             }
 
                             if (przycisk.Key == ConsoleKey.Escape) {
+                                running = false;
                                 Menu menu = new Menu();
+                                break;
                             }
 
                         }
@@ -289,6 +292,7 @@ namespace EscapeRoom
                             }
 
                             if (przycisk.Key == ConsoleKey.Escape) {
+                                running = false;
                                 Menu menu = new Menu();
                                 break;
                             }

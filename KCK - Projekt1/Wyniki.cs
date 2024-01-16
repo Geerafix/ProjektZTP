@@ -66,24 +66,36 @@ namespace EscapeRoom
                     if (keyInfo.Key == ConsoleKey.D1) {
                         SetStrategiaEksportu(new EksportPNG());
                         EksportujWyniki();
+                        Console.SetCursorPosition(40, 35);
+                        Console.Write("Naciśnij Esc by powrócić do menu głównego");
                         break;
                     }
 
                     if (keyInfo.Key == ConsoleKey.D2) {
                         SetStrategiaEksportu(new EksportJPEG());
                         EksportujWyniki();
+                        Console.SetCursorPosition(40, 35);
+                        Console.Write("Naciśnij Esc by powrócić do menu głównego");
                         break;
                     }
 
                     if (keyInfo.Key == ConsoleKey.D3) {
                         SetStrategiaEksportu(new EksportBMP());
                         EksportujWyniki();
+                        Console.SetCursorPosition(40, 35);
+                        Console.Write("Naciśnij Esc by powrócić do menu głównego");
                         break;
                     }
                 }
 
-                Console.SetCursorPosition(40, 35);
-                Console.Write("Naciśnij Esc by powrócić do menu głównego");
+                while (true) {
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                    if (keyInfo.Key == ConsoleKey.Escape) {
+                        Wyjdz();
+                        break;
+                    }
+                }
             }
         }
 
