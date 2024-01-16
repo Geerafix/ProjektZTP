@@ -329,7 +329,7 @@ internal class Poziom4 : Generator
     private void RuszPrzeciwnika(IPrzeciwnik przeciwnik)
     {
         int kierunek = przeciwnik.GetKierunek() ? -1 : 1;
-        przeciwnik.SetX(przeciwnik.GetX() + kierunek);
+        przeciwnik.SetX(przeciwnik.GetX() + kierunek + przeciwnik.Szybkosc() / 100000);
         przeciwnik.SetY((int)(przeciwnik.GetPozycja() + (Math.Sin(przeciwnik.GetX() / 5.0) * 2)));
 
         ZmianaKierunku(przeciwnik);
