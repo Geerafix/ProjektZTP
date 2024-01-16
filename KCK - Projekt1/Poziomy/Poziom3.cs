@@ -1,5 +1,4 @@
-﻿using EscapeRoom;
-using EscapeRoom.Poziomy;
+﻿using EscapeRoom.Poziomy;
 using System.Diagnostics;
 
 internal class Poziom3 : Generator
@@ -188,9 +187,6 @@ internal class Poziom3 : Generator
         Console.SetCursorPosition(56, 15);
         Console.WriteLine("Dopadł cie");
         Console.SetCursorPosition(0, 0);
-
-        soundPlayer.DzwiekTrafienia();
-
         this.czas += stoper.ElapsedMilliseconds;
         stoper.Stop();
 
@@ -205,6 +201,7 @@ internal class Poziom3 : Generator
                 Console.SetCursorPosition(50, 16);
                 Console.WriteLine("                               ");
             }
+
             if (liczCzas % 15000 == 0)
             {
                 Console.SetCursorPosition(50, 16);
@@ -215,7 +212,6 @@ internal class Poziom3 : Generator
             if (Console.KeyAvailable)
             {
                 przycisk = Console.ReadKey(true);
-
                 if (przycisk.Key == ConsoleKey.Spacebar)
                 {
                     Console.ResetColor();
@@ -235,8 +231,6 @@ internal class Poziom3 : Generator
             }
         }
     }
-
-
 
     private void KontynuujGre()
     {
@@ -300,7 +294,6 @@ internal class Poziom3 : Generator
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
-        Menu menu = new Menu();
-        menu.ZapiszPoziom(czas, 3);
+        Menu menu = new Menu(czas, 3);
     }
 }

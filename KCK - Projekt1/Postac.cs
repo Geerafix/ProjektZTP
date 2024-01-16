@@ -4,7 +4,7 @@
         private int PostacX;
         private int PostacY;
 
-        private static Postac postac = new Postac(); //DODAĆ STAMINĘ
+        private static Postac postac = new Postac();
 
         private Postac() {
             PostacX = 60;
@@ -51,6 +51,7 @@
         {
             this.PostacX = x;
         }
+
         public void SetY(int y) 
         {
             this.PostacY = y;

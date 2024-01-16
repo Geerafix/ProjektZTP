@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EscapeRoom.Przeciwnik
+﻿namespace EscapeRoom.Przeciwnik
 {
     internal class PrzeciwnikStrzelajacy : IPrzeciwnik
     {
@@ -24,37 +18,37 @@ namespace EscapeRoom.Przeciwnik
 
         public int GetX()
         {
-            return X;
+            return this.X;
         }
 
         public int GetY()
         {
-            return Y;
+            return this.Y;
         }
 
         public void SetX(int x)
         {
-            X = x;
+            this.X = x;
         }
         public void SetY(int y)
         {
-            Y = y;
+            this.Y = y;
         }
         public bool GetKierunek()
         {
-            return Kierunek;
+            return this.Kierunek;
         }
         public void SetKierunek(bool way)
         {
-            Kierunek = way;
+            this.Kierunek = way;
         }
         public int GetPozycja()
         {
-            return Pozycja;
+            return this.Pozycja;
         }
         public void SetPozycja(int pozycja)
         {
-            Pozycja = pozycja;
+            this.Pozycja = pozycja;
         }
     }
 }

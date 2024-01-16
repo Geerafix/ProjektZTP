@@ -1,13 +1,9 @@
 ﻿
-
-using System.Threading;
-
 namespace EscapeRoom
 {
     internal class Instrukcja
     {
-
-        Postac postac = Postac.pobierzPostac();
+        private Postac postac = Postac.pobierzPostac();
         private ConsoleKeyInfo przycisk;
 
         public Instrukcja()
@@ -15,36 +11,7 @@ namespace EscapeRoom
             Console.Clear();
             RysujLogo();
             RysujRamke();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
-            Console.SetCursorPosition(5, 14);
-            Console.WriteLine("W grze poruszasz się za pomocą strzałek albo za pomocą 'wsad': ");
-
-            Console.SetCursorPosition(3, 20);
-            Console.WriteLine("Wejdź się do zielonego portalu, aby dostać się do następnego poziomu: ");
-
-            Console.SetCursorPosition(4, 25);
-            Console.Write("Unikaj wszytkiego co jest czerwone, w innym przypadku zginiesz: ");
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.SetCursorPosition(78, 19);
-            Console.WriteLine("╔╗");
-            Console.SetCursorPosition(78, 20);
-            Console.WriteLine("╚╝");
-            Console.WriteLine();
-            Console.ResetColor();
-
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            Console.SetCursorPosition(70, 25);
-            Console.WriteLine(" -->       ██");
-            Console.ResetColor();
-
-
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.SetCursorPosition(47, 31);
-            Console.WriteLine("Wciśnij ESC aby wrócić do MENU");
-            Console.ResetColor();
+            RysujInstrukcje();
 
             postac.SetX(78);
             postac.SetY(12);
@@ -100,8 +67,7 @@ namespace EscapeRoom
                         break;
                     }
 
-
-                    //Ustaw pozycję postaci i narysują postać
+                    //Ustaw pozycję postaci i narysuj postać
                     Console.SetCursorPosition(postac.GetX(), postac.GetY());
                     Console.Write("██");
                     Console.SetCursorPosition(0, 0);
@@ -109,21 +75,52 @@ namespace EscapeRoom
             }
         }
 
-        public void RysujLogo()
+        private void RysujLogo()
         {
             string instrukcja = File.ReadAllText("../../../Assety/instrukcja.txt");
             Console.SetCursorPosition(0, 2);
             console(instrukcja, ConsoleColor.Cyan);
         }
 
-        public void RysujRamke()
+        private void RysujRamke()
         {
             string ramka = File.ReadAllText("../../../Assety/ramka.txt");
             Console.SetCursorPosition(75, 8);
             console(ramka, ConsoleColor.White);
         }
 
-        public void console(string str, ConsoleColor? colour)
+        private void RysujInstrukcje() {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.SetCursorPosition(5, 14);
+            Console.WriteLine("W grze poruszasz się za pomocą strzałek albo za pomocą 'wsad': ");
+
+            Console.SetCursorPosition(3, 20);
+            Console.WriteLine("Wejdź się do zielonego portalu, aby dostać się do następnego poziomu: ");
+
+            Console.SetCursorPosition(4, 25);
+            Console.Write("Unikaj wszytkiego co jest czerwone, w innym przypadku zginiesz: ");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.SetCursorPosition(78, 19);
+            Console.WriteLine("╔╗");
+            Console.SetCursorPosition(78, 20);
+            Console.WriteLine("╚╝");
+            Console.WriteLine();
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(70, 25);
+            Console.WriteLine(" -->       ██");
+            Console.ResetColor();
+
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.SetCursorPosition(47, 31);
+            Console.WriteLine("Wciśnij ESC aby wrócić do MENU");
+            Console.ResetColor();
+        }
+
+        private void console(string str, ConsoleColor? colour)
         {
             if (colour != null) Console.ForegroundColor = colour.Value;
             Console.Write(str);

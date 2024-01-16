@@ -1,11 +1,8 @@
 ﻿namespace EscapeRoom.Przeciwnik
 {
-
     public abstract class DekoratorPrzeciwnika : IPrzeciwnik
     {
-
-        IPrzeciwnik przeciwnik = null;
-
+        private IPrzeciwnik przeciwnik = null;
         protected int Przyspieszenie = 0;
         protected int Zwiekszenie = 0;
 
@@ -16,51 +13,51 @@
 
         public int Wielkosc()
         {
-            return przeciwnik.Wielkosc() + Zwiekszenie;
+            return this.przeciwnik.Wielkosc() + this.Zwiekszenie;
         }
         public int Szybkosc()
         {
-            return przeciwnik.Szybkosc() + Przyspieszenie;
+            return this.przeciwnik.Szybkosc() + this.Przyspieszenie;
         }
 
         public int GetX()
         {
-            return przeciwnik.GetX();
+            return this.przeciwnik.GetX();
         }
 
         public int GetY()
         {
-            return przeciwnik.GetY();
+            return this.przeciwnik.GetY();
         }
 
         public void SetX(int x)
         {
-            przeciwnik.SetX(x);
+            this.przeciwnik.SetX(x);
         }
 
         public void SetY(int y)
         {
-            przeciwnik.SetY(y);
+            this.przeciwnik.SetY(y);
         }
 
         public bool GetKierunek()
         {
-            return przeciwnik.GetKierunek();
+            return this.przeciwnik.GetKierunek();
         }
 
         public void SetKierunek(bool way)
         {
-            przeciwnik.SetKierunek(way);
+            this.przeciwnik.SetKierunek(way);
         }
 
         public int GetPozycja()
         {
-            return przeciwnik.GetPozycja();
+            return this.przeciwnik.GetPozycja();
         }
 
         public void SetPozycja(int pozycja)
         {
-            przeciwnik.SetPozycja(pozycja);
+            this.przeciwnik.SetPozycja(pozycja);
         }
     }
 }

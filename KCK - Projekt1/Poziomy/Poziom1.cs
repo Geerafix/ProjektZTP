@@ -1,15 +1,11 @@
-﻿using EscapeRoom;
-using EscapeRoom.Poziomy;
-using System;
+﻿using EscapeRoom.Poziomy;
 using System.Diagnostics;
-using System.Threading;
 
 internal class Poziom1 : Generator
 {
     private ConsoleKeyInfo przycisk;
     private Stopwatch stoper = new Stopwatch();
     private long czas;
-    private Random random = new Random();
     private bool running = true;
 
     public Poziom1(long czas)
@@ -150,6 +146,6 @@ internal class Poziom1 : Generator
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();
-        Menu menu = new Menu();
+        Menu menu = new Menu(czas, 1);
     }
 }
