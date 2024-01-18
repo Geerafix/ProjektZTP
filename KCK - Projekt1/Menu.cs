@@ -21,6 +21,8 @@ internal class Menu
         this.stanGry = new StanGry();
         this.stanGry.WczytajGre(WczytajGreKomenda);
 
+        KomunikatWykrytegoStanu();
+
         NarysujOpcje();
         WlaczOpcje();
     }
@@ -76,9 +78,9 @@ internal class Menu
         {
             Console.SetCursorPosition(0, 6);
             if (x % 2 == 0) {
-                console(logoLewo, ConsoleColor.Cyan);
+                console(0, 8, logoLewo, ConsoleColor.Cyan);
             } else {
-                console(logoPrawo, ConsoleColor.Yellow);
+                console(0, 8, logoPrawo, ConsoleColor.Yellow);
             }
             Thread.Sleep(czestotliwosc);
             ++x;
@@ -117,6 +119,33 @@ internal class Menu
         }
     }
 
+    private void KomunikatWykrytegoStanu() {
+        ConsoleKeyInfo przycisk;
+
+        if (stanGry.GetCzas() != 0 || stanGry.GetPoziom() != 1) {
+            console(49, 15, "Wykryto istniejący stan gry", ConsoleColor.Red);
+            console(55, 18, "Co chcesz zrobić?", ConsoleColor.White);
+            console(50, 21, "1. Wczytaj     2. Resetuj", ConsoleColor.Yellow);
+
+            while (true) {
+                if (Console.KeyAvailable) {
+                    przycisk = Console.ReadKey(true);
+
+                    if (przycisk.Key == ConsoleKey.D1) {
+                        Console.Clear();
+                        break;
+                    }
+
+                    if (przycisk.Key == ConsoleKey.D2) {
+                        Console.Clear();
+                        this.stanGry.ResetujGre(ResetujGreKomenda);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     public void WczytajPoziom(StanGry stanGry)
     {
         soundPlayer.DzwiekWejsciaDoGry();
@@ -150,9 +179,10 @@ internal class Menu
         stanGry.ResetujGre(ResetujGreKomenda);
     }
 
-    private void console(string str, ConsoleColor? colour) {
-        if (colour != null) Console.ForegroundColor = colour.Value;
-        Console.Write(str);
+    protected void console(int x, int y, string znak, ConsoleColor kolor = ConsoleColor.White) {
+        Console.SetCursorPosition(x, y);
+        Console.ForegroundColor = kolor;
+        Console.Write(znak);
         Console.ResetColor();
     }
 }
