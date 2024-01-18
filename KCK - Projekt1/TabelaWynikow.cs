@@ -58,10 +58,7 @@ namespace EscapeRoom {
                 Console.ResetColor();
             }
 
-            Console.SetCursorPosition(43, 38);
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write("Wciśnij ESC. aby wrócić do MENU.");
-            Console.ResetColor();
+            console(43, 38, "Wciśnij ESC. aby wrócić do MENU.", ConsoleColor.DarkYellow);
 
             // Odczytaj wszystkie linie z pliku
             string[] wiersze = File.ReadAllLines(fileName);
@@ -187,23 +184,13 @@ namespace EscapeRoom {
         }
 
         private void TekstPrawejStrzalki() {
-            Console.SetCursorPosition(94, 17);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write(" Naciśnij strzałkę w prawo,");
-            Console.SetCursorPosition(92, 18);
-            Console.Write(" aby sprawdzić reszte rankingu");
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
+            console(94, 17, " Naciśnij strzałkę w prawo,", ConsoleColor.Yellow);
+            console(92, 18, " aby sprawdzić reszte rankingu", ConsoleColor.Yellow);
         }
 
         private void TekstLewejStrzalki() {
-            Console.SetCursorPosition(3, 17);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("Naciśnij strzałkę w lewo,");
-            Console.SetCursorPosition(7, 18);
-            Console.Write(" aby wrócić");
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
+            console(3, 17, "Naciśnij strzałkę w lewo,", ConsoleColor.Yellow);
+            console(7, 18, " aby wrócić", ConsoleColor.Yellow);
         }
 
         private void PrawaStrzalka() {
@@ -260,6 +247,14 @@ namespace EscapeRoom {
             Console.Write($"{item3}");
             Console.ResetColor();
             Console.SetCursorPosition(0, 0);
+        }
+
+        private void console(int x, int y, string znak, ConsoleColor kolor = ConsoleColor.White)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.ForegroundColor = kolor;
+            Console.Write(znak);
+            Console.ResetColor();
         }
     }
 }

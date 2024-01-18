@@ -17,17 +17,14 @@ namespace EscapeRoom
             postac.SetY(12);
 
             //Ustaw pozycję postaci i narysują postać
-            Console.SetCursorPosition(postac.GetX(), postac.GetY());
-            Console.Write("██");
-            Console.SetCursorPosition(0, 0);
+            console(postac.GetX(), postac.GetY(), "██", ConsoleColor.White);
 
             for (; ; )
             {
                 if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
                 {
                     przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
-                    Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                    Console.Write("  ");
+                    console(postac.GetX(), postac.GetY(), "  ", ConsoleColor.White);
 
                     if (przycisk.Key == ConsoleKey.UpArrow || przycisk.Key == ConsoleKey.W) //Jeżeli naciśnięta strzałka w górę lub "w"
                     {
@@ -68,9 +65,7 @@ namespace EscapeRoom
                     }
 
                     //Ustaw pozycję postaci i narysuj postać
-                    Console.SetCursorPosition(postac.GetX(), postac.GetY());
-                    Console.Write("██");
-                    Console.SetCursorPosition(0, 0);
+                    console(postac.GetX(), postac.GetY(), "██", ConsoleColor.White);
                 }
             }
         }
@@ -78,52 +73,35 @@ namespace EscapeRoom
         private void RysujLogo()
         {
             string instrukcja = File.ReadAllText("../../../Assety/instrukcja.txt");
-            Console.SetCursorPosition(0, 2);
-            console(instrukcja, ConsoleColor.Cyan);
+            console(0, 2, instrukcja, ConsoleColor.Cyan);
         }
 
         private void RysujRamke()
         {
             string ramka = File.ReadAllText("../../../Assety/ramka.txt");
-            Console.SetCursorPosition(75, 8);
-            console(ramka, ConsoleColor.White);
+            console(75, 8, ramka, ConsoleColor.White);
         }
 
         private void RysujInstrukcje() {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.SetCursorPosition(5, 14);
-            Console.WriteLine("W grze poruszasz się za pomocą strzałek albo za pomocą 'wsad': ");
+            console(5, 14, "W grze poruszasz się za pomocą strzałek albo za pomocą 'wsad': ", ConsoleColor.Yellow);
 
-            Console.SetCursorPosition(3, 20);
-            Console.WriteLine("Wejdź się do zielonego portalu, aby dostać się do następnego poziomu: ");
+            console(3, 20, "Wejdź się do zielonego portalu, aby dostać się do następnego poziomu: ", ConsoleColor.Yellow);
 
-            Console.SetCursorPosition(4, 25);
-            Console.Write("Unikaj wszytkiego co jest czerwone, w innym przypadku zginiesz: ");
+            console(4, 25, "Unikaj wszytkiego co jest czerwone, w innym przypadku zginiesz: ", ConsoleColor.Yellow);
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.SetCursorPosition(78, 19);
-            Console.WriteLine("╔╗");
-            Console.SetCursorPosition(78, 20);
-            Console.WriteLine("╚╝");
-            Console.WriteLine();
-            Console.ResetColor();
+            console(78, 19, "╔╗", ConsoleColor.Green);
+            console(78, 20, "╚╝\n", ConsoleColor.Green);
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(70, 25);
-            Console.WriteLine(" -->       ██");
-            Console.ResetColor();
+            console(70, 25, " -->       ██", ConsoleColor.Red);
 
-
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.SetCursorPosition(47, 31);
-            Console.WriteLine("Wciśnij ESC aby wrócić do MENU");
-            Console.ResetColor();
+            console(47, 31, "Wciśnij ESC aby wrócić do MENU", ConsoleColor.DarkYellow);
         }
 
-        private void console(string str, ConsoleColor? colour)
+        private void console(int x, int y, string znak, ConsoleColor kolor = ConsoleColor.White)
         {
-            if (colour != null) Console.ForegroundColor = colour.Value;
-            Console.Write(str);
+            Console.SetCursorPosition(x, y);
+            Console.ForegroundColor = kolor;
+            Console.Write(znak);
             Console.ResetColor();
         }
     }

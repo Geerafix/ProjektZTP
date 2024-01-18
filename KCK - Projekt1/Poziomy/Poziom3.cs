@@ -20,19 +20,42 @@ internal class Poziom3 : Generator
 
     public Poziom3(long czas)
     {
-        Console.Clear();
         this.czas = czas;
-        stoper.Start();
+    }
+
+    protected override void NarysujMape() {
+        string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
+        string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
+        znakiPliku = zawartoscPliku.ToCharArray();
+
+        foreach (char c in znakiPliku) {
+            Console.Write(c);
+        }
+    }
+
+    protected override void NarysujPrzeszkodyINapis() {
+        string nazwaPoziomu = "../../../Assety/Poziom3.txt";
+        console(35, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM! UWAGA! ONI CIĘ GONIĄ!", ConsoleColor.Yellow);
+        Narysuj(nazwaPoziomu, 5, 35, null);
+    }
+
+    protected override void NarysujPortal() {
+        Narysuj("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
+    }
+
+    protected override void UstawPostac() {
+        postac.UstawPozPoczatkowa();
     }
 
     protected override void Rysuj()
     {
+        stoper.Start(); 
+
         InicjalizujPrzeciwnikow();
 
         while(running)
         {
             Thread.Sleep(1);
-
             AktualizujCzas();
             RysujPrzeciwnikow();
             PoruszaniePostacia();
@@ -51,10 +74,7 @@ internal class Poziom3 : Generator
     private void AktualizujCzas()
     {
         long pozostalyCzas = stoper.ElapsedMilliseconds;
-        Console.SetCursorPosition(62, 0);
-        Console.ForegroundColor = ConsoleColor.DarkBlue;
-        Console.Write($"Czas: {(pozostalyCzas + czas) / 1000} s");
-        Console.ResetColor();
+        console(62, 0, $"Czas: {(pozostalyCzas + czas) / 1000} s", ConsoleColor.DarkBlue);
         Console.SetCursorPosition(0, 0);
 
         czasownik++;
@@ -172,9 +192,9 @@ internal class Poziom3 : Generator
 
     private void ZakonczPoziom()
     {
+        soundPlayer.DzwiekPortalu();
         this.czas += stoper.ElapsedMilliseconds;
         stoper.Stop();
-        soundPlayer.DzwiekPortalu();
         running = false;
         Generator poziom = new Poziom4(czas);
         poziom.GenerujPoziom();
@@ -183,11 +203,9 @@ internal class Poziom3 : Generator
     private void ObslugaSmierci()
     {
         soundPlayer.DzwiekTrafienia();
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.SetCursorPosition(56, 15);
-        Console.WriteLine("Dopadł cie");
-        Console.SetCursorPosition(0, 0);
+        console(56, 15, "Dopadł cie", ConsoleColor.Yellow);
         this.czas += stoper.ElapsedMilliseconds;
+
         stoper.Stop();
 
         int liczCzas = 10000;
@@ -198,14 +216,12 @@ internal class Poziom3 : Generator
             liczCzas++;
             if (liczCzas % 13000 == 0)
             {
-                Console.SetCursorPosition(50, 16);
-                Console.WriteLine("                               ");
+                console(50, 16, "                               ", ConsoleColor.Yellow);
             }
 
             if (liczCzas % 15000 == 0)
             {
-                Console.SetCursorPosition(50, 16);
-                Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
+                console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
                 liczCzas = 0;
             }
 
@@ -214,11 +230,10 @@ internal class Poziom3 : Generator
                 przycisk = Console.ReadKey(true);
                 if (przycisk.Key == ConsoleKey.Spacebar)
                 {
-                    Console.ResetColor();
+                    soundPlayer.DzwiekPortalu();
                     stoper.Restart();
                     running = false;
-                    soundPlayer.DzwiekPortalu();
-                    Poziom3 poziom = new Poziom3(czas);
+                    Generator poziom = new Poziom3(czas);
                     poziom.GenerujPoziom();
                     break;
                 }
@@ -237,7 +252,7 @@ internal class Poziom3 : Generator
         Console.ResetColor();
         stoper.Restart();
         running = false;
-        Poziom3 poziom = new Poziom3(czas);
+        Generator poziom = new Poziom3(czas);
         poziom.GenerujPoziom();
     }
 
@@ -251,34 +266,14 @@ internal class Poziom3 : Generator
         return false;
     }
 
-    private void RysujPostac()
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.SetCursorPosition(postac.GetX(), postac.GetY());
-        Console.Write("██");
-        Console.ResetColor();
-        Console.SetCursorPosition(0, 0);
-    }
-
-    private void WyczyscPrzeciwnika((int x, int y) przeciwnik)
-    {
-        Console.SetCursorPosition(przeciwnik.x, przeciwnik.y);
-        Console.Write("  ");
-    }
-
     private void RysujPrzeciwnika(int x, int y)
     {
-        Console.SetCursorPosition(x, y);
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("██");
-        Console.ResetColor();
-        Console.SetCursorPosition(0, 0);
+        console(x, y, "██", ConsoleColor.Red);
     }
 
     private (int x, int y) PrzesunPrzeciwnika((int x, int y) przeciwnik)
     {
-        Console.SetCursorPosition(przeciwnik.x, przeciwnik.y);
-        Console.Write("  ");
+        console(przeciwnik.x, przeciwnik.y, "  ", ConsoleColor.White);
 
         if (postac.GetX() > przeciwnik.x) przeciwnik.x++;
         if (postac.GetX() < przeciwnik.x) przeciwnik.x--;

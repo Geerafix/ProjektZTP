@@ -29,23 +29,45 @@ internal class Poziom2 : Generator
 
     public Poziom2(long czas)
     {
-        Console.Clear();
-        stoper.Start();
         this.czas = czas;
+    }
+
+    protected override void NarysujMape() {
+        string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
+        string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
+        znakiPliku = zawartoscPliku.ToCharArray();
+
+        foreach (char c in znakiPliku) {
+            Console.Write(c);
+        }
+    }
+
+    protected override void NarysujPrzeszkodyINapis() {
+        string nazwaPoziomu = "../../../Assety/Poziom2.txt";
+        console(40, 2, "UWAŻAJ NA CZERWONE STRZAŁKI! NIE DAJ SIĘ USTRZELIĆ!", ConsoleColor.Yellow);
+        Narysuj("../../../Assety/KCKPrzeszkoda3.txt", 20, 27, null);
+        Narysuj(nazwaPoziomu, 5, 35, null);
+    }
+
+    protected override void NarysujPortal() {
+        Narysuj("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
+    }
+
+    protected override void UstawPostac() {
+        postac.UstawPozPoczatkowa();
     }
 
     protected override void Rysuj()
     {
+        stoper.Start();
+
         while (running)
         {
             Thread.Sleep(1);
             // Wyświetl czas na ekranie.
             long pozostalyCzas = stoper.ElapsedMilliseconds;
-            Console.SetCursorPosition(62, 0);
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write("Czas: " + (pozostalyCzas + czas) / 1000 + " s");
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
+
+            console(62, 0, "Czas: " + (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
 
             czas_strzalka++; //zmienna pomagająca ustalić prędkość strzałki
             if (czas_strzalka >= 10000) { czas_strzalka = 0; }
@@ -135,11 +157,9 @@ internal class Poziom2 : Generator
             if (CzyTrafiony())
             {
                 soundPlayer.DzwiekTrafienia();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.SetCursorPosition(55, 15);
-                Console.WriteLine("Zostałeś trafiony"); //Komunikat o śmierci gracza
-                Console.SetCursorPosition(50, 16);
-                Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
+
+                console(55, 15, "Zostałeś trafiony", ConsoleColor.Yellow);
+                console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
 
                 this.czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
@@ -151,13 +171,11 @@ internal class Poziom2 : Generator
                     liczCzas++;
                     if (liczCzas % 13000 == 0)
                     {
-                        Console.SetCursorPosition(50, 16);
-                        Console.WriteLine("                               ");
+                        console(50, 16, "                               ", ConsoleColor.Yellow);
                     }
                     if (liczCzas % 15000 == 0)
                     {
-                        Console.SetCursorPosition(50, 16);
-                        Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
+                        console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
                         liczCzas = 0;
                     }
 
@@ -215,10 +233,7 @@ internal class Poziom2 : Generator
             nowyX = 21;
         }
 
-        Console.SetCursorPosition(nowyX, nowyY); //Ustaw pozycję kursora na nową pozycję strzałki
-        Console.ForegroundColor = ConsoleColor.Red; //Ustaw kolor czerowny
-        Console.Write("->"); //Narysuj strzłkę
-        Console.ResetColor(); //Zresetuj ustawiony wcześniej kolor
+        console(nowyX, nowyY, "->", ConsoleColor.Red);
         Console.SetCursorPosition(0, 0);
 
         return (nowyX, nowyY);
@@ -241,10 +256,7 @@ internal class Poziom2 : Generator
             nowyX = 109;
         }
 
-        Console.SetCursorPosition(nowyX, nowyY); //Ustaw pozycję kursora na nową pozycję strzałki
-        Console.ForegroundColor = ConsoleColor.Red; //Ustaw kolor czerowny
-        Console.Write("<-"); //Narysuj strzłkę
-        Console.ResetColor(); //Zresetuj ustawiony wcześniej kolor
+        console(nowyX, nowyY, "<-", ConsoleColor.Red);
         Console.SetCursorPosition(0, 0);
 
         return (nowyX, nowyY);

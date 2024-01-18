@@ -11,32 +11,57 @@ internal class Poziom1 : Generator
     public Poziom1(long czas)
     {
         this.czas = czas;
-        stoper.Start();
+    }
+
+    protected override void NarysujMape() {
+        string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
+        string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
+        znakiPliku = zawartoscPliku.ToCharArray();
+
+        foreach (char c in znakiPliku) {
+            Console.Write(c);
+        }
+    }
+
+    protected override void NarysujPrzeszkodyINapis() {
+        string nazwaPoziomu = "../../../Assety/Poziom1.txt";
+        console(45, 2, "UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!", ConsoleColor.Yellow);
+        Narysuj("../../../Assety/KCKLava1.txt", 22, 23, ConsoleColor.Red);
+        Narysuj("../../../Assety/KCKLava2.txt", 49, 13, ConsoleColor.Red);
+        Narysuj("../../../Assety/KCKLava3.txt", 103, 22, ConsoleColor.Red);
+        Narysuj("../../../Assety/KCKPrzeszkoda1.txt", 31, 23, null);
+        Narysuj("../../../Assety/KCKPrzeszkoda2.txt", 67, 12, null);
+        Narysuj(nazwaPoziomu, 5, 35, null);
+    }
+
+    protected override void NarysujPortal() {
+        Narysuj("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
+    }
+
+    protected override void UstawPostac() {
+        postac.UstawPozPoczatkowa();
     }
 
     protected override void Rysuj()
     {
+        stoper.Start();
+
         while (running)
         {
             Thread.Sleep(1);
 
             long pozostalyCzas = stoper.ElapsedMilliseconds;
-            Console.SetCursorPosition(62, 0);
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write("Czas: " + (pozostalyCzas + czas) / 1000 + " s");
-            Console.ResetColor();
 
-            if ((postac.GetX() >= 22 && postac.GetX() <= 30 && postac.GetY() >= 23 && postac.GetY() <= 29) ||
+            console(62, 0, "Czas: " + (pozostalyCzas + czas) / 1000 + " s", ConsoleColor.DarkBlue);
+
+            if ((postac.GetX() >= 21 && postac.GetX() <= 30 && postac.GetY() >= 23 && postac.GetY() <= 29) ||
                 (postac.GetX() >= 102 && postac.GetX() <= 110 && postac.GetY() >= 22 && postac.GetY() <= 30) ||
-                ((postac.GetX() >= 49 && postac.GetX() <= 66 && postac.GetY() >= 13 && postac.GetY() <= 22)))
+                ((postac.GetX() >= 48 && postac.GetX() <= 66 && postac.GetY() >= 13 && postac.GetY() <= 22)))
             {
                 soundPlayer.DzwiekTrafienia();
-                Console.SetCursorPosition(54, 15);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("Wpadłeś do lawy");
-                Console.SetCursorPosition(50, 16);
-                Console.Write("*Wcisnij SPACE aby kontynuować*");
-                Console.ResetColor();
+
+                console(54, 15, "Wpadłeś do lawy", ConsoleColor.Yellow);
+                console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
 
                 czas += stoper.ElapsedMilliseconds;
                 stoper.Stop();
@@ -48,15 +73,11 @@ internal class Poziom1 : Generator
                     liczCzas++;
                     if (liczCzas % 13000 == 0)
                     {
-                        Console.SetCursorPosition(50, 16);
-                        Console.Write("                               ");
+                        console(50, 16, "                               ", ConsoleColor.White);
                     }
                     if (liczCzas % 15000 == 0)
                     {
-                        Console.SetCursorPosition(50, 16);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("*Wcisnij SPACE aby kontynuować*");
-                        Console.ResetColor();
+                        console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
                         liczCzas = 0;
                     }
 
@@ -66,13 +87,11 @@ internal class Poziom1 : Generator
 
                         if (przycisk.Key == ConsoleKey.Escape)
                         {
-                            running = false;
                             Wyjdz();
                             break;
                         }
                         if (przycisk.Key == ConsoleKey.Spacebar)
                         {
-                            Console.ResetColor();
                             stoper.Restart();
                             running = false;
                             Generator poziom = new Poziom1(czas);
@@ -122,7 +141,6 @@ internal class Poziom1 : Generator
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
                     postac.UstawPozPoczatkowa();
-                    running = false;
                     Wyjdz();
                     break;
                 }
@@ -143,6 +161,7 @@ internal class Poziom1 : Generator
 
     private void Wyjdz()
     {
+        running = false;
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();

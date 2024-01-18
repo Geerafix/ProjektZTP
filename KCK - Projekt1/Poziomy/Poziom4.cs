@@ -21,13 +21,37 @@ internal class Poziom4 : Generator
 
     public Poziom4(long czas)
     {
-        Console.Clear();
         this.czas = czas;
-        stoper.Start();
+    }
+
+    protected override void NarysujMape() {
+        string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
+        string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
+        znakiPliku = zawartoscPliku.ToCharArray();
+
+        foreach (char c in znakiPliku) {
+            Console.Write(c);
+        }
+    }
+
+    protected override void NarysujPrzeszkodyINapis() {
+        string nazwaPoziomu = "../../../Assety/Poziom1.txt";
+        console(45, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM!", ConsoleColor.Yellow);
+        Narysuj(nazwaPoziomu, 5, 35, null);
+    }
+
+    protected override void NarysujPortal() {
+        Narysuj("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
+    }
+
+    protected override void UstawPostac() {
+        postac.UstawPozPoczatkowa();
     }
 
     protected override void Rysuj()
     {
+        stoper.Start();
+
         InicjalizujPrzeciwnikow();
 
         Thread.Sleep(100);
@@ -201,10 +225,7 @@ internal class Poziom4 : Generator
     private void ObslugaSmierci()
     {
         soundPlayer.DzwiekTrafienia();
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.SetCursorPosition(56, 15);
-        Console.WriteLine("Dopadł cie"); //Komunikat o śmierci gracza
-        Console.SetCursorPosition(0, 0);
+        console(56, 15, "Dopadł cie", ConsoleColor.Yellow);
 
         this.czas += stoper.ElapsedMilliseconds;
         stoper.Stop();
@@ -216,14 +237,12 @@ internal class Poziom4 : Generator
             //Wyświetlenie wiadomości po śmierci gracza
             liczCzas++;
             if (liczCzas % 13000 == 0)
-            {
-                Console.SetCursorPosition(50, 16);
-                Console.WriteLine("                               ");
+            { 
+                console(50, 16, "                               ", ConsoleColor.Yellow);
             }
             if (liczCzas % 15000 == 0)
             {
-                Console.SetCursorPosition(50, 16);
-                Console.WriteLine("*Wcisnij SPACE aby kontynuować*");
+                console(50, 16, "*Wcisnij SPACE aby kontynuować*", ConsoleColor.Yellow);
                 liczCzas = 0;
             }
 
@@ -233,7 +252,6 @@ internal class Poziom4 : Generator
 
                 if (przycisk.Key == ConsoleKey.Spacebar)
                 {
-                    Console.ResetColor();
                     stoper.Restart();
                     running = false;
                     Generator poziom = new Poziom4(czas);
@@ -242,7 +260,6 @@ internal class Poziom4 : Generator
                 }
                 if (przycisk.Key == ConsoleKey.Escape)
                 {
-                    running = false;
                     Wyjdz();
                     break;
                 }
@@ -305,8 +322,7 @@ internal class Poziom4 : Generator
         {
             for (int j = 0; j < przeciwnik.Wielkosc(); j++)
             {
-                Console.SetCursorPosition(przeciwnik.GetX() + i, przeciwnik.GetY() + j);
-                Console.Write("█");
+                console(przeciwnik.GetX() + i, przeciwnik.GetY() + j, "█", ConsoleColor.Red);
             }
         }
 
@@ -346,6 +362,7 @@ internal class Poziom4 : Generator
 
     private void Wyjdz()
     {
+        running = false;
         stoper.Stop();
         Console.ResetColor();
         soundPlayer.DzwiekWyjsciaZGry();

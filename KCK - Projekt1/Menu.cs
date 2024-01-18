@@ -150,7 +150,7 @@ internal class Menu
         stanGry.ResetujGre(ResetujGreKomenda);
     }
 
-    public void console(string str, ConsoleColor? colour) {
+    private void console(string str, ConsoleColor? colour) {
         if (colour != null) Console.ForegroundColor = colour.Value;
         Console.Write(str);
         Console.ResetColor();
