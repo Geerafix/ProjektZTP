@@ -212,7 +212,7 @@ namespace EscapeRoom
         {
             Console.Clear();
 
-            string sciezkaDoPliku = "../../../Assety/KCKWyniki.txt";
+            string sciezkaDoPliku = "../../../Assety/SWyniki.txt";
 
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
 

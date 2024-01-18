@@ -33,7 +33,7 @@ internal class Poziom2 : Generator
     }
 
     protected override void NarysujMape() {
-        string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
+        string sciezkaDoPliku = "../../../Assety/Mapa.txt";
         string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
         znakiPliku = zawartoscPliku.ToCharArray();
 
@@ -45,12 +45,12 @@ internal class Poziom2 : Generator
     protected override void NarysujPrzeszkodyINapis() {
         string nazwaPoziomu = "../../../Assety/Poziom2.txt";
         console(40, 2, "UWAŻAJ NA CZERWONE STRZAŁKI! NIE DAJ SIĘ USTRZELIĆ!", ConsoleColor.Yellow);
-        Narysuj("../../../Assety/KCKPrzeszkoda3.txt", 20, 27, null);
+        Narysuj("../../../Assety/Przeszkoda3.txt", 20, 27, null);
         Narysuj(nazwaPoziomu, 5, 35, null);
     }
 
     protected override void NarysujPortal() {
-        Narysuj("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
+        Narysuj("../../../Assety/Portal.txt", 64, 5, ConsoleColor.Green);
     }
 
     protected override void UstawPostac() {

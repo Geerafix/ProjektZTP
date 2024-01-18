@@ -14,7 +14,7 @@ internal class Poziom1 : Generator
     }
 
     protected override void NarysujMape() {
-        string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
+        string sciezkaDoPliku = "../../../Assety/Mapa.txt";
         string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
         znakiPliku = zawartoscPliku.ToCharArray();
 
@@ -26,16 +26,16 @@ internal class Poziom1 : Generator
     protected override void NarysujPrzeszkodyINapis() {
         string nazwaPoziomu = "../../../Assety/Poziom1.txt";
         console(45, 2, "UNIKAJ CZERWONEJ LAWY! NIE WPADNIJ DO NIEJ!", ConsoleColor.Yellow);
-        Narysuj("../../../Assety/KCKLava1.txt", 22, 23, ConsoleColor.Red);
-        Narysuj("../../../Assety/KCKLava2.txt", 49, 13, ConsoleColor.Red);
-        Narysuj("../../../Assety/KCKLava3.txt", 103, 22, ConsoleColor.Red);
-        Narysuj("../../../Assety/KCKPrzeszkoda1.txt", 31, 23, null);
-        Narysuj("../../../Assety/KCKPrzeszkoda2.txt", 67, 12, null);
+        Narysuj("../../../Assety/Lava1.txt", 22, 23, ConsoleColor.Red);
+        Narysuj("../../../Assety/Lava2.txt", 49, 13, ConsoleColor.Red);
+        Narysuj("../../../Assety/Lava3.txt", 103, 22, ConsoleColor.Red);
+        Narysuj("../../../Assety/Przeszkoda1.txt", 31, 23, null);
+        Narysuj("../../../Assety/Przeszkoda2.txt", 67, 12, null);
         Narysuj(nazwaPoziomu, 5, 35, null);
     }
 
     protected override void NarysujPortal() {
-        Narysuj("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
+        Narysuj("../../../Assety/Portal.txt", 64, 5, ConsoleColor.Green);
     }
 
     protected override void UstawPostac() {
