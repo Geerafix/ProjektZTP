@@ -1,6 +1,6 @@
 ﻿
 namespace EscapeRoom {
-    public class TabelaWynikow : IObserver {
+    public class TabelaWynikow : IObserwator {
         string fileName = "../../../Assety/wyniki.txt";
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
@@ -26,7 +26,7 @@ namespace EscapeRoom {
             this.w = w;
         }
 
-        public void Update() {
+        public void Aktualizuj() {
             ZapiszWynik();
         }
 
@@ -52,7 +52,7 @@ namespace EscapeRoom {
             foreach (char c in znakiPliku) {
                 pom++;
                 if (pom >= 0 && pom <= 230) {
-                    Console.ForegroundColor = ConsoleColor.Cyan; //Tytul jest koloru cyjanowego
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                 }
                 Console.Write(c);
                 Console.ResetColor();
@@ -60,10 +60,9 @@ namespace EscapeRoom {
 
             console(43, 38, "Wciśnij ESC. aby wrócić do MENU.", ConsoleColor.DarkYellow);
 
-            // Odczytaj wszystkie linie z pliku
             string[] wiersze = File.ReadAllLines(fileName);
 
-            // Lista która przechowuje pary (nazwa, czas)
+            //lista która przechowuje pary (nazwa, czas)
             List<(string, double, string)> wyniki = new List<(string, double, string)>();
 
             foreach (var wiersz in wiersze) {
@@ -76,11 +75,12 @@ namespace EscapeRoom {
                     }
                 }
             }
-            // Sortowanie wyników według czasu (rosnąco)
+
             wyniki.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 
             pom = 0;
-            // Wyświetlanie rankingu
+            
+            //wyświetlanie rankingu
             for (int i = 0 ; i < wyniki.Count ; i++) {
                 if (!running) return;
                 if (i == 0) {
@@ -92,15 +92,16 @@ namespace EscapeRoom {
 
                 if ((i + 1) % 7 == 0) {
 
-                    if (wyniki.Count > i + 1) //Narysuj strzałkę w prawo
+                    if (wyniki.Count > i + 1)
                     {
                         TekstPrawejStrzalki();
                     }
-                    if (i > 6) //Narysuj strzałkę w lewo
+                    if (i > 6)
                     {
                         TekstLewejStrzalki();
                     }
-                    if ((i + 1 == wyniki.Count()) || ((wyniki.Count() % 7 == 0) && (wyniki.Count() - i <= 6))) {
+                    if ((i + 1 == wyniki.Count()) || ((wyniki.Count() % 7 == 0) && (wyniki.Count() - i <= 6))) 
+                    {
                         CzyscLewyTekst();
                     }
                     if (i == 6) {
@@ -109,15 +110,14 @@ namespace EscapeRoom {
 
                     for ( ; ; )
                     {
-                        if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
+                        if (Console.KeyAvailable)
                         {
-                            przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
+                            przycisk = Console.ReadKey(true);
 
                             if (przycisk.Key == ConsoleKey.RightArrow && wyniki.Count() != i + 1) {
-                                //Rysowanie strzałki podczas kliknięcia
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 PrawaStrzalka();
-                                if (wyniki.Count - i <= 7) //Czyść nieużywane końcowe miejsca w tabeli
+                                if (wyniki.Count - i <= 7)
                                 {
                                     for (int j = 0 ; j < 7 ; j++) {
                                         Console.SetCursorPosition(40, 9 + j * 4);
@@ -129,10 +129,10 @@ namespace EscapeRoom {
                                 PrawaStrzalka();
                                 break;
                             }
+
                             if (przycisk.Key == ConsoleKey.LeftArrow) {
-                                if (i > 6) //Jeżeli jesteśmy nie na pierwszej stronie tabeli
+                                if (i > 6)
                                 {
-                                    //Rysowanie strzałki podczas kliknięcia
                                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                                     LewaStrzalka();
                                     i = i - 14;
@@ -150,7 +150,7 @@ namespace EscapeRoom {
                         }
                     }
                 }
-                if (i + 1 == wyniki.Count) //Jeżeli pętla jest na ostatnim wyniku
+                if (i + 1 == wyniki.Count)
                 {
                     CzyscLewyTekst();
                     if (i + 1 >= 7) {
@@ -163,7 +163,6 @@ namespace EscapeRoom {
                             przycisk = Console.ReadKey(true);
 
                             if (przycisk.Key == ConsoleKey.LeftArrow) {
-                                //Rysowanie strzałki podczas kliknięcia
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 LewaStrzalka();
                                 i = i - wyniki.Count % 7;

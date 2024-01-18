@@ -6,16 +6,13 @@ namespace EscapeRoom.Eksport_Wyniku
     {
         public void Eksportuj(Wyniki wyniki)
         {
-            // Stworzenie nowego obrazka o wymiarach 500x500 pikseli (możesz dostosować wymiary według potrzeb)
             Bitmap bitmap = new Bitmap(500, 500);
 
-            // Ustawienie koloru tła
             using (Graphics g = Graphics.FromImage(bitmap))
             {
                 g.Clear(Color.Transparent);
             }
 
-            // Ustawienie koloru i czcionki tekstu
             using (Graphics g = Graphics.FromImage(bitmap))
 
             using (Font font = new Font("Arial", 30))
@@ -27,7 +24,6 @@ namespace EscapeRoom.Eksport_Wyniku
                 g.DrawString($"Data: {wyniki.getDate()}", font, Brushes.Orange, new PointF(10, 350));
             }
 
-            // Zapisanie obrazka do pliku PNG na pulpicie
             bitmap.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "wynik_" + $"{wyniki.getUsername()}" + "_" + $"{wyniki.getDate().ToString("yyyyMMdd")}" + ".png"), System.Drawing.Imaging.ImageFormat.Png);
 
             Console.SetCursorPosition(41, 34);

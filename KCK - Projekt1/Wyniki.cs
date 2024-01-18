@@ -2,14 +2,14 @@
 
 namespace EscapeRoom
 {
-    public class Wyniki : IObservable
+    public class Wyniki : IObserwowany
     {
         private ConsoleKeyInfo przycisk;
         private char[] znakiPliku;
         private double czasWynik;
         private DateTime data;
         private string username;
-        private List<IObserver> observers = new List<IObserver>();
+        private List<IObserwator> obserwatorzy = new List<IObserwator>();
         private IStrategiaEksportu strategiaEksportu;
         private bool running = true;
 
@@ -19,7 +19,7 @@ namespace EscapeRoom
             czasWynik = czasWynik / 1000;
             data = DateTime.Now;
 
-            AddObserver(tabelaWynikow); // Dodanie tabeli wyników jako obserwatora
+            DodajObserwatora(tabelaWynikow); //dodanie tabeli wyników jako obserwatora
             GenerujWyniki(tabelaWynikow);
         }
 
@@ -158,30 +158,28 @@ namespace EscapeRoom
 
                 if (keyInfo.Key == ConsoleKey.Enter)
                 {
-                    break; // Zakończ pętlę po naciśnięciu Enter.
+                    break;
                 }
                 else if (keyInfo.Key == ConsoleKey.Backspace && nazwa.Length > 0)
                 {
-                    // Jeśli użytkownik naciśnie Backspace i nazwa nie jest pusta, usuń ostatni znak.
                     nazwa = nazwa.Substring(0, nazwa.Length - 1);
                 }
                 else if (nazwa.Length < 15 && keyInfo.Key != ConsoleKey.Spacebar)
                 {
-                    // Jeśli długość nazwy jest mniejsza niż 15 znaków, dodaj kolejny znak.
                     nazwa += keyInfo.KeyChar;
                 }
 
                 username = nazwa;
 
-                // Wypisz aktualną zawartość nazwy.
+                //wypisz aktualną zawartość nazwy.
                 Console.SetCursorPosition(65, 22);
-                Console.Write(new string(' ', 20)); // Wyczyść poprzednią zawartość
+                Console.Write(new string(' ', 20));
                 Console.SetCursorPosition(66, 22);
                 Console.Write(nazwa);
             }
 
             tabelaWynikow.setTabela(nazwa, czasWynik, data);
-            NotifyObservers(); //Powiadom subskrybentów (w tym przypadku obiekt TabelaWynikow)
+            PowiadomObserwatorow(); //powiadom subskrybentów (w tym przypadku obiekt TabelaWynikow)
         }
 
         public void WypiszWynik()
@@ -235,9 +233,9 @@ namespace EscapeRoom
 
             while (running)
             {
-                if (Console.KeyAvailable) //Sprawdza czy jest wciśnięty przycisk
+                if (Console.KeyAvailable)
                 {
-                    przycisk = Console.ReadKey(true); //Przypisanie przycisku który klikneło się na klawiaturze
+                    przycisk = Console.ReadKey(true);
 
                     if (przycisk.Key == ConsoleKey.D1)
                     {
@@ -257,22 +255,22 @@ namespace EscapeRoom
             }
         }
 
-        // Implementacja Obserwatora
-        public void AddObserver(IObserver observer)
+        //implementacja obserwatora
+        public void DodajObserwatora(IObserwator obserwator)
         {
-            observers.Add(observer);
+            obserwatorzy.Add(obserwator);
         }
 
-        public void RemoveObserver(IObserver observer)
+        public void UsunObserwatora(IObserwator obserwator)
         {
-            observers.Remove(observer);
+            obserwatorzy.Remove(obserwator);
         }
 
-        public void NotifyObservers()
+        public void PowiadomObserwatorow()
         {
-            foreach (var observer in observers)
+            foreach (var obserwator in obserwatorzy)
             {
-                observer.Update();
+                obserwator.Aktualizuj();
             }
         }
 
@@ -282,10 +280,11 @@ namespace EscapeRoom
         }
     }
 
-    internal interface IObservable
+    //implementacja obiektu obserwowanego
+    internal interface IObserwowany
     {
-        void AddObserver(IObserver observer);
-        void RemoveObserver(IObserver observer);
-        void NotifyObservers();
+        void DodajObserwatora(IObserwator obserwator);
+        void UsunObserwatora(IObserwator obserwator);
+        void PowiadomObserwatorow();
     }
 }
