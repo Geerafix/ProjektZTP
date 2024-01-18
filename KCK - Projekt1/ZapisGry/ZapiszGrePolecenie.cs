@@ -1,10 +1,10 @@
 ﻿namespace EscapeRoom.ZapisGry {
-    internal class ResetujGreKomenda : IKomenda {
+    internal class ZapiszGrePolecenie : IPolecenie {
         public void Wykonaj(StanGry stanGry) {
             String sciezkaZapisuGry = "../../../ZapisGry/stan.txt";
             using (StreamWriter sw = new StreamWriter(sciezkaZapisuGry)) {
-                sw.WriteLine(0);
-                sw.WriteLine(1);
+                sw.WriteLine(stanGry.GetCzas());
+                sw.WriteLine(stanGry.GetPoziom());
             }
         }
     }

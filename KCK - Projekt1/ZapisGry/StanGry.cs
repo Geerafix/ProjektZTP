@@ -9,15 +9,15 @@ public class StanGry {
         this.Poziom = 1;
     }
 
-    public void ZapiszGre(IKomenda komenda) {
+    public void ZapiszGre(IPolecenie komenda) {
         komenda.Wykonaj(this);
     }
 
-    public void WczytajGre(IKomenda komenda) {
+    public void WczytajGre(IPolecenie komenda) {
         komenda.Wykonaj(this);
     }
 
-    public void ResetujGre(IKomenda komenda) {
+    public void ResetujGre(IPolecenie komenda) {
         Czas = 0;
         Poziom = 1;
         komenda.Wykonaj(this);

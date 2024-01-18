@@ -1,5 +1,5 @@
 ﻿namespace EscapeRoom.ZapisGry {
-    internal class WczytajGreKomenda : IKomenda {
+    internal class WczytajGrePolecenie : IPolecenie {
         public void Wykonaj(StanGry stanGry) {
             String sciezkaZapisuGry = "../../../ZapisGry/stan.txt";
             string[] liniePliku = File.ReadAllLines(sciezkaZapisuGry);

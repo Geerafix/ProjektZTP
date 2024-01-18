@@ -6,17 +6,17 @@ internal class Menu
 {
     private SoundPlayer soundPlayer = new SoundPlayer();
     private StanGry stanGry;
-    private IKomenda ZapiszGreKomenda;
-    private IKomenda WczytajGreKomenda;
-    private IKomenda ResetujGreKomenda;
+    private IPolecenie ZapiszGreKomenda;
+    private IPolecenie WczytajGreKomenda;
+    private IPolecenie ResetujGreKomenda;
 
     public Menu()
     {
         Console.Clear();
 
-        ZapiszGreKomenda = new ZapiszGreKomenda();
-        WczytajGreKomenda = new WczytajGreKomenda();
-        ResetujGreKomenda = new ResetujGreKomenda();
+        ZapiszGreKomenda = new ZapiszGrePolecenie();
+        WczytajGreKomenda = new WczytajGrePolecenie();
+        ResetujGreKomenda = new ResetujGrePolecenie();
 
         this.stanGry = new StanGry();
         this.stanGry.WczytajGre(WczytajGreKomenda);
@@ -28,9 +28,9 @@ internal class Menu
     public Menu(long czas, int poziom) {
         Console.Clear();
 
-        ZapiszGreKomenda = new ZapiszGreKomenda();
-        WczytajGreKomenda = new WczytajGreKomenda();
-        ResetujGreKomenda = new ResetujGreKomenda();
+        ZapiszGreKomenda = new ZapiszGrePolecenie();
+        WczytajGreKomenda = new WczytajGrePolecenie();
+        ResetujGreKomenda = new ResetujGrePolecenie();
 
         this.stanGry = new StanGry();
         if (poziom <= 4) {

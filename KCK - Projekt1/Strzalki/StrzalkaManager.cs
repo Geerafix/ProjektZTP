@@ -73,8 +73,6 @@ namespace EscapeRoom
             }
         }
 
-
-
         public void RuszStrzalki2() {
             foreach (var Str in strzalki) {
                 RysujStrzalke(Str);
