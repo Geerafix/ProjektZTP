@@ -13,12 +13,13 @@ namespace EscapeRoom
         private IStrategiaEksportu strategiaEksportu;
         private bool running = true;
 
-        public Wyniki(long czas, TabelaWynikow tabelaWynikow)
+        public Wyniki(long czas)
         {
             czasWynik = czas;
             czasWynik = czasWynik / 1000;
             data = DateTime.Now;
 
+            TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
             DodajObserwatora(tabelaWynikow); //dodanie tabeli wyników jako obserwatora
             GenerujWyniki(tabelaWynikow);
         }

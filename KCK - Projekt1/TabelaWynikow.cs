@@ -7,7 +7,7 @@ namespace EscapeRoom {
         string username = null;
         DateTime date;
         double time;
-        bool w = false;
+        bool wynik = false;
         private bool running = true;
 
         public TabelaWynikow() {
@@ -23,7 +23,7 @@ namespace EscapeRoom {
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
             znakiPliku = zawartoscPliku.ToCharArray();
 
-            this.w = w;
+            this.wynik = w; //sprawdzenie czy wywolano Tabelę z klasy Wynik
         }
 
         public void Aktualizuj() {

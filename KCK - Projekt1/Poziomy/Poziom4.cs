@@ -218,8 +218,7 @@ internal class Poziom4 : Generator
         stoper.Stop();
         soundPlayer.DzwiekPortalu();
         running = false;
-        TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
-        Wyniki wyniki = new Wyniki(czas, tabelaWynikow);
+        Wyniki wyniki = new Wyniki(czas);
     }
 
     private void ObslugaSmierci()
