@@ -19,6 +19,8 @@ internal class Poziom4 : Generator
 
     private StrzalkaManager Strzalki = new StrzalkaManager();
 
+    private List<IObserwator> obserwatorzy = new List<IObserwator>();
+
     public Poziom4(long czas)
     {
         this.czas = czas;
@@ -218,7 +220,10 @@ internal class Poziom4 : Generator
         stoper.Stop();
         soundPlayer.DzwiekPortalu();
         running = false;
-        Wyniki wyniki = new Wyniki(czas);
+        
+        TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
+        obserwatorzy.Add(tabelaWynikow); //można dodać więcej obserwatorów do listy w przyszłości
+        Wyniki wyniki = new Wyniki(czas, obserwatorzy);
     }
 
     private void ObslugaSmierci()

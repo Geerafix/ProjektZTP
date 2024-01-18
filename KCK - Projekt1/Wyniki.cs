@@ -13,14 +13,17 @@ namespace EscapeRoom
         private IStrategiaEksportu strategiaEksportu;
         private bool running = true;
 
-        public Wyniki(long czas)
+        public Wyniki(long czas, List<IObserwator> obserwatorzy)
         {
             czasWynik = czas;
             czasWynik = czasWynik / 1000;
             data = DateTime.Now;
 
-            TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
-            DodajObserwatora(tabelaWynikow); //dodanie tabeli wyników jako obserwatora
+            foreach (var o in obserwatorzy)
+            {
+                DodajObserwatora(o); //dodanie obserwatorow
+            }
+
             GenerujWyniki();
         }
 
@@ -278,13 +281,5 @@ namespace EscapeRoom
             Menu menu = new Menu(0, 5);
             menu.ResetujGre();
         }
-    }
-
-    //implementacja obiektu obserwowanego
-    internal interface IObserwowany
-    {
-        void DodajObserwatora(IObserwator obserwator);
-        void UsunObserwatora(IObserwator obserwator);
-        void PowiadomObserwatorow(string nazwa, double czasWynik, DateTime data);
     }
 }
