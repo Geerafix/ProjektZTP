@@ -120,8 +120,8 @@ namespace EscapeRoom {
                                 if (wyniki.Count - i <= 7)
                                 {
                                     for (int j = 0 ; j < 7 ; j++) {
-                                        Console.SetCursorPosition(40, 9 + j * 4);
-                                        Console.Write("                                              ");
+                                        Console.SetCursorPosition(35, 13 + j * 4);
+                                        Console.Write("                                                  ");
                                     }
                                     Console.SetCursorPosition(0, 0);
                                 }
