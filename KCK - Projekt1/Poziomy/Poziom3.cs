@@ -24,7 +24,7 @@ internal class Poziom3 : Generator
     }
 
     protected override void NarysujMape() {
-        string sciezkaDoPliku = "../../../Assety/KCKMapa.txt";
+        string sciezkaDoPliku = "../../../Assety/Mapa.txt";
         string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
         znakiPliku = zawartoscPliku.ToCharArray();
 
@@ -40,7 +40,7 @@ internal class Poziom3 : Generator
     }
 
     protected override void NarysujPortal() {
-        Narysuj("../../../Assety/KCKPortal.txt", 64, 5, ConsoleColor.Green);
+        Narysuj("../../../Assety/Portal.txt", 64, 5, ConsoleColor.Green);
     }
 
     protected override void UstawPostac() {
