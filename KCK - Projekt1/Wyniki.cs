@@ -21,7 +21,7 @@ namespace EscapeRoom
 
             TabelaWynikow tabelaWynikow = new TabelaWynikow(true);
             DodajObserwatora(tabelaWynikow); //dodanie tabeli wyników jako obserwatora
-            GenerujWyniki(tabelaWynikow);
+            GenerujWyniki();
         }
 
         public DateTime getDate()
@@ -140,7 +140,7 @@ namespace EscapeRoom
             }
         }
 
-        public void WpiszNazwe(TabelaWynikow tabelaWynikow)
+        public void WpiszNazwe()
         {
             string nazwa = "";
             Console.SetCursorPosition(30, 22);
@@ -179,8 +179,7 @@ namespace EscapeRoom
                 Console.Write(nazwa);
             }
 
-            tabelaWynikow.setTabela(nazwa, czasWynik, data);
-            PowiadomObserwatorow(); //powiadom subskrybentów (w tym przypadku obiekt TabelaWynikow)
+            PowiadomObserwatorow(nazwa, czasWynik, data); //powiadom subskrybentów (w tym przypadku obiekt TabelaWynikow)
         }
 
         public void WypiszWynik()
@@ -226,7 +225,7 @@ namespace EscapeRoom
             }
         }
 
-        public void GenerujWyniki(TabelaWynikow tabelaWynikow)
+        public void GenerujWyniki()
         {
             WypiszRamke();
 
@@ -240,7 +239,7 @@ namespace EscapeRoom
 
                     if (przycisk.Key == ConsoleKey.D1)
                     {
-                        WpiszNazwe(tabelaWynikow);
+                        WpiszNazwe();
 
                         CzyZapisacObrazek();
 
@@ -267,11 +266,11 @@ namespace EscapeRoom
             obserwatorzy.Remove(obserwator);
         }
 
-        public void PowiadomObserwatorow()
+        public void PowiadomObserwatorow(string nazwa, double czasWynik, DateTime data)
         {
             foreach (var obserwator in obserwatorzy)
             {
-                obserwator.Aktualizuj();
+                obserwator.Aktualizuj(nazwa, czasWynik, data);
             }
         }
 
@@ -286,6 +285,6 @@ namespace EscapeRoom
     {
         void DodajObserwatora(IObserwator obserwator);
         void UsunObserwatora(IObserwator obserwator);
-        void PowiadomObserwatorow();
+        void PowiadomObserwatorow(string nazwa, double czasWynik, DateTime data);
     }
 }

@@ -26,8 +26,8 @@ namespace EscapeRoom {
             this.wynik = w; //sprawdzenie czy wywolano Tabelę z klasy Wynik
         }
 
-        public void Aktualizuj() {
-            ZapiszWynik();
+        public void Aktualizuj(string nazwa, double czasWynik, DateTime data) {
+            ZapiszWynik(nazwa, czasWynik, data);
         }
 
         public void setTabela(string username, double time, DateTime date) {
@@ -36,11 +36,11 @@ namespace EscapeRoom {
             this.date = date;
         }
 
-        public void ZapiszWynik() {
+        public void ZapiszWynik(string nazwa, double czasWynik, DateTime data) {
             string fileName = "../../../Assety/wyniki.txt";
 
             using (StreamWriter wynik = new StreamWriter(fileName, true)) {
-                wynik.WriteLine($"{username} {time} {date.ToShortDateString()}");
+                wynik.WriteLine($"{nazwa} {czasWynik} {data.ToShortDateString()}");
             }
         }
 
