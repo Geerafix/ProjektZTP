@@ -14,7 +14,7 @@ internal class Poziom1 : Generator
     }
 
     protected override void NarysujMape() {
-        string sciezkaDoPliku = "../../../Assety/Mapa.txt";
+        string sciezkaDoPliku = "Mapa.txt";
         string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
         znakiPliku = zawartoscPliku.ToCharArray();
 

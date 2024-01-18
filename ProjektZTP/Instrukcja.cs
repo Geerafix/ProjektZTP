@@ -72,13 +72,13 @@ namespace EscapeRoom
 
         private void RysujLogo()
         {
-            string instrukcja = File.ReadAllText("../../../Assety/instrukcja.txt");
+            string instrukcja = File.ReadAllText("instrukcja.txt");
             console(0, 2, instrukcja, ConsoleColor.Cyan);
         }
 
         private void RysujRamke()
         {
-            string ramka = File.ReadAllText("../../../Assety/ramka.txt");
+            string ramka = File.ReadAllText("ramka.txt");
             console(75, 8, ramka, ConsoleColor.White);
         }
 

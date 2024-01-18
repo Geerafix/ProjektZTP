@@ -1,7 +1,7 @@
 ﻿
 namespace EscapeRoom {
     public class TabelaWynikow : IObserwator {
-        string fileName = "../../../Assety/wyniki.txt";
+        string fileName = "wyniki.txt";
         private ConsoleKeyInfo przycisk;
         char[] znakiPliku;
         string username = null;
@@ -11,7 +11,7 @@ namespace EscapeRoom {
         private bool running = true;
 
         public TabelaWynikow() {
-            string sciezkaDoPliku = "../../../Assety/TabelaWynikow.txt";
+            string sciezkaDoPliku = "TabelaWynikow.txt";
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
             znakiPliku = zawartoscPliku.ToCharArray();
 
@@ -19,7 +19,7 @@ namespace EscapeRoom {
         }
 
         public TabelaWynikow(bool w) {
-            string sciezkaDoPliku = "../../../Assety/TabelaWynikow.txt";
+            string sciezkaDoPliku = "TabelaWynikow.txt";
             string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
             znakiPliku = zawartoscPliku.ToCharArray();
 
@@ -37,7 +37,7 @@ namespace EscapeRoom {
         }
 
         public void ZapiszWynik(string nazwa, double czasWynik, DateTime data) {
-            string fileName = "../../../Assety/wyniki.txt";
+            string fileName = "wyniki.txt";
 
             using (StreamWriter wynik = new StreamWriter(fileName, true)) {
                 wynik.WriteLine($"{nazwa} {czasWynik} {data.ToShortDateString()}");

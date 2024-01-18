@@ -67,8 +67,8 @@ internal class Menu
     }
 
     public void WlaczOpcje() {
-        string logoLewo = File.ReadAllText("../../../Assety/logoLewo.txt");
-        string logoPrawo = File.ReadAllText("../../../Assety/logoPrawo.txt");
+        string logoLewo = File.ReadAllText("logoLewo.txt");
+        string logoPrawo = File.ReadAllText("logoPrawo.txt");
         int czestotliwosc = 300;
         int x = 0;
 

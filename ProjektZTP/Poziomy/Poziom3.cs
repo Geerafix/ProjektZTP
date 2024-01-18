@@ -24,7 +24,7 @@ internal class Poziom3 : Generator
     }
 
     protected override void NarysujMape() {
-        string sciezkaDoPliku = "../../../Assety/Mapa.txt";
+        string sciezkaDoPliku = "Mapa.txt";
         string zawartoscPliku = File.ReadAllText(sciezkaDoPliku);
         znakiPliku = zawartoscPliku.ToCharArray();
 
@@ -34,13 +34,13 @@ internal class Poziom3 : Generator
     }
 
     protected override void NarysujPrzeszkodyINapis() {
-        string nazwaPoziomu = "../../../Assety/Poziom3.txt";
+        string nazwaPoziomu = "Poziom3.txt";
         console(35, 2, "NIE DAJ SIĘ ZŁAPAĆ CZERWONYM PRZECIWNIKOM! UWAGA! ONI CIĘ GONIĄ!", ConsoleColor.Yellow);
         Narysuj(nazwaPoziomu, 5, 35, null);
     }
 
     protected override void NarysujPortal() {
-        Narysuj("../../../Assety/Portal.txt", 64, 5, ConsoleColor.Green);
+        Narysuj("Portal.txt", 64, 5, ConsoleColor.Green);
     }
 
     protected override void UstawPostac() {
